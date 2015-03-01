@@ -5,7 +5,14 @@ namespace rechteckpackungen {
 
 class Rectangle {
 public:
-	Rectangle();
+	Rectangle(int width, int height);
+	void rotate();
+	int getWidth();
+	int getHeight();
+private:
+	int width;
+	int height;
+	bool rotated = false;
 };
 
 }
