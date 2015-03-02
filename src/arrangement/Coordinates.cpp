@@ -12,6 +12,14 @@ Coordinates::Coordinates() {
 	this->y = 0;
 }
 
+int Coordinates::getX(){
+	return x;
+}
+
+int Coordinates::getY(){
+	return y;
+}
+
 bool Coordinates::operator==(const Coordinates& other) {
 	return x == other.x && y == other.y;
 }

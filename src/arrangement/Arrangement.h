@@ -6,6 +6,7 @@
 #define SRC_ARRANGEMENT_ARRANGEMENT_H_
 
 #include <vector>
+#include <algorithm>
 #include "Placement.h"
 
 namespace rechteckpackungen {
@@ -15,9 +16,9 @@ public:
 	Arrangement();
 	~Arrangement();
 	bool operator==(const Arrangement& other);
-	//bool hasOverlapping(); //TODO verschieben? Einzelne Klassen für Algorithmen?
 	void add(Placement*);
-
+	std::vector<Placement*>* getPlacements();
+	void sortPlacementsByXMin(); //ToDo does not belong here?
 private:
 	std::vector<Placement*>* placements;
 };

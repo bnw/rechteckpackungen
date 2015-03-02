@@ -1,5 +1,5 @@
 /*
- * The placement of a Rectangle in the plane
+ * The placement of a single Rectangle in the plane
  */
 
 #ifndef SRC_ARRANGEMENT_PLACEMENT_H_
@@ -14,6 +14,8 @@ class Placement {
 public:
 	Placement(Rectangle* rect, Coordinates* coord);
 	bool operator==(const Placement& other);
+	int getXMin() const;
+	int getYMin() const;
 private:
 	Rectangle* rect;
 	Coordinates* coord;
