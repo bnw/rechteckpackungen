@@ -7,7 +7,7 @@ OBJ_FILES_SRC = $(CPP_FILES_SRC:.cpp=.o)
 OBJ_FILES_TESTS = $(CPP_FILES_TESTS:.cpp=.o)
 
 INC = -I ./lib/cute -I ./lib/boost -I./src
-FLAGS = -std=c++11 -g 
+FLAGS = -std=c++11 -g -o0
 
 EXECUTABLE_MAIN = rechteckpackungen.exe
 EXECUTABLE_TESTS = test.exe
