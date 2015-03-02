@@ -13,6 +13,7 @@ namespace rechteckpackungen {
 class Placement {
 public:
 	Placement(Rectangle* rect, Coordinates* coord);
+	~Placement();
 	bool operator==(const Placement& other);
 	int getXMin() const;
 	int getXMax() const;

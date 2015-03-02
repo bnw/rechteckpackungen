@@ -27,6 +27,8 @@ Placement* ArrangementReader::getPlacementFromLine(std::string& line) {
 	auto rect = new Rectangle(xMax - xMin, yMax - yMin);
 	auto coords = new Coordinates(xMin, yMin);
 
+	delete parts;
+
 	return new Placement(rect, coords);
 }
 

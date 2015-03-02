@@ -7,6 +7,9 @@ Arrangement::Arrangement() {
 }
 
 Arrangement::~Arrangement() {
+	for(auto placement : *placements){
+		delete placement;
+	}
 	delete placements;
 }
 

@@ -7,6 +7,11 @@ Placement::Placement(Rectangle *rect, Coordinates *coord){
 	this->coord = coord;
 }
 
+Placement::~Placement(){
+	delete rect;
+	delete coord;
+}
+
 int Placement::getXMin() const{
 	return this->coord->getX();
 }

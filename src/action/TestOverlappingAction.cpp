@@ -19,6 +19,9 @@ void TestOverlappingAction::run(char const *filename) {
 	} else {
 		std::cout << "Has NO overlapping" << std::endl;
 	}
+
+	file.close();
+	delete arrangement;
 }
 
 }
