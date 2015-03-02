@@ -3,17 +3,19 @@
 namespace rechteckpackungen {
 
 /*
- * Vorgehen:
- * Sortiere Rechtecke nach XMin
- * Gehe von links nach rechts durch die sortierung und nehme neue Rechtecke in mein working set auf und schmeiﬂe alte weg
+ * Approach:
+ * - Sort placements by XMin
+ * - Go through the ordered placements from left to right,
+ *   maintaining a workingSet of placements that might overlap
+ *   with the next placement
  */
 bool Sweepline::hasOverlapping(Arrangement& arrangement) {
-	auto placements = getSortedPlacements(arrangement);
+	auto placements = getPlacementsSortedByXMin(arrangement); // O(n * log(n))
 
 	std::list<Placement*> workingSet;
-	for (auto newPlacement : *placements) {
+	for (auto newPlacement : *placements) { // O(n)
 		auto workingSetIterator = workingSet.begin();
-		while (workingSetIterator != workingSet.end()) {
+		while (workingSetIterator != workingSet.end()) { // O(k)
 			auto oldPlacement = *workingSetIterator;
 
 			//remove old placements whose right border is left of the newPlacement
@@ -41,7 +43,7 @@ bool Sweepline::doPlacementsOverlapVertically(Placement* a, Placement* b) {
 	return true;
 }
 
-std::vector<Placement*>* Sweepline::getSortedPlacements(
+std::vector<Placement*>* Sweepline::getPlacementsSortedByXMin(
 		Arrangement& arrangement) {
 	arrangement.sortPlacementsByXMin();
 	return arrangement.getPlacements();
