@@ -1,5 +1,5 @@
 /*
- * An Arrangement represents a number of Recangles placed in a plane
+ * An Arrangement represents a number of Recangles placed on a plane
  */
 
 #ifndef SRC_ARRANGEMENT_ARRANGEMENT_H_
