@@ -9,7 +9,7 @@ namespace rechteckpackungen {
  *   maintaining a workingSet of placements that might overlap
  *   with the next placement
  */
-bool Sweepline::hasOverlapping(Arrangement& arrangement) {
+bool Sweepline::hasOverlapping(Arrangement* arrangement) {
 	auto placements = getPlacementsSortedByXMin(arrangement); // O(n * log(n))
 
 	std::list<Placement*> workingSet;
@@ -44,9 +44,9 @@ bool Sweepline::doPlacementsOverlapVertically(Placement* a, Placement* b) {
 }
 
 std::vector<Placement*>* Sweepline::getPlacementsSortedByXMin(
-		Arrangement& arrangement) {
-	arrangement.sortPlacementsByXMin();
-	return arrangement.getPlacements();
+		Arrangement* arrangement) {
+	arrangement->sortPlacementsByXMin();
+	return arrangement->getPlacements();
 }
 
 }

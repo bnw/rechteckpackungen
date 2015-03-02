@@ -13,11 +13,11 @@ public:
 	 * Checks, if the inner of any two of the placements in the arrangement overlap
 	 * Complexity: n*k + n*log(n) where n = number of placements, k = max number of placements that intersect any vertical straight line
 	 */
-	bool hasOverlapping(Arrangement& arrangement);
+	bool hasOverlapping(Arrangement* arrangement);
 
 private:
 	bool doPlacementsOverlapVertically(Placement* a, Placement* b);
-	std::vector<Placement*>* getPlacementsSortedByXMin(Arrangement& arrangement);
+	std::vector<Placement*>* getPlacementsSortedByXMin(Arrangement* arrangement);
 };
 
 }

@@ -25,9 +25,9 @@ void testSweeplineHasOverlapping() {
 			new Placement(new Rectangle(2, 3), new Coordinates(1, 1)));
 
 	Sweepline algorithm;
-	ASSERT(algorithm.hasOverlapping(notOverlappingArrangement) == false);
-	ASSERT(algorithm.hasOverlapping(overlappingArrangement) == true);
-	ASSERT(algorithm.hasOverlapping(overlappingArrangement2) == true);
+	ASSERT(algorithm.hasOverlapping(&notOverlappingArrangement) == false);
+	ASSERT(algorithm.hasOverlapping(&overlappingArrangement) == true);
+	ASSERT(algorithm.hasOverlapping(&overlappingArrangement2) == true);
 }
 
 cute::suite make_suite_SweeplineTest() {
