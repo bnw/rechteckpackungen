@@ -3,13 +3,14 @@
 namespace rechteckpackungen {
 
 void TestOverlappingAction::run(char const *filename) {
-	auto arrangementReader = ArrangementReader();
 	std::ifstream file;
 	file.open(filename);
-	if(!file.is_open()){
+	if (!file.is_open()) {
 		std::cout << "Cannot read file " << filename << std::endl;
 		return;
 	}
+
+	auto arrangementReader = ArrangementReader();
 	auto arrangement = arrangementReader.read(file);
 	auto sweeplineAlgorithm = Sweepline();
 	bool hasOverlapping = sweeplineAlgorithm.hasOverlapping(arrangement);
