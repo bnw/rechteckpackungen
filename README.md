@@ -1,2 +1,2 @@
 # rechteckpackungen
-Programmierpraktikum DIskrete Optimierung: Darstellung von Rechteckpackungen
+Programmierpraktikum Diskrete Optimierung: Darstellung von Rechteckpackungen
