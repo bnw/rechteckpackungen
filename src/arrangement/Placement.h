@@ -15,7 +15,9 @@ public:
 	Placement(Rectangle* rect, Coordinates* coord);
 	bool operator==(const Placement& other);
 	int getXMin() const;
+	int getXMax() const;
 	int getYMin() const;
+	int getYMax() const;
 private:
 	Rectangle* rect;
 	Coordinates* coord;

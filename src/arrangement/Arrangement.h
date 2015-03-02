@@ -18,6 +18,11 @@ public:
 	bool operator==(const Arrangement& other);
 	void add(Placement*);
 	std::vector<Placement*>* getPlacements();
+
+	/**
+	 * Sorts the placements-vector according to the XMin-coordinate of the Placement
+	 * Complexity: n * log(n)
+	 */
 	void sortPlacementsByXMin(); //ToDo does not belong here?
 private:
 	std::vector<Placement*>* placements;
