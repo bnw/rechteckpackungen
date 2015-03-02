@@ -4,6 +4,7 @@
 #include "cute_runner.h"
 
 #include "RectangleTest.h"
+#include "reader/ArrangementReaderTest.h"
 #include "util/ExplodeTest.h"
 
 
@@ -12,7 +13,7 @@ void runAllTests(int argc, char const *argv[]) {
 
 	//TODO add your test here
 	s += rechteckpackungen::make_suite_Rectangle();
-//	s += rechteckpackungen::make_suite_ArrangementReader();
+	s += rechteckpackungen::make_suite_ArrangementReader();
 	s += rechteckpackungen::make_suite_ExplodeTest();
 
 	cute::xml_file_opener xmlfile(argc, argv);
