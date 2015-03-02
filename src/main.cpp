@@ -12,7 +12,7 @@ int main(int argc, char const *argv[]) {
 	auto usageInfo = "Usage: rechteckpackungen.exe {test-overlapping} file";
 
 	if (argc < 3) {
-		cout << usageInfo;
+		cout << usageInfo << endl;
 		return 0;
 	}
 
@@ -23,7 +23,7 @@ int main(int argc, char const *argv[]) {
 		auto action = TestOverlappingAction();
 		action.run(filename);
 	} else {
-		cout << "Unrecognized mode '" << mode << "'." << endl << usageInfo;
+		cout << "Unrecognized mode '" << mode << "'." << endl << usageInfo << endl;
 	}
 
 	return 0;
