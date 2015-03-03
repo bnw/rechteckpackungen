@@ -12,4 +12,14 @@ std::vector<std::string>* explode(std::string string, char delimiter) {
 	return parts;
 }
 
+std::vector<int>* explode2int(std::string string, char delimiter){
+	auto parts = explode(string, delimiter);
+	auto intParts = new std::vector<int>;
+	for(auto part : *parts){
+		intParts->push_back(string2int(part));
+	}
+	delete parts;
+	return intParts;
+}
+
 }

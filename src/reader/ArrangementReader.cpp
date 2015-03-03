@@ -14,22 +14,19 @@ Arrangement* ArrangementReader::read(std::istream& input) {
 }
 
 Placement* ArrangementReader::getPlacementFromLine(std::string& line) {
-	auto parts = explode(line, ' ');
+	auto parts = explode2int(line, ' ');
 	if (parts->size() != 6) {
 		throw std::runtime_error(
 				"Expected each line to contain exactly 6 numbers");
 	}
-	int xMin = atoi(parts->at(0).c_str());
-	int xMax = atoi(parts->at(1).c_str());
-	int yMin = atoi(parts->at(2).c_str());
-	int yMax = atoi(parts->at(3).c_str());
-
-	auto rect = new Rectangle(xMax - xMin, yMax - yMin);
-	auto coords = new Coordinates(xMin, yMin);
+	int xMin = parts->at(0);
+	int xMax = parts->at(1);
+	int yMin = parts->at(2);
+	int yMax = parts->at(3);
 
 	delete parts;
 
-	return new Placement(rect, coords);
+	return new Placement(xMin, xMax, yMin, yMax);
 }
 
 }

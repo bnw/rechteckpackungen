@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <fstream>
 #include <stdexcept>
-#include <cstdlib>
 
 namespace rechteckpackungen {
 

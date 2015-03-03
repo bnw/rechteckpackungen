@@ -7,6 +7,13 @@ Placement::Placement(Rectangle *rect, Coordinates *coord){
 	this->coord = coord;
 }
 
+Placement::Placement(int xMin, int xMax, int yMin, int yMax){
+	int width = xMax - xMin;
+	int height = yMax - yMin;
+	this->rect = new Rectangle(width, height);
+	this->coord = new Coordinates(xMin, yMin);
+}
+
 Placement::~Placement(){
 	delete rect;
 	delete coord;
