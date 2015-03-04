@@ -11,8 +11,10 @@ class Instance {
 public:
 	Instance(Placement* area);
 	~Instance();
+	bool operator==(const Instance& other);
 	Placement* getArea();
 	void addRectangle(Rectangle* rect);
+	std::vector<Rectangle*>* getRectangles();
 private:
 	Placement* area;
 	std::vector<Rectangle*>* rectangles;

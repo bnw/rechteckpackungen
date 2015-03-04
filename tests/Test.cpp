@@ -5,6 +5,7 @@
 
 #include "RectangleTest.h"
 #include "reader/ArrangementReaderTest.h"
+#include "reader/InstanceReaderTest.h"
 #include "util/ExplodeTest.h"
 #include "arrangement/ArrangementTest.h"
 #include "algorithms/testForOverlapping/SweeplineTest.h"
@@ -14,9 +15,9 @@
 void runAllTests(int argc, char const *argv[]) {
 	cute::suite s;
 
-	//TODO add your test here
 	s += rechteckpackungen::make_suite_Rectangle();
 	s += rechteckpackungen::make_suite_ArrangementReader();
+	s += rechteckpackungen::make_suite_InstanceReaderTest();
 	s += rechteckpackungen::make_suite_ExplodeTest();
 	s += rechteckpackungen::make_suite_ArrangementTest();
 	s += rechteckpackungen::make_suite_SweeplineTest();

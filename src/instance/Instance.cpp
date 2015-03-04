@@ -9,17 +9,38 @@ Instance::Instance(Placement* area) {
 
 Instance::~Instance() {
 	delete area;
-	for(auto rectangle : *rectangles){
+	for (auto rectangle : *rectangles) {
 		delete rectangle;
 	}
 	delete rectangles;
 }
 
-void Instance::addRectangle(Rectangle* rect){
+bool Instance::operator==(const Instance& other) {
+	if (rectangles->size() != other.rectangles->size()) {
+		return false;
+	}
+	for (int i = 0; i < rectangles->size(); i++) {
+		auto ownRectangle = (Rectangle*) rectangles->at(i);
+		auto otherRectangle = (Rectangle*) other.rectangles->at(i);
+		if (!(*ownRectangle == *otherRectangle)) {
+			return false;
+		}
+	}
+	if (!(*area == *other.area)) {
+		return false;
+	}
+	return true;
+}
+
+void Instance::addRectangle(Rectangle* rect) {
 	rectangles->push_back(rect);
 }
 
-Placement* Instance::getArea(){
+std::vector<Rectangle*>* Instance::getRectangles() {
+	return rectangles;
+}
+
+Placement* Instance::getArea() {
 	return area;
 }
 

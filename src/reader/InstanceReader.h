@@ -8,6 +8,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 namespace rechteckpackungen {
 
@@ -16,6 +17,7 @@ public:
 	Instance* read(std::istream& input);
 private:
 	Placement* getAreaFromLine(std::string line);
+	Rectangle* getRectangleFromLineParts(std::vector<std::string>* parts);
 };
 
 }
