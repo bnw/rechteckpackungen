@@ -10,6 +10,7 @@
 #include "arrangement/ArrangementTest.h"
 #include "algorithms/testForOverlapping/SweeplineTest.h"
 #include "util/String2intTest.h"
+#include "writer/ArrangementWriterTest.h"
 
 
 void runAllTests(int argc, char const *argv[]) {
@@ -22,6 +23,7 @@ void runAllTests(int argc, char const *argv[]) {
 	s += rechteckpackungen::make_suite_ArrangementTest();
 	s += rechteckpackungen::make_suite_SweeplineTest();
 	s += rechteckpackungen::make_suite_String2intTest();
+	s += rechteckpackungen::make_suite_ArrangementWriterTest();
 
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<> > lis(xmlfile.out);
