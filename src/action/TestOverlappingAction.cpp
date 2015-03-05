@@ -10,10 +10,10 @@ void TestOverlappingAction::run(char const *filename) {
 		return;
 	}
 
-	auto arrangementReader = ArrangementReader();
-	auto arrangement = arrangementReader.read(file);
+	auto reader = PlacementReader();
+	auto placement = reader.read(file);
 	auto sweeplineAlgorithm = Sweepline();
-	bool hasOverlapping = sweeplineAlgorithm.hasOverlapping(arrangement);
+	bool hasOverlapping = sweeplineAlgorithm.hasOverlapping(placement);
 
 	if (hasOverlapping) {
 		std::cout << "Has overlapping" << std::endl;
@@ -22,7 +22,7 @@ void TestOverlappingAction::run(char const *filename) {
 	}
 
 	file.close();
-	delete arrangement;
+	delete placement;
 }
 
 }

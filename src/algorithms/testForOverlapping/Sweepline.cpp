@@ -9,8 +9,8 @@ namespace rechteckpackungen {
  *   maintaining a workingSet of rectangles that might overlap
  *   with the next rectangle
  */
-bool Sweepline::hasOverlapping(Arrangement* arrangement) {
-	auto positionedRectangles = getPositionedRectanglesSortedByXMin(arrangement); // O(n * log(n))
+bool Sweepline::hasOverlapping(Placement* placement) {
+	auto positionedRectangles = getPositionedRectanglesSortedByXMin(placement); // O(n * log(n))
 
 	std::list<PositionedRectangle*> workingSet;
 	for (auto newPositionedRectangle : *positionedRectangles) { // O(n)
@@ -44,9 +44,9 @@ bool Sweepline::doPositionedRectanglesOverlapVertically(PositionedRectangle* a, 
 }
 
 std::vector<PositionedRectangle*>* Sweepline::getPositionedRectanglesSortedByXMin(
-		Arrangement* arrangement) {
-	arrangement->sortPositionedRectanglesByXMin();
-	return arrangement->getPositionedRectangles();
+		Placement* placement) {
+	placement->sortPositionedRectanglesByXMin();
+	return placement->getPositionedRectangles();
 }
 
 }

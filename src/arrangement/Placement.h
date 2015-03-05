@@ -1,9 +1,9 @@
 /*
- * An Arrangement represents a number of Recangles placed on a plane
+ * An Placement represents a number of PositionedRecangles placed on a plane
  */
 
-#ifndef SRC_ARRANGEMENT_ARRANGEMENT_H_
-#define SRC_ARRANGEMENT_ARRANGEMENT_H_
+#ifndef SRC_ARRANGEMENT_PLACEMENT_H_
+#define SRC_ARRANGEMENT_PLACEMENT_H_
 
 #include <vector>
 #include <algorithm>
@@ -11,11 +11,11 @@
 
 namespace rechteckpackungen {
 
-class Arrangement {
+class Placement {
 public:
-	Arrangement();
-	~Arrangement();
-	bool operator==(const Arrangement& other);
+	Placement();
+	~Placement();
+	bool operator==(const Placement& other);
 	void add(PositionedRectangle*);
 	std::vector<PositionedRectangle*>* getPositionedRectangles();
 

@@ -1,19 +1,19 @@
-#include "Arrangement.h"
+#include "Placement.h"
 
 namespace rechteckpackungen {
 
-Arrangement::Arrangement() {
+Placement::Placement() {
 	positionedRectangles = new std::vector<PositionedRectangle*>;
 }
 
-Arrangement::~Arrangement() {
+Placement::~Placement() {
 	for(auto positionedRectangle : *positionedRectangles){
 		delete positionedRectangle;
 	}
 	delete positionedRectangles;
 }
 
-bool Arrangement::operator==(const Arrangement& other) {
+bool Placement::operator==(const Placement& other) {
 	if (positionedRectangles->size() != other.positionedRectangles->size()) {
 		return false;
 	}
@@ -28,15 +28,15 @@ bool Arrangement::operator==(const Arrangement& other) {
 }
 
 bool comparePositionedRectanglesByXMin(const PositionedRectangle* a, const PositionedRectangle* b){ return a->getXMin() < b->getXMin(); }
-void Arrangement::sortPositionedRectanglesByXMin() {
+void Placement::sortPositionedRectanglesByXMin() {
 	sort(positionedRectangles->begin(), positionedRectangles->end(), comparePositionedRectanglesByXMin);
 }
 
-std::vector<PositionedRectangle*>* Arrangement::getPositionedRectangles() {
+std::vector<PositionedRectangle*>* Placement::getPositionedRectangles() {
 	return positionedRectangles;
 }
 
-void Arrangement::add(PositionedRectangle* positionedRectangle) {
+void Placement::add(PositionedRectangle* positionedRectangle) {
 	positionedRectangles->push_back(positionedRectangle);
 }
 

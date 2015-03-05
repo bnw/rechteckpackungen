@@ -6,28 +6,28 @@
 namespace rechteckpackungen {
 
 void testSweeplineHasOverlapping() {
-	Arrangement notOverlappingArrangement;
-	notOverlappingArrangement.add(
+	Placement notOverlappingPlacement;
+	notOverlappingPlacement.add(
 			new PositionedRectangle(new Rectangle(2, 3), new Coordinates(0, 1)));
-	notOverlappingArrangement.add(
+	notOverlappingPlacement.add(
 			new PositionedRectangle(new Rectangle(2, 4), new Coordinates(3, 3)));
 
-	Arrangement overlappingArrangement;
-	overlappingArrangement.add(
+	Placement overlappingPlacement;
+	overlappingPlacement.add(
 			new PositionedRectangle(new Rectangle(3, 3), new Coordinates(0, 1)));
-	overlappingArrangement.add(
+	overlappingPlacement.add(
 			new PositionedRectangle(new Rectangle(2, 4), new Coordinates(3, 3)));
 
-	Arrangement overlappingArrangement2;
-	overlappingArrangement2.add(
+	Placement overlappingPlacement2;
+	overlappingPlacement2.add(
 			new PositionedRectangle(new Rectangle(2, 4), new Coordinates(3, 3)));
-	overlappingArrangement2.add(
+	overlappingPlacement2.add(
 			new PositionedRectangle(new Rectangle(2, 3), new Coordinates(1, 1)));
 
 	Sweepline algorithm;
-	ASSERT(algorithm.hasOverlapping(&notOverlappingArrangement) == false);
-	ASSERT(algorithm.hasOverlapping(&overlappingArrangement) == true);
-	ASSERT(algorithm.hasOverlapping(&overlappingArrangement2) == true);
+	ASSERT(algorithm.hasOverlapping(&notOverlappingPlacement) == false);
+	ASSERT(algorithm.hasOverlapping(&overlappingPlacement) == true);
+	ASSERT(algorithm.hasOverlapping(&overlappingPlacement2) == true);
 }
 
 cute::suite make_suite_SweeplineTest() {

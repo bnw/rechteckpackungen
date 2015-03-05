@@ -17,4 +17,4 @@ private:
 
 }
 
-#endif /* SRC_ARRANGEMENT_COORDINATES_H_ */
+#endif

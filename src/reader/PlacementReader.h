@@ -1,8 +1,8 @@
-#ifndef SRC_READER_ARRANGEMENTREADER_H_
-#define SRC_READER_ARRANGEMENTREADER_H_
+#ifndef SRC_READER_PLACEMENTREADER_H_
+#define SRC_READER_PLACEMENTREADER_H_
 
 #include "util/explode.h"
-#include "arrangement/Arrangement.h"
+#include "arrangement/Placement.h"
 #include <string>
 #include <stdio.h>
 #include <fstream>
@@ -10,9 +10,9 @@
 
 namespace rechteckpackungen {
 
-class ArrangementReader {
+class PlacementReader {
 public:
-	Arrangement* read(std::istream& filename);
+	Placement* read(std::istream& filename);
 private:
 	PositionedRectangle* getPositionedRectangleFromLine(std::string& line);
 };

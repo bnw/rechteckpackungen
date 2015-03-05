@@ -1,18 +1,18 @@
-#include "ArrangementReader.h"
+#include "PlacementReader.h"
 
 namespace rechteckpackungen {
 
-Arrangement* ArrangementReader::read(std::istream& input) {
-	auto arrangement = new Arrangement;
+Placement* PlacementReader::read(std::istream& input) {
+	auto placement = new Placement;
 	std::string line;
 	while (std::getline(input, line)) {
-		arrangement->add(this->getPositionedRectangleFromLine(line));
+		placement->add(this->getPositionedRectangleFromLine(line));
 	}
 
-	return arrangement;
+	return placement;
 }
 
-PositionedRectangle* ArrangementReader::getPositionedRectangleFromLine(std::string& line) {
+PositionedRectangle* PlacementReader::getPositionedRectangleFromLine(std::string& line) {
 	auto parts = explode2int(line, ' ');
 	if (parts->size() != 6) {
 		throw std::runtime_error(

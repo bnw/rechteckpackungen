@@ -1,11 +1,11 @@
-#include "ArrangementWriter.h"
+#include "PlacementWriter.h"
 
 namespace rechteckpackungen {
 
-std::string ArrangementWriter::toString(Arrangement* arrangement) {
+std::string PlacementWriter::toString(Placement* placement) {
 	std::stringstream result;
 	bool first = true;
-	for (auto positionedRectangle : *(arrangement->getPositionedRectangles())) {
+	for (auto positionedRectangle : *(placement->getPositionedRectangles())) {
 		if (first) {
 			first = false;
 		} else {
