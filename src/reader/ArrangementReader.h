@@ -14,7 +14,7 @@ class ArrangementReader {
 public:
 	Arrangement* read(std::istream& filename);
 private:
-	Placement* getPlacementFromLine(std::string& line);
+	PositionedRectangle* getPositionedRectangleFromLine(std::string& line);
 };
 
 }

@@ -5,16 +5,16 @@ namespace rechteckpackungen {
 std::string ArrangementWriter::toString(Arrangement* arrangement) {
 	std::stringstream result;
 	bool first = true;
-	for (auto placement : *(arrangement->getPlacements())) {
+	for (auto positionedRectangle : *(arrangement->getPositionedRectangles())) {
 		if (first) {
 			first = false;
 		} else {
 			result << std::endl;
 		}
-		result << placement->getXMin() << " ";
-		result << placement->getXMax() << " ";
-		result << placement->getYMin() << " ";
-		result << placement->getYMax();
+		result << positionedRectangle->getXMin() << " ";
+		result << positionedRectangle->getXMax() << " ";
+		result << positionedRectangle->getYMin() << " ";
+		result << positionedRectangle->getYMax();
 	}
 	return result.str();
 }

@@ -29,7 +29,7 @@ Rectangle* InstanceReader::getRectangleFromLineParts(
 	return new Rectangle(string2int(parts->at(0)), string2int(parts->at(1)));
 }
 
-Placement* InstanceReader::getAreaFromLine(std::string line) {
+PositionedRectangle* InstanceReader::getAreaFromLine(std::string line) {
 	auto parts = explode2int(line, ' ');
 
 	if (parts->size() != 4) {
@@ -44,7 +44,7 @@ Placement* InstanceReader::getAreaFromLine(std::string line) {
 
 	delete parts;
 
-	return new Placement(xMin, xMax, yMin, yMax);
+	return new PositionedRectangle(xMin, xMax, yMin, yMax);
 }
 
 }

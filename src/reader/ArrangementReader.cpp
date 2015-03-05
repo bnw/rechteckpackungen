@@ -6,14 +6,13 @@ Arrangement* ArrangementReader::read(std::istream& input) {
 	auto arrangement = new Arrangement;
 	std::string line;
 	while (std::getline(input, line)) {
-		auto placement = this->getPlacementFromLine(line);
-		arrangement->add(placement);
+		arrangement->add(this->getPositionedRectangleFromLine(line));
 	}
 
 	return arrangement;
 }
 
-Placement* ArrangementReader::getPlacementFromLine(std::string& line) {
+PositionedRectangle* ArrangementReader::getPositionedRectangleFromLine(std::string& line) {
 	auto parts = explode2int(line, ' ');
 	if (parts->size() != 6) {
 		throw std::runtime_error(
@@ -26,7 +25,7 @@ Placement* ArrangementReader::getPlacementFromLine(std::string& line) {
 
 	delete parts;
 
-	return new Placement(xMin, xMax, yMin, yMax);
+	return new PositionedRectangle(xMin, xMax, yMin, yMax);
 }
 
 }

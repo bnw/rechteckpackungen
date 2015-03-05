@@ -1,41 +1,42 @@
-#include "Placement.h"
+#include "PositionedRectangle.h"
 
 namespace rechteckpackungen {
 
-Placement::Placement(Rectangle *rect, Coordinates *coord){
+PositionedRectangle::PositionedRectangle(Rectangle *rect, Coordinates *coord) {
 	this->rect = rect;
 	this->coord = coord;
 }
 
-Placement::Placement(int xMin, int xMax, int yMin, int yMax){
+PositionedRectangle::PositionedRectangle(int xMin, int xMax, int yMin,
+		int yMax) {
 	int width = xMax - xMin;
 	int height = yMax - yMin;
 	this->rect = new Rectangle(width, height);
 	this->coord = new Coordinates(xMin, yMin);
 }
 
-Placement::~Placement(){
+PositionedRectangle::~PositionedRectangle() {
 	delete rect;
 	delete coord;
 }
 
-int Placement::getXMin() const{
+int PositionedRectangle::getXMin() const {
 	return this->coord->getX();
 }
 
-int Placement::getXMax() const{
+int PositionedRectangle::getXMax() const {
 	return this->coord->getX() + this->rect->getWidth();
 }
 
-int Placement::getYMin() const{
+int PositionedRectangle::getYMin() const {
 	return this->coord->getY();
 }
 
-int Placement::getYMax() const{
+int PositionedRectangle::getYMax() const {
 	return this->coord->getY() + this->rect->getHeight();
 }
 
-bool Placement::operator==(const Placement& other){
+bool PositionedRectangle::operator==(const PositionedRectangle& other) {
 	return *rect == *(other.rect) && *coord == *(other.coord);
 }
 

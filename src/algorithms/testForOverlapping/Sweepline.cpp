@@ -4,49 +4,49 @@ namespace rechteckpackungen {
 
 /*
  * Approach:
- * - Sort placements by XMin
- * - Go through the ordered placements from left to right,
- *   maintaining a workingSet of placements that might overlap
- *   with the next placement
+ * - Sort positioned rectangles by XMin
+ * - Go through the ordered rectangles from left to right,
+ *   maintaining a workingSet of rectangles that might overlap
+ *   with the next rectangle
  */
 bool Sweepline::hasOverlapping(Arrangement* arrangement) {
-	auto placements = getPlacementsSortedByXMin(arrangement); // O(n * log(n))
+	auto positionedRectangles = getPositionedRectanglesSortedByXMin(arrangement); // O(n * log(n))
 
-	std::list<Placement*> workingSet;
-	for (auto newPlacement : *placements) { // O(n)
+	std::list<PositionedRectangle*> workingSet;
+	for (auto newPositionedRectangle : *positionedRectangles) { // O(n)
 		auto workingSetIterator = workingSet.begin();
 		while (workingSetIterator != workingSet.end()) { // O(k)
-			auto oldPlacement = *workingSetIterator;
+			auto oldPositionedRectangle = *workingSetIterator;
 
-			//remove old placements whose right border is left of the newPlacement
-			if (oldPlacement->getXMax() < newPlacement->getXMin()) {
+			//remove old positioned rectangles whose right border is left of the rectangle
+			if (oldPositionedRectangle->getXMax() < newPositionedRectangle->getXMin()) {
 				workingSetIterator = workingSet.erase(workingSetIterator);
 				continue;
 			}
 
 			//check for vertical overlapping
-			if (doPlacementsOverlapVertically(oldPlacement, newPlacement)) {
+			if (doPositionedRectanglesOverlapVertically(oldPositionedRectangle, newPositionedRectangle)) {
 				return true;
 			}
 
 			workingSetIterator++;
 		}
-		workingSet.push_back(newPlacement);
+		workingSet.push_back(newPositionedRectangle);
 	}
 	return false;
 }
 
-bool Sweepline::doPlacementsOverlapVertically(Placement* a, Placement* b) {
+bool Sweepline::doPositionedRectanglesOverlapVertically(PositionedRectangle* a, PositionedRectangle* b) {
 	if (a->getYMin() > b->getYMax() && a->getYMax() < b->getYMin()) {
 		return false;
 	}
 	return true;
 }
 
-std::vector<Placement*>* Sweepline::getPlacementsSortedByXMin(
+std::vector<PositionedRectangle*>* Sweepline::getPositionedRectanglesSortedByXMin(
 		Arrangement* arrangement) {
-	arrangement->sortPlacementsByXMin();
-	return arrangement->getPlacements();
+	arrangement->sortPositionedRectanglesByXMin();
+	return arrangement->getPositionedRectangles();
 }
 
 }

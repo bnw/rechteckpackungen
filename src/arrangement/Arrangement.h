@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <algorithm>
-#include "Placement.h"
+#include "arrangement/PositionedRectangle.h"
 
 namespace rechteckpackungen {
 
@@ -16,16 +16,16 @@ public:
 	Arrangement();
 	~Arrangement();
 	bool operator==(const Arrangement& other);
-	void add(Placement*);
-	std::vector<Placement*>* getPlacements();
+	void add(PositionedRectangle*);
+	std::vector<PositionedRectangle*>* getPositionedRectangles();
 
 	/**
-	 * Sorts the placements-vector according to the XMin-coordinate of the Placement
+	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
 	 * Complexity: n * log(n)
 	 */
-	void sortPlacementsByXMin(); //ToDo does not belong here?
+	void sortPositionedRectanglesByXMin(); //ToDo does not belong here?
 private:
-	std::vector<Placement*>* placements;
+	std::vector<PositionedRectangle*>* positionedRectangles;
 };
 
 }

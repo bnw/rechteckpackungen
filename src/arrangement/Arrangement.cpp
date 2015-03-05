@@ -3,41 +3,41 @@
 namespace rechteckpackungen {
 
 Arrangement::Arrangement() {
-	placements = new std::vector<Placement*>;
+	positionedRectangles = new std::vector<PositionedRectangle*>;
 }
 
 Arrangement::~Arrangement() {
-	for(auto placement : *placements){
-		delete placement;
+	for(auto positionedRectangle : *positionedRectangles){
+		delete positionedRectangle;
 	}
-	delete placements;
+	delete positionedRectangles;
 }
 
 bool Arrangement::operator==(const Arrangement& other) {
-	if (placements->size() != other.placements->size()) {
+	if (positionedRectangles->size() != other.positionedRectangles->size()) {
 		return false;
 	}
-	for (int i = 0; i < placements->size(); i++) {
-		auto ownPlacement = (Placement*) placements->at(i);
-		auto otherPlacement = (Placement*) other.placements->at(i);
-		if (!(*ownPlacement == *otherPlacement)) {
+	for (int i = 0; i < positionedRectangles->size(); i++) {
+		auto ownPositionedRectangle = (PositionedRectangle*) positionedRectangles->at(i);
+		auto otherPositionedRectangle = (PositionedRectangle*) other.positionedRectangles->at(i);
+		if (!(*ownPositionedRectangle == *otherPositionedRectangle)) {
 			return false;
 		}
 	}
 	return true;
 }
 
-bool comparePlacementsByXMin(const Placement* a, const Placement* b){ return a->getXMin() < b->getXMin(); }
-void Arrangement::sortPlacementsByXMin() {
-	sort(placements->begin(), placements->end(), comparePlacementsByXMin);
+bool comparePositionedRectanglesByXMin(const PositionedRectangle* a, const PositionedRectangle* b){ return a->getXMin() < b->getXMin(); }
+void Arrangement::sortPositionedRectanglesByXMin() {
+	sort(positionedRectangles->begin(), positionedRectangles->end(), comparePositionedRectanglesByXMin);
 }
 
-std::vector<Placement*>* Arrangement::getPlacements() {
-	return placements;
+std::vector<PositionedRectangle*>* Arrangement::getPositionedRectangles() {
+	return positionedRectangles;
 }
 
-void Arrangement::add(Placement* placement) {
-	placements->push_back(placement);
+void Arrangement::add(PositionedRectangle* positionedRectangle) {
+	positionedRectangles->push_back(positionedRectangle);
 }
 
 }

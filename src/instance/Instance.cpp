@@ -2,7 +2,7 @@
 
 namespace rechteckpackungen {
 
-Instance::Instance(Placement* area) {
+Instance::Instance(PositionedRectangle* area) {
 	this->area = area;
 	rectangles = new std::vector<Rectangle*>;
 }
@@ -40,7 +40,7 @@ std::vector<Rectangle*>* Instance::getRectangles() {
 	return rectangles;
 }
 
-Placement* Instance::getArea() {
+PositionedRectangle* Instance::getArea() {
 	return area;
 }
 
