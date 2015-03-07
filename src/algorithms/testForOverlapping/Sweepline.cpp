@@ -19,7 +19,7 @@ bool Sweepline::hasOverlapping(Placement* placement) {
 			auto oldPositionedRectangle = *workingSetIterator;
 
 			//remove old positioned rectangles whose right border is left of the rectangle
-			if (oldPositionedRectangle->getXMax() < newPositionedRectangle->getXMin()) {
+			if (oldPositionedRectangle->getXMax() <= newPositionedRectangle->getXMin()) {
 				workingSetIterator = workingSet.erase(workingSetIterator);
 				continue;
 			}
@@ -37,7 +37,7 @@ bool Sweepline::hasOverlapping(Placement* placement) {
 }
 
 bool Sweepline::doPositionedRectanglesOverlapVertically(PositionedRectangle* a, PositionedRectangle* b) {
-	if (a->getYMin() > b->getYMax() && a->getYMax() < b->getYMin()) {
+	if (a->getYMin() >= b->getYMax() || a->getYMax() <= b->getYMin()) {
 		return false;
 	}
 	return true;
