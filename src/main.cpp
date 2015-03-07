@@ -1,6 +1,7 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <stdexcept>
 #include "action/TestOverlappingAction.h"
 
 using std::cout;
@@ -21,7 +22,11 @@ int main(int argc, char const *argv[]) {
 
 	if (strcmp("test-overlapping", mode) == 0) {
 		auto action = TestOverlappingAction();
-		action.run(filename);
+		try{
+			action.run(filename);
+		}catch(std::runtime_error &e){
+			cout << "An exception occurred:" << std::endl << e.what();
+		}
 	} else {
 		cout << "Unrecognized mode '" << mode << "'." << endl << usageInfo << endl;
 	}
