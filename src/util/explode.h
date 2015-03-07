@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include "util/string2int.h"
+#include "util/saveGetline.h"
 
 namespace rechteckpackungen {
 

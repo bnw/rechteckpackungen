@@ -4,10 +4,10 @@ namespace rechteckpackungen {
 
 Instance* InstanceReader::read(std::istream& input) {
 	std::string line;
-	std::getline(input, line);
+	saveGetline(input, line);
 	auto instance = new Instance(getAreaFromLine(line));
 
-	while (std::getline(input, line)) {
+	while (saveGetline(input, line)) {
 		auto parts = explode(line, ' ');
 		if (parts->at(0) == "B" || parts->at(0) == "Net") {
 			//Dont read blockades or nets

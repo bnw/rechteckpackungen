@@ -2,6 +2,7 @@
 #define SRC_READER_PLACEMENTREADER_H_
 
 #include "util/explode.h"
+#include "util/saveGetline.h"
 #include "arrangement/Placement.h"
 #include <string>
 #include <stdio.h>
