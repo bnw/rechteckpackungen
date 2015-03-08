@@ -6,6 +6,8 @@
 #include "arrangement/PositionedRectangle.h"
 #include "reader/PlacementReader.h"
 #include <stdio.h>
+#include <stdexcept>
+#include <iostream>
 
 namespace rechteckpackungen {
 
@@ -35,7 +37,7 @@ void testBStarTreeFromPlacementConstruction() {
 	delete placement, tree;
 }
 
-void testBastTreemFromTextPlacementConstruction() {
+void testBStarTreeFromTextPlacementConstruction() {
 	//Equal to "Figure 1" of B*-Tree paper
 	std::stringstream fig1;
 	fig1 << "0 6 0 6 0 0\n0 1 6 10 0 0\n1 3 6 8 0 0\n3 4 6 11 0 0\n4 5 6 9 0 0\n0 2 10 12 0 0\n2 5 11 12 0 0\n6 10 0 2 0 0\n6 8 2 4 0 0\n6 10 4 5 0 0\n6 9 5 11 0 0\n8 9 2 3 0 0";
@@ -77,10 +79,46 @@ void testBastTreemFromTextPlacementConstruction() {
 	delete placement, tree;
 }
 
+void testThatBuiltTreesAreUnique() {
+	auto placement = new Placement();
+	/*
+	 * 13
+	 * 02
+	 */
+	auto b0 = new PositionedRectangle(0, 1, 0, 1);
+	auto b1 = new PositionedRectangle(0, 1, 1, 2);
+	auto b2 = new PositionedRectangle(1, 2, 0, 1);
+	auto b3 = new PositionedRectangle(1, 2, 1, 2);
+
+	placement->add(b0);
+	placement->add(b1);
+	placement->add(b2);
+	placement->add(b3);
+	auto tree = new BStarTree(placement);
+
+	/*
+	 * According to specification, 3 must be left child of 1 and not right child of 2!
+	 */
+	auto n0 = tree->getRoot();
+	auto n1 = n0->getRightChild();
+	auto n2 = n0->getLeftChild();
+	auto n3 = n1->getLeftChild();
+
+	ASSERT(n0->getIndex() == 0);
+	ASSERT(n1->getIndex() == 1);
+	ASSERT(n2->getIndex() == 2);
+	ASSERT(n3 != nullptr && n3->getIndex() == 3);
+
+	ASSERT(n2->hasChildren() == false);
+
+	delete placement, tree;
+}
+
 cute::suite make_suite_BStarTree() {
 	cute::suite s;
 	s.push_back(CUTE(testBStarTreeFromPlacementConstruction));
-	s.push_back(CUTE(testBastTreemFromTextPlacementConstruction));
+	s.push_back(CUTE(testBStarTreeFromTextPlacementConstruction));
+//	s.push_back(CUTE(testThatBuiltTreesAreUnique)); TODO
 	return s;
 }
 

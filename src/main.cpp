@@ -25,7 +25,7 @@ int main(int argc, char const *argv[]) {
 		try{
 			action.run(filename);
 		}catch(std::runtime_error &e){
-			cout << "An exception occurred:" << std::endl << e.what();
+			cout << "An exception occurred:" << endl << e.what() << endl;
 		}
 	} else {
 		cout << "Unrecognized mode '" << mode << "'." << endl << usageInfo << endl;

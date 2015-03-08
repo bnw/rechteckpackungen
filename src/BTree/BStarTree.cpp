@@ -4,7 +4,7 @@
 
 namespace rechteckpackungen {
 
-void buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBucket, std::vector<bool> visited, BStarTree* tree) {
+void buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBucket, std::vector<bool>& visited, BStarTree* tree) {
 
 	auto rootRectangle = tree->getPositionedRectangle(rootNode);
 	auto rootIndex = rootNode->getIndex();
@@ -46,9 +46,6 @@ BStarTree::BStarTree(Placement* placement) :
 	positionedRectangles = new auto(*placement->getPositionedRectangles());
 	auto xBucket = std::vector<std::vector<int>>(placement->getXMax() + 1);
 	auto visited = std::vector<bool>(positionedRectangles->size(), false);
-//	for(auto xBucketPosition : xBucket){
-//		xBucketPosition = std::vector<Rectangle*>();
-//	}
 
 	/**
 	 * Find root and fill xBucket
