@@ -9,6 +9,7 @@
 #include <algorithm>
 #include "arrangement/PositionedRectangle.h"
 
+
 namespace rechteckpackungen {
 
 class Placement {
@@ -19,11 +20,16 @@ public:
 	void add(PositionedRectangle*);
 	std::vector<PositionedRectangle*>* getPositionedRectangles();
 
-	/**
+	/*
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
 	 * Complexity: n * log(n)
 	 */
 	void sortPositionedRectanglesByXMin(); //ToDo does not belong here?
+
+	/*
+	 * Complexity: n
+	 */
+	int getXMax();
 private:
 	std::vector<PositionedRectangle*>* positionedRectangles;
 };
