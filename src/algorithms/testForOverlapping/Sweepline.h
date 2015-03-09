@@ -3,6 +3,7 @@
 
 #include "arrangement/Placement.h"
 #include "arrangement/PositionedRectangle.h"
+#include "algorithms/sortInt/BuiltIn.h"
 #include <list>
 
 namespace rechteckpackungen {

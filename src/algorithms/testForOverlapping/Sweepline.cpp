@@ -45,7 +45,8 @@ bool Sweepline::doPositionedRectanglesOverlapVertically(PositionedRectangle* a, 
 
 std::vector<PositionedRectangle*>* Sweepline::getPositionedRectanglesSortedByXMin(
 		Placement* placement) {
-	placement->sortPositionedRectanglesByXMin();
+	auto sorter = sortInt::BuiltIn();
+	placement->sortPositionedRectanglesByXMin(&sorter);
 	return placement->getPositionedRectangles();
 }
 

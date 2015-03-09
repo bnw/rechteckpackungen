@@ -7,7 +7,7 @@ Placement::Placement() {
 }
 
 Placement::~Placement() {
-	for(auto positionedRectangle : *positionedRectangles){
+	for (auto positionedRectangle : *positionedRectangles) {
 		delete positionedRectangle;
 	}
 	delete positionedRectangles;
@@ -27,14 +27,13 @@ bool Placement::operator==(const Placement& other) {
 	return true;
 }
 
-bool comparePositionedRectanglesByXMin(const PositionedRectangle* a, const PositionedRectangle* b){ return a->getXMin() < b->getXMin(); }
-void Placement::sortPositionedRectanglesByXMin() {
-	sort(positionedRectangles->begin(), positionedRectangles->end(), comparePositionedRectanglesByXMin);
+void Placement::sortPositionedRectanglesByXMin(sortInt::ISortInt* sorter) {
+	sorter->sort((std::vector<void*>*) positionedRectangles, [](const void* a) {return ((PositionedRectangle*) a)->getXMin();});
 }
 
-bool comparePositionedRectanglesByXMax(const PositionedRectangle* a, const PositionedRectangle* b){ return a->getXMax() < b->getXMax(); }
-int Placement::getXMax(){
-	auto rightmostRectangle = std::max_element(positionedRectangles->begin(), positionedRectangles->end(), comparePositionedRectanglesByXMax);
+int Placement::getXMax() {
+	auto rightmostRectangle = std::max_element(positionedRectangles->begin(), positionedRectangles->end(),
+			[](const PositionedRectangle* a, const PositionedRectangle* b) {return a->getXMax() < b->getXMax();});
 	return (*rightmostRectangle)->getXMax();
 }
 

@@ -2,24 +2,26 @@
 #include "PlacementTest.h"
 
 #include "arrangement/Placement.h"
+#include "algorithms/sortInt/BuiltIn.h"
 
 namespace rechteckpackungen {
 
-void testPlacementSort(){
+void testPlacementSort(){ //TODO Test all ISortInt implementations in a separate test
 	auto expectedResult = new Placement;
 	expectedResult->add(new PositionedRectangle(new Rectangle(0, 0), new Coordinates(1, 0)));
 	expectedResult->add(new PositionedRectangle(new Rectangle(0, 0), new Coordinates(3, 0)));
 	expectedResult->add(new PositionedRectangle(new Rectangle(0, 0), new Coordinates(3, 0)));
 
+	auto sorter = new sortInt::BuiltIn();
 	auto subject = new Placement;
 	subject->add(new PositionedRectangle(new Rectangle(0, 0), new Coordinates(3, 0)));
 	subject->add(new PositionedRectangle(new Rectangle(0, 0), new Coordinates(1, 0)));
 	subject->add(new PositionedRectangle(new Rectangle(0, 0), new Coordinates(3, 0)));
-	subject->sortPositionedRectanglesByXMin();
+	subject->sortPositionedRectanglesByXMin(sorter);
 
 	ASSERT(*subject == *expectedResult);
 
-	delete expectedResult, subject;
+	delete expectedResult, subject, sorter;
 }
 
 void testGetXMax(){
