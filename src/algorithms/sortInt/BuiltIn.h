@@ -1,14 +1,14 @@
 #ifndef SRC_ALGORITHMS_SORTINT_BUILTIN_H_
 #define SRC_ALGORITHMS_SORTINT_BUILTIN_H_
 
-#include "algorithms/sortInt/ISortInt.h"
+#include "algorithms/sortInt/IIntSorter.h"
 #include <vector>
 #include <algorithm>
 
 namespace rechteckpackungen {
 namespace sortInt {
 
-class BuiltIn: public virtual ISortInt {
+class BuiltIn: public virtual IIntSorter {
 public:
 	virtual ~BuiltIn();
 	/**

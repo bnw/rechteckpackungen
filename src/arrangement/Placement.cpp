@@ -27,7 +27,7 @@ bool Placement::operator==(const Placement& other) {
 	return true;
 }
 
-void Placement::sortPositionedRectanglesByXMin(sortInt::ISortInt* sorter) {
+void Placement::sortPositionedRectanglesByXMin(sortInt::IIntSorter* sorter) {
 	sorter->sort((std::vector<void*>*) positionedRectangles, [](const void* a) {return ((PositionedRectangle*) a)->getXMin();});
 }
 

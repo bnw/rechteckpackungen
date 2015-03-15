@@ -8,7 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include "arrangement/PositionedRectangle.h"
-#include "algorithms/sortInt/ISortInt.h"
+#include "algorithms/sortInt/IIntSorter.h"
 
 namespace rechteckpackungen {
 
@@ -24,7 +24,7 @@ public:
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
 	 * Complexity: n * log(n)
 	 */
-	void sortPositionedRectanglesByXMin(sortInt::ISortInt* sorter); //ToDo does not belong here?
+	void sortPositionedRectanglesByXMin(sortInt::IIntSorter* sorter); //ToDo does not belong here?
 
 	/*
 	 * Complexity: n
