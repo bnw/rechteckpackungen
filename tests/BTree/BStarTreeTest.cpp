@@ -31,7 +31,9 @@ void testBStarTreeFromPlacementConstruction() {
 	auto tree = new BStarTree(placement);
 
 	ASSERT(tree->getPositionedRectangle(tree->getRoot()) == root);
+	ASSERT(tree->getRoot()->hasLeftChild());
 	ASSERT(tree->getPositionedRectangle(tree->getRoot()->getLeftChild()) == right);
+	ASSERT(tree->getRoot()->hasRightChild());
 	ASSERT(tree->getPositionedRectangle(tree->getRoot()->getRightChild()) == top);
 
 	delete placement, tree;
@@ -46,30 +48,52 @@ void testBStarTreeFromTextPlacementConstruction() {
 	auto tree = new BStarTree(placement);
 
 	auto n0 = tree->getRoot();
+
+	ASSERT(n0->hasRightChild());
 	auto n1 = n0->getRightChild();
+
+	ASSERT(n1->hasLeftChild());
 	auto n2 = n1->getLeftChild();
+
+	ASSERT(n2->hasLeftChild());
 	auto n3 = n2->getLeftChild();
+
+	ASSERT(n3->hasLeftChild());
 	auto n4 = n3->getLeftChild();
+
+	ASSERT(n1->hasRightChild());
 	auto n5 = n1->getRightChild();
+
+	ASSERT(n5->hasLeftChild());
 	auto n6 = n5->getLeftChild();
+
+	ASSERT(n0->hasLeftChild());
 	auto n7 = n0->getLeftChild();
+
+	ASSERT(n7->hasRightChild());
 	auto n8 = n7->getRightChild();
+
+	ASSERT(n8->hasRightChild());
 	auto n9 = n8->getRightChild();
+
+	ASSERT(n9->hasRightChild());
 	auto n10 = n9->getRightChild();
+
+	ASSERT(n8->hasLeftChild());
 	auto n11 = n8->getLeftChild();
 
-	ASSERT(n0->getIndex() == 0);
-	ASSERT(n1->getIndex() == 1);
-	ASSERT(n2->getIndex() == 2);
-	ASSERT(n3->getIndex() == 3);
-	ASSERT(n4->getIndex() == 4);
-	ASSERT(n5->getIndex() == 5);
-	ASSERT(n6->getIndex() == 6);
-	ASSERT(n7->getIndex() == 7);
-	ASSERT(n8->getIndex() == 8);
-	ASSERT(n9->getIndex() == 9);
-	ASSERT(n10->getIndex() == 10);
-	ASSERT(n11->getIndex() == 11);
+	ASSERT(*tree->getPositionedRectangle(n0) == PositionedRectangle(0,6,0,6));
+	ASSERT(*tree->getPositionedRectangle(n1) == PositionedRectangle(0,1,6,10));
+	ASSERT(*tree->getPositionedRectangle(n2) == PositionedRectangle(1, 3, 6, 8));
+	ASSERT(*tree->getPositionedRectangle(n3) == PositionedRectangle(3, 4, 6, 11));
+	ASSERT(*tree->getPositionedRectangle(n4) == PositionedRectangle(4, 5, 6, 9));
+	ASSERT(*tree->getPositionedRectangle(n5) == PositionedRectangle(0, 2, 10, 12 ));
+	ASSERT(*tree->getPositionedRectangle(n6) == PositionedRectangle(2, 5, 11, 12));
+	ASSERT(*tree->getPositionedRectangle(n7) == PositionedRectangle(6, 10, 0, 2));
+	ASSERT(*tree->getPositionedRectangle(n8) == PositionedRectangle(6, 8, 2, 4));
+	ASSERT(*tree->getPositionedRectangle(n9) == PositionedRectangle(6, 10, 4, 5));
+	ASSERT(*tree->getPositionedRectangle(n10) == PositionedRectangle(6, 9, 5, 11));
+	ASSERT(*tree->getPositionedRectangle(n11) == PositionedRectangle(8, 9, 2, 3));
 
 	ASSERT(n7->hasLeftChild() == false);
 	ASSERT(n11->hasChildren() == false);

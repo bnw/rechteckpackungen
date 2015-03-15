@@ -22,9 +22,10 @@ public:
 
 	/*
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
-	 * Complexity: n * log(n)
 	 */
 	void sortPositionedRectanglesByXMin(sortInt::IIntSorter* sorter); //ToDo does not belong here?
+	void sortPositionedRectanglesByYMin(sortInt::IIntSorter* sorter);
+	void sortPositionedRectanglesByYMin(sortInt::IIntSorter* sorter, std::vector<PositionedRectangle*>* positionedRectangles);
 
 	/*
 	 * Complexity: n

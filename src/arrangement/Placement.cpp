@@ -31,6 +31,14 @@ void Placement::sortPositionedRectanglesByXMin(sortInt::IIntSorter* sorter) {
 	sorter->sort((std::vector<void*>*) positionedRectangles, [](const void* a) {return ((PositionedRectangle*) a)->getXMin();});
 }
 
+void Placement::sortPositionedRectanglesByYMin(sortInt::IIntSorter* sorter) {
+	sortPositionedRectanglesByYMin(sorter, positionedRectangles);
+}
+
+void Placement::sortPositionedRectanglesByYMin(sortInt::IIntSorter* sorter, std::vector<PositionedRectangle*>* positionedRectangles) {
+	sorter->sort((std::vector<void*>*) positionedRectangles, [](const void* a) {return ((PositionedRectangle*) a)->getYMin();});
+}
+
 int Placement::getXMax() {
 	auto rightmostRectangle = std::max_element(positionedRectangles->begin(), positionedRectangles->end(),
 			[](const PositionedRectangle* a, const PositionedRectangle* b) {return a->getXMax() < b->getXMax();});

@@ -4,6 +4,7 @@
 #include "BTree/BTree.h"
 #include "arrangement/Placement.h"
 #include "arrangement/PositionedRectangle.h"
+#include "algorithms/sortInt/BucketSort.h"
 #include <vector>
 
 namespace rechteckpackungen {

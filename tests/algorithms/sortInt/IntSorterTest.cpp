@@ -12,10 +12,20 @@ void testISortInt(sortInt::IIntSorter &sorter) {
 	int a = 1, b = 3, c = 0, d = 1;
 	std::vector<int*> vector = { &a, &b, &c, &d };
 	sorter.sort((std::vector<void*>*) &vector, [](const void* a) {return *(int*) a;});
-	ASSERT(*vector[0] == 0);
-	ASSERT(*vector[1] == 1);
-	ASSERT(*vector[2] == 1);
-	ASSERT(*vector[3] == 3);
+	ASSERT(*vector.at(0) == 0);
+	ASSERT(*vector.at(1) == 1);
+	ASSERT(*vector.at(2) == 1);
+	ASSERT(*vector.at(3) == 3);
+}
+
+void testISortIntReverse(sortInt::IIntSorter &sorter) {
+	int a = 1, b = 3, c = 0, d = 1;
+	std::vector<int*> vector = { &a, &b, &c, &d };
+	sorter.sort((std::vector<void*>*) &vector, [](const void* a) {return *(int*) a;});
+	ASSERT(*vector.at(0) == 3);
+	ASSERT(*vector.at(1) == 1);
+	ASSERT(*vector.at(2) == 1);
+	ASSERT(*vector.at(3) == 0);
 }
 
 void testIntSorterBuiltIn(){
@@ -24,8 +34,10 @@ void testIntSorterBuiltIn(){
 }
 
 void testIntSorterBucketSort(){
-	auto sorter = sortInt::BucketSort();
+	auto sorter = sortInt::BucketSort(false);
 	testISortInt(sorter);
+	auto sorterReverse = sortInt::BucketSort(true);
+	testISortIntReverse(sorterReverse);
 }
 
 cute::suite make_suite_SortIntTest() {

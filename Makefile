@@ -12,7 +12,7 @@ FLAGS = -std=c++11 -g -o0
 EXECUTABLE_MAIN = rechteckpackungen.exe
 EXECUTABLE_TESTS = test.exe
 
-all: $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS)
+all: clean_executables $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS)
 
 $(EXECUTABLE_MAIN): $(OBJ_FILES_SRC)
 	g++ $(FLAGS) -o $@ $^ 
@@ -23,7 +23,10 @@ $(EXECUTABLE_TESTS): $(OBJ_FILES_TESTS)
 %.o: %.cpp
 	g++ $(INC) $(FLAGS) -c -o $@ $<
 
-clean:
-	-rm -f $(OBJ_FILES_SRC) $(OBJ_FILES_TESTS) $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS) test.xml
+clean: clean_executables
+	-rm -f $(OBJ_FILES_SRC) $(OBJ_FILES_TESTS) test.xml
+
+clean_executables:
+	-rm -f $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS) 
 
 .PHONY: clean all
