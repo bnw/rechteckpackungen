@@ -11,7 +11,7 @@ namespace rechteckpackungen {
 
 class BStarTree: public BTree {
 public:
-	BStarTree(Placement* placement);
+	BStarTree(std::vector<PositionedRectangle*>* positionedRectangles);
 	virtual ~BStarTree();
 	PositionedRectangle* getPositionedRectangle(BTreeNode* node);
 	PositionedRectangle* getPositionedRectangle(int index);

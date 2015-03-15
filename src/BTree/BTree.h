@@ -19,8 +19,8 @@ public:
 	void setRightChild(BTreeNode* parent, BTreeNode* rightChild);
 	BTreeNode* at(int i);
 	BTreeNode* getRoot();
-protected:
 	void setRoot(BTreeNode* node);
+protected:
 	std::vector<BTreeNode*> nodes;
 	BTreeNode* root;
 private:
