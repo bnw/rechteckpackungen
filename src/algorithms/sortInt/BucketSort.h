@@ -12,8 +12,8 @@ class BucketSort: public virtual IIntSorter {
 public:
 	virtual ~BucketSort();
 	/**
-	 * Complexity: O(n * log(n))
-	 * Memory: ?
+	 * Complexity: O(n)
+	 * Memory: O(n)
 	 */
 	virtual void sort(std::vector<void*>*, int (*getInt)(const void *));
 };
