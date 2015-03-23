@@ -5,7 +5,7 @@ namespace rechteckpackungen {
 Placement* PlacementReader::read(std::istream& input) {
 	auto placement = new Placement;
 	std::string line;
-	while (saveGetline(input, line)) {
+	while (safeGetline(input, line)) {
 		placement->add(this->getPositionedRectangleFromLine(line));
 	}
 

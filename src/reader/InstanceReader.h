@@ -5,7 +5,7 @@
 #include "arrangement/PositionedRectangle.h"
 #include "util/explode.h"
 #include "util/string2int.h"
-#include "util/saveGetline.h"
+#include "util/safeGetline.h"
 #include <fstream>
 #include <stdexcept>
 #include <string>
