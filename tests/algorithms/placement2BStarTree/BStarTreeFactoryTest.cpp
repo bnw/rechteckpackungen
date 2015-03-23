@@ -42,7 +42,8 @@ void testBStarTreeFromPlacementConstruction() {
 	ASSERT(tree->getRoot()->hasRightChild());
 	ASSERT(tree->getRectangle(tree->getRoot()->getRightChild()) == top->getRectangle());
 
-	delete placement, tree;
+	delete placement;
+	delete tree;
 }
 
 void testBStarTreeFromTextPlacementConstruction() {
