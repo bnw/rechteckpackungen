@@ -20,6 +20,7 @@ public:
 	int getXMax() const;
 	int getYMin() const;
 	int getYMax() const;
+	Rectangle* getRectangle();
 private:
 	Rectangle* rect;
 	Coordinates* coord;

@@ -3,7 +3,7 @@
 
 #include "BTree/BTree.h"
 #include "arrangement/Placement.h"
-#include "arrangement/PositionedRectangle.h"
+#include "Rectangle.h"
 #include "algorithms/sortInt/BucketSort.h"
 #include <vector>
 
@@ -11,12 +11,12 @@ namespace rechteckpackungen {
 
 class BStarTree: public BTree {
 public:
-	BStarTree(std::vector<PositionedRectangle*>* positionedRectangles);
+	BStarTree(std::vector<Rectangle*>* positionedRectangles);
 	virtual ~BStarTree();
-	PositionedRectangle* getPositionedRectangle(BTreeNode* node);
-	PositionedRectangle* getPositionedRectangle(int index);
+	Rectangle* getRectangle(BTreeNode* node);
+	Rectangle* getRectangle(int index);
 private:
-	std::vector<PositionedRectangle*>* positionedRectangles;
+	std::vector<Rectangle*>* rectangles;
 };
 
 }

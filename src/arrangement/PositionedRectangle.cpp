@@ -36,6 +36,10 @@ int PositionedRectangle::getYMax() const {
 	return this->coord->getY() + this->rect->getHeight();
 }
 
+Rectangle* PositionedRectangle::getRectangle(){
+	return this->rect;
+}
+
 bool PositionedRectangle::operator==(const PositionedRectangle& other) {
 	return *rect == *(other.rect) && *coord == *(other.coord);
 }

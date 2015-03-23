@@ -49,6 +49,14 @@ std::vector<PositionedRectangle*>* Placement::getPositionedRectangles() {
 	return positionedRectangles;
 }
 
+std::vector<Rectangle*>* Placement::getRectangles() {
+	auto rectangles = new std::vector<Rectangle*>;
+	for(auto positionedRectangle : *positionedRectangles){
+		rectangles->push_back(positionedRectangle->getRectangle());
+	}
+	return rectangles;
+}
+
 void Placement::add(PositionedRectangle* positionedRectangle) {
 	positionedRectangles->push_back(positionedRectangle);
 }

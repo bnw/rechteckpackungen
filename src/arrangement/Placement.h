@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include "arrangement/PositionedRectangle.h"
+#include "Rectangle.h"
 #include "algorithms/sortInt/IIntSorter.h"
 
 namespace rechteckpackungen {
@@ -19,13 +20,14 @@ public:
 	bool operator==(const Placement& other);
 	void add(PositionedRectangle*);
 	std::vector<PositionedRectangle*>* getPositionedRectangles();
+	std::vector<Rectangle*>* getRectangles();
 
 	/*
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
 	 */
 	void sortPositionedRectanglesByXMin(sortInt::IIntSorter* sorter); //ToDo does not belong here?
 	void sortPositionedRectanglesByYMin(sortInt::IIntSorter* sorter);
-	void sortPositionedRectanglesByYMin(sortInt::IIntSorter* sorter, std::vector<PositionedRectangle*>* positionedRectangles);
+	void sortPositionedRectanglesByYMin(sortInt::IIntSorter* sorter, std::vector<PositionedRectangle*>* positionedRectangles); //TODO UGLY!
 
 	/*
 	 * Complexity: n

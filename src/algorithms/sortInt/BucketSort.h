@@ -10,7 +10,6 @@ namespace sortInt {
 
 class BucketSort: public virtual IIntSorter {
 public:
-//	BucketSort();
 	BucketSort(bool reverse);
 	virtual ~BucketSort();
 	/**

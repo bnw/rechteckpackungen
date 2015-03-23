@@ -1,9 +1,9 @@
 #include "cute.h"
-#include "BStarTreeTest.h"
+#include "BStarTreeFactoryTest.h"
 
 #include "BTree/BStarTree.h"
 #include "arrangement/Placement.h"
-#include "arrangement/PositionedRectangle.h"
+#include "Rectangle.h"
 #include "reader/PlacementReader.h"
 #include "algorithms/placement2BStarTree/BStarTreeFactory.h"
 #include <stdio.h>
@@ -36,11 +36,11 @@ void testBStarTreeFromPlacementConstruction() {
 
 	auto tree = createTree(placement);
 
-	ASSERT(tree->getPositionedRectangle(tree->getRoot()) == root);
+	ASSERT(tree->getRectangle(tree->getRoot()) == root->getRectangle());
 	ASSERT(tree->getRoot()->hasLeftChild());
-	ASSERT(tree->getPositionedRectangle(tree->getRoot()->getLeftChild()) == right);
+	ASSERT(tree->getRectangle(tree->getRoot()->getLeftChild()) == right->getRectangle());
 	ASSERT(tree->getRoot()->hasRightChild());
-	ASSERT(tree->getPositionedRectangle(tree->getRoot()->getRightChild()) == top);
+	ASSERT(tree->getRectangle(tree->getRoot()->getRightChild()) == top->getRectangle());
 
 	delete placement, tree;
 }
@@ -88,18 +88,18 @@ void testBStarTreeFromTextPlacementConstruction() {
 	ASSERT(n8->hasLeftChild());
 	auto n11 = n8->getLeftChild();
 
-	ASSERT(*tree->getPositionedRectangle(n0) == PositionedRectangle(0,6,0,6));
-	ASSERT(*tree->getPositionedRectangle(n1) == PositionedRectangle(0,1,6,10));
-	ASSERT(*tree->getPositionedRectangle(n2) == PositionedRectangle(1, 3, 6, 8));
-	ASSERT(*tree->getPositionedRectangle(n3) == PositionedRectangle(3, 4, 6, 11));
-	ASSERT(*tree->getPositionedRectangle(n4) == PositionedRectangle(4, 5, 6, 9));
-	ASSERT(*tree->getPositionedRectangle(n5) == PositionedRectangle(0, 2, 10, 12 ));
-	ASSERT(*tree->getPositionedRectangle(n6) == PositionedRectangle(2, 5, 11, 12));
-	ASSERT(*tree->getPositionedRectangle(n7) == PositionedRectangle(6, 10, 0, 2));
-	ASSERT(*tree->getPositionedRectangle(n8) == PositionedRectangle(6, 8, 2, 4));
-	ASSERT(*tree->getPositionedRectangle(n9) == PositionedRectangle(6, 10, 4, 5));
-	ASSERT(*tree->getPositionedRectangle(n10) == PositionedRectangle(6, 9, 5, 11));
-	ASSERT(*tree->getPositionedRectangle(n11) == PositionedRectangle(8, 9, 2, 3));
+	ASSERT(*tree->getRectangle(n0) == Rectangle(6,6));
+	ASSERT(*tree->getRectangle(n1) == Rectangle(1,4));
+	ASSERT(*tree->getRectangle(n2) == Rectangle(2, 2));
+	ASSERT(*tree->getRectangle(n3) == Rectangle(1, 5));
+	ASSERT(*tree->getRectangle(n4) == Rectangle(1, 3));
+	ASSERT(*tree->getRectangle(n5) == Rectangle(2, 2 ));
+	ASSERT(*tree->getRectangle(n6) == Rectangle(3, 1));
+	ASSERT(*tree->getRectangle(n7) == Rectangle(4, 2));
+	ASSERT(*tree->getRectangle(n8) == Rectangle(2, 2));
+	ASSERT(*tree->getRectangle(n9) == Rectangle(4, 1));
+	ASSERT(*tree->getRectangle(n10) == Rectangle(3, 6));
+	ASSERT(*tree->getRectangle(n11) == Rectangle(1, 1));
 
 	ASSERT(n7->hasLeftChild() == false);
 	ASSERT(n11->hasChildren() == false);
@@ -144,11 +144,11 @@ void testThatBuiltTreesAreUnique() {
 	delete placement, tree;
 }
 
-cute::suite make_suite_BStarTree() {
+cute::suite make_suite_BStarTreeFactory() {
 	cute::suite s;
 	s.push_back(CUTE(testBStarTreeFromPlacementConstruction));
 	s.push_back(CUTE(testBStarTreeFromTextPlacementConstruction));
-//	s.push_back(CUTE(testThatBuiltTreesAreUnique)); TODO
+	//s.push_back(CUTE(testThatBuiltTreesAreUnique)); //TODO
 	return s;
 }
 

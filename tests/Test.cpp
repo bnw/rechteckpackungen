@@ -10,9 +10,10 @@
 #include "arrangement/PlacementTest.h"
 #include "algorithms/testForOverlapping/SweeplineTest.h"
 #include "algorithms/sortInt/IntSorterTest.h"
+#include "algorithms/placement2BStarTree/BStarTreeFactoryTest.h"
+#include "algorithms/bStartTree2Placement/PlacementFactoryTest.h"
 #include "util/String2intTest.h"
 #include "writer/PlacementWriterTest.h"
-#include "BTree/BStarTreeTest.h"
 
 
 void runAllTests(int argc, char const *argv[]) {
@@ -26,8 +27,9 @@ void runAllTests(int argc, char const *argv[]) {
 	s += rechteckpackungen::make_suite_SweeplineTest();
 	s += rechteckpackungen::make_suite_String2intTest();
 	s += rechteckpackungen::make_suite_PlacementWriterTest();
-	s += rechteckpackungen::make_suite_BStarTree();
+	s += rechteckpackungen::make_suite_BStarTreeFactory();
 	s += rechteckpackungen::make_suite_SortIntTest();
+	s += rechteckpackungen::make_suite_PlacementFactoryTest();
 
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<> > lis(xmlfile.out);

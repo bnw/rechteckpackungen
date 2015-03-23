@@ -3,20 +3,20 @@
 
 namespace rechteckpackungen {
 
-BStarTree::BStarTree(std::vector<PositionedRectangle*>* positionedRectangles) :
-		BTree(positionedRectangles->size()), positionedRectangles(positionedRectangles) {
+BStarTree::BStarTree(std::vector<Rectangle*>* rectangles) :
+		BTree(rectangles->size()), rectangles(rectangles) {
 }
 
 BStarTree::~BStarTree() {
-	delete positionedRectangles;
+	delete rectangles;
 }
 
-PositionedRectangle* BStarTree::getPositionedRectangle(BTreeNode* node) {
-	return positionedRectangles->at(node->getIndex());
+Rectangle* BStarTree::getRectangle(BTreeNode* node) {
+	return rectangles->at(node->getIndex());
 }
 
-PositionedRectangle* BStarTree::getPositionedRectangle(int index) {
-	return positionedRectangles->at(index);
+Rectangle* BStarTree::getRectangle(int index) {
+	return rectangles->at(index);
 }
 
 }
