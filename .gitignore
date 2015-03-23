@@ -28,6 +28,10 @@
 *.app
 /Debug/
 
+# Code coverage
+*.gcda
+*.gcno
+
 *.stackdump
 
 *.xml
@@ -35,3 +39,4 @@
 # Eclipse
 .project
 .cproject
+.settings
