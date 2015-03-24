@@ -11,8 +11,7 @@ int PlacementFactory::findMinY(std::list<PositionedRectangle*>* horizontalContou
 	if (horizontalContour->end() != currentHorizontalContourElement) {
 		currentHorizontalContourElement++;
 		y = std::max(y, (*currentHorizontalContourElement)->getYMax());
-		bool end = horizontalContour->end() != currentHorizontalContourElement;
-		while ((*currentHorizontalContourElement)->getXMax() < xMax && *(--horizontalContour->end()) != *currentHorizontalContourElement) {
+		while ((*currentHorizontalContourElement)->getXMax() < xMax && horizontalContour->back() != *currentHorizontalContourElement) {
 			currentHorizontalContourElement++;
 			y = std::max(y, (*currentHorizontalContourElement)->getYMax());
 		}
@@ -24,11 +23,12 @@ std::list<PositionedRectangle*>::iterator PlacementFactory::updateContour(std::l
 		std::list<PositionedRectangle*>::iterator firstHorizontalContourElementBelowNewElement, PositionedRectangle* newElement) {
 	auto currentHorizontalontourElementBelowNewElement = firstHorizontalContourElementBelowNewElement;
 	while ((*currentHorizontalontourElementBelowNewElement)->getXMax() <= newElement->getXMax()) {
-		if ((*currentHorizontalontourElementBelowNewElement)->getXMin() >= newElement->getXMin()
-				&& (*currentHorizontalontourElementBelowNewElement)->getXMin() < newElement->getXMax()) {
-			currentHorizontalontourElementBelowNewElement = horizontalContour->erase(currentHorizontalontourElementBelowNewElement);
+		if (horizontalContour->back() == *currentHorizontalontourElementBelowNewElement) {
+			horizontalContour->pop_back();
+			horizontalContour->push_back(newElement);
+			return --horizontalContour->end();
 		} else {
-			currentHorizontalontourElementBelowNewElement++;
+			currentHorizontalontourElementBelowNewElement = horizontalContour->erase(currentHorizontalontourElementBelowNewElement);
 		}
 	}
 	return horizontalContour->insert(currentHorizontalontourElementBelowNewElement, newElement);
@@ -47,7 +47,8 @@ void PlacementFactory::buildPlacementRecursively(BStarTree* tree, Placement* pla
 		placement->add(leftChildPositionedRectangle);
 		auto firstHorizontalContourElementBelowNewElement = currentHorizontalContourElement;
 		firstHorizontalContourElementBelowNewElement++;
-		auto rightCurrentHorizontalContourElement = updateContour(horizontalContour, firstHorizontalContourElementBelowNewElement, leftChildPositionedRectangle);
+		auto rightCurrentHorizontalContourElement = updateContour(horizontalContour, firstHorizontalContourElementBelowNewElement,
+				leftChildPositionedRectangle);
 		buildPlacementRecursively(tree, placement, rootNode, rootPositionedRecangle, horizontalContour, rightCurrentHorizontalContourElement);
 	}
 

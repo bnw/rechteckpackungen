@@ -135,29 +135,50 @@ void testUpdateContour2() {
 
 	auto newRectangle = new PositionedRectangle(1,8,5,6);
 
-	auto result = factory.updateContour(contour, contour->begin(), newRectangle);
+	auto result = factory.updateContour(contour, ++contour->begin(), newRectangle);
 
 	auto iterator = contour->begin();
 	ASSERT_EQUAL(2, contour->size());
 	ASSERT_EQUAL(aPositioned, *iterator++);
-	ASSERT_EQUAL(result, iterator);
-	ASSERT_EQUAL(newRectangle, *iterator++);
+	ASSERT_EQUAL(newRectangle, *result);
+	ASSERT_EQUAL(newRectangle, *iterator);
 }
 
 
 /**
- * TODO write testUpdateContour3 for:
- *
  * bbOOO
  * aaaa
  */
 
+void testUpdateContour3() {
+	auto factory = bStarTree2Placement::PlacementFactory();
+	auto a = new Rectangle(4, 1);
+	auto b = new Rectangle(2, 1);
+	auto aPositioned = new PositionedRectangle(a, new Coordinates(0, 0));
+	auto bPositioned = new PositionedRectangle(b, new Coordinates(0, 1));
+	auto rectangles = new std::vector<Rectangle*>();
+	rectangles->push_back(a); // index = 0
+	rectangles->push_back(b); // index = 1
+	auto contour = new std::list<PositionedRectangle*>();
+	contour->push_back(bPositioned);
+	contour->push_back(aPositioned);
+
+	auto newRectangle = new PositionedRectangle(3,6,1,2);
+
+	auto result = factory.updateContour(contour, ++contour->begin(), newRectangle);
+
+	auto iterator = contour->begin();
+	ASSERT_EQUAL(2, contour->size());
+	ASSERT_EQUAL(bPositioned, *iterator++);
+	ASSERT_EQUAL(newRectangle, *iterator);
+}
 
 cute::suite make_suite_PlacementFactoryTest() {
 	cute::suite s;
 	s.push_back(CUTE(testFindYMin));
 	s.push_back(CUTE(testUpdateContour1));
 	s.push_back(CUTE(testUpdateContour2));
+	s.push_back(CUTE(testUpdateContour3));
 	return s;
 }
 
