@@ -101,7 +101,7 @@ void testUpdateContour1() {
 }
 
 /*
- *  OOOOO
+ *  OOOOOOO
  *      d
  *      d
  *   cccd
@@ -133,17 +133,25 @@ void testUpdateContour2() {
 	contour->push_back(dPositioned);
 	contour->push_back(ePositioned);
 
-	auto newRectangle = new PositionedRectangle(1,6,5,6);
+	auto newRectangle = new PositionedRectangle(1,8,5,6);
 
 	auto result = factory.updateContour(contour, contour->begin(), newRectangle);
 
 	auto iterator = contour->begin();
-	ASSERT_EQUAL(3, contour->size());
+	ASSERT_EQUAL(2, contour->size());
 	ASSERT_EQUAL(aPositioned, *iterator++);
 	ASSERT_EQUAL(result, iterator);
 	ASSERT_EQUAL(newRectangle, *iterator++);
-	ASSERT_EQUAL(ePositioned, *iterator++);
 }
+
+
+/**
+ * TODO write testUpdateContour3 for:
+ *
+ * bbOOO
+ * aaaa
+ */
+
 
 cute::suite make_suite_PlacementFactoryTest() {
 	cute::suite s;
