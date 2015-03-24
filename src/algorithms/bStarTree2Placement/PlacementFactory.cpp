@@ -4,8 +4,8 @@ namespace rechteckpackungen {
 namespace bStarTree2Placement {
 
 //TODO assert that y is not smaller than yMin - height (+-1?) of root and not too big either
-int PlacementFactory::findMinY(std::list<PositionedRectangle*>* horizontalContour, std::list<PositionedRectangle*>::iterator currentHorizontalContourElement,
-		int width) {
+int PlacementFactory::findMinY(std::list<PositionedRectangle*>* horizontalContour,
+		std::list<PositionedRectangle*>::iterator currentHorizontalContourElement, int width) {
 	int y = 0;
 	int xMax = (*currentHorizontalContourElement)->getXMax() + width;
 	if (horizontalContour->end() != currentHorizontalContourElement) {
@@ -20,8 +20,23 @@ int PlacementFactory::findMinY(std::list<PositionedRectangle*>* horizontalContou
 	return y;
 }
 
-void PlacementFactory::buildPlacementRecursively(BStarTree* tree, Placement* placement, BTreeNode* rootNode, PositionedRectangle* rootPositionedRecangle,
-		std::list<PositionedRectangle*>* horizontalContour, std::list<PositionedRectangle*>::iterator currentHorizontalContourElement) {
+std::list<PositionedRectangle*>::iterator PlacementFactory::updateContour(std::list<PositionedRectangle*>* horizontalContour,
+		std::list<PositionedRectangle*>::iterator firstHorizontalContourElementBelowNewElement, PositionedRectangle* newElement) {
+	auto currentHorizontalontourElementBelowNewElement = firstHorizontalContourElementBelowNewElement;
+	while ((*currentHorizontalontourElementBelowNewElement)->getXMax() <= newElement->getXMax()) {
+		if ((*currentHorizontalontourElementBelowNewElement)->getXMin() >= newElement->getXMin()
+				&& (*currentHorizontalontourElementBelowNewElement)->getXMin() < newElement->getXMax()) {
+			currentHorizontalontourElementBelowNewElement = horizontalContour->erase(currentHorizontalontourElementBelowNewElement);
+		} else {
+			currentHorizontalontourElementBelowNewElement++;
+		}
+	}
+	return horizontalContour->insert(currentHorizontalontourElementBelowNewElement, newElement);
+}
+
+void PlacementFactory::buildPlacementRecursively(BStarTree* tree, Placement* placement, BTreeNode* rootNode,
+		PositionedRectangle* rootPositionedRecangle, std::list<PositionedRectangle*>* horizontalContour,
+		std::list<PositionedRectangle*>::iterator currentHorizontalContourElement) {
 	auto rootRectangle = tree->getRectangle(rootNode);
 
 	//Left child = rectangle to the right
@@ -30,12 +45,14 @@ void PlacementFactory::buildPlacementRecursively(BStarTree* tree, Placement* pla
 		int y = findMinY(horizontalContour, currentHorizontalContourElement, leftChildRectangle->getWidth());
 		auto leftChildPositionedRectangle = new PositionedRectangle(leftChildRectangle, new Coordinates(rootPositionedRecangle->getXMax(), y));
 		placement->add(leftChildPositionedRectangle);
-		//TODO auto rightCurrentHorizontalContourElement = updateContour(...);
-//		buildPlacementRecursively(tree, placement, rootNode, rootPositionedRecangle, horizontalContour, rightCurrentHorizontalContourElement);
+		auto firstHorizontalContourElementBelowNewElement = currentHorizontalContourElement;
+		firstHorizontalContourElementBelowNewElement++;
+		auto rightCurrentHorizontalContourElement = updateContour(horizontalContour, firstHorizontalContourElementBelowNewElement, leftChildPositionedRectangle);
+		buildPlacementRecursively(tree, placement, rootNode, rootPositionedRecangle, horizontalContour, rightCurrentHorizontalContourElement);
 	}
 
 //Right child = rectangle to the top
-	if(rootNode->hasRightChild()){
+	if (rootNode->hasRightChild()) {
 
 	}
 

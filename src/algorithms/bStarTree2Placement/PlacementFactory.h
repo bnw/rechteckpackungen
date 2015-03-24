@@ -20,10 +20,11 @@ public:
 	 */
 	int findMinY(std::list<PositionedRectangle*>* horizontalContour, std::list<PositionedRectangle*>::iterator currentHorizontalContourElement,
 			int width);
+	std::list<PositionedRectangle*>::iterator updateContour(std::list<PositionedRectangle*>* horizontalContour,
+			std::list<PositionedRectangle*>::iterator firstHorizontalContourElementBelowNewElement, PositionedRectangle* newElement);
 protected:
-	void buildPlacementRecursively(BStarTree* tree, Placement* placement, BTreeNode* rootNode,
-			PositionedRectangle* rootPositionedRecangle, std::list<PositionedRectangle*>* horizontalContour,
-			std::list<PositionedRectangle*>::iterator currentHorizontalContourElement);
+	void buildPlacementRecursively(BStarTree* tree, Placement* placement, BTreeNode* rootNode, PositionedRectangle* rootPositionedRecangle,
+			std::list<PositionedRectangle*>* horizontalContour, std::list<PositionedRectangle*>::iterator currentHorizontalContourElement);
 };
 
 }
