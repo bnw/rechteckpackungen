@@ -12,7 +12,7 @@
 
 namespace rechteckpackungen {
 
-BStarTree* createTree(Placement* placement){
+BStarTree* createTree(Placement* placement) {
 	auto factory = placement2BStarTree::BStarTreeFactory();
 	return factory.create(placement);
 }
@@ -49,7 +49,8 @@ void testBStarTreeFromPlacementConstruction() {
 void testBStarTreeFromTextPlacementConstruction() {
 	//Equal to "Figure 1" of B*-Tree paper
 	std::stringstream fig1;
-	fig1 << "0 6 0 6 0 0\n0 1 6 10 0 0\n1 3 6 8 0 0\n3 4 6 11 0 0\n4 5 6 9 0 0\n0 2 10 12 0 0\n2 5 11 12 0 0\n6 10 0 2 0 0\n6 8 2 4 0 0\n6 10 4 5 0 0\n6 9 5 11 0 0\n8 9 2 3 0 0";
+	fig1
+			<< "0 6 0 6 0 0\n0 1 6 10 0 0\n1 3 6 8 0 0\n3 4 6 11 0 0\n4 5 6 9 0 0\n0 2 10 12 0 0\n2 5 11 12 0 0\n6 10 0 2 0 0\n6 8 2 4 0 0\n6 10 4 5 0 0\n6 9 5 11 0 0\n8 9 2 3 0 0";
 	auto reader = PlacementReader();
 	auto placement = reader.read(fig1);
 	auto tree = createTree(placement);
@@ -89,12 +90,12 @@ void testBStarTreeFromTextPlacementConstruction() {
 	ASSERT(n8->hasLeftChild());
 	auto n11 = n8->getLeftChild();
 
-	ASSERT(*tree->getRectangle(n0) == Rectangle(6,6));
-	ASSERT(*tree->getRectangle(n1) == Rectangle(1,4));
+	ASSERT(*tree->getRectangle(n0) == Rectangle(6, 6));
+	ASSERT(*tree->getRectangle(n1) == Rectangle(1, 4));
 	ASSERT(*tree->getRectangle(n2) == Rectangle(2, 2));
 	ASSERT(*tree->getRectangle(n3) == Rectangle(1, 5));
 	ASSERT(*tree->getRectangle(n4) == Rectangle(1, 3));
-	ASSERT(*tree->getRectangle(n5) == Rectangle(2, 2 ));
+	ASSERT(*tree->getRectangle(n5) == Rectangle(2, 2));
 	ASSERT(*tree->getRectangle(n6) == Rectangle(3, 1));
 	ASSERT(*tree->getRectangle(n7) == Rectangle(4, 2));
 	ASSERT(*tree->getRectangle(n8) == Rectangle(2, 2));
@@ -108,6 +109,36 @@ void testBStarTreeFromTextPlacementConstruction() {
 	ASSERT(n5->hasRightChild() == false);
 
 	delete placement, tree;
+}
+
+/**
+ * d
+ * dccc
+ * d b
+ * dab
+ */
+void testThatThereCanBeSpaceBetweenTwoRectangles() {
+	auto placement = new Placement();
+	auto a = new PositionedRectangle(1, 2, 0, 1);
+	auto b = new PositionedRectangle(2, 3, 0, 2);
+	auto c = new PositionedRectangle(1, 4, 2, 3);
+	auto d = new PositionedRectangle(0, 1, 0, 4);
+
+	placement->add(a);
+	placement->add(b);
+	placement->add(c);
+	placement->add(d);
+	auto tree = createTree(placement);
+
+	auto root = tree->getRoot();
+	ASSERT_EQUAL(d->getRectangle(), tree->getRectangle(root));
+	ASSERT(root->hasLeftChild());
+	ASSERT(root->hasRightChild() == false);
+	ASSERT_EQUAL(a->getRectangle(), tree->getRectangle(root->getLeftChild()));
+	ASSERT(root->getLeftChild()->hasLeftChild());
+	ASSERT_EQUAL(b->getRectangle(), tree->getRectangle(root->getLeftChild()->getLeftChild()));
+	ASSERT(root->getLeftChild()->hasRightChild());
+	ASSERT_EQUAL(c->getRectangle(), tree->getRectangle(root->getLeftChild()->getRightChild()));
 }
 
 void testThatBuiltTreesAreUnique() {
@@ -131,16 +162,19 @@ void testThatBuiltTreesAreUnique() {
 	 * According to specification, 3 must be left child of 1 and not right child of 2!
 	 */
 	auto n0 = tree->getRoot();
+	ASSERT(n0->hasRightChild());
 	auto n1 = n0->getRightChild();
+	ASSERT(n0->hasLeftChild());
 	auto n2 = n0->getLeftChild();
+	ASSERT(n1->hasLeftChild());
 	auto n3 = n1->getLeftChild();
 
-	ASSERT(n0->getIndex() == 0);
-	ASSERT(n1->getIndex() == 1);
-	ASSERT(n2->getIndex() == 2);
-	ASSERT(n3 != nullptr && n3->getIndex() == 3);
+	ASSERT_EQUAL(b0->getRectangle(), tree->getRectangle(n0));
+	ASSERT_EQUAL(b1->getRectangle(), tree->getRectangle(n1));
+	ASSERT_EQUAL(b2->getRectangle(), tree->getRectangle(n2));
+	ASSERT_EQUAL(b3->getRectangle(), tree->getRectangle(n3));
 
-	ASSERT(n2->hasChildren() == false);
+	ASSERT_EQUAL(false, n2->hasChildren());
 
 	delete placement, tree;
 }
@@ -149,7 +183,8 @@ cute::suite make_suite_BStarTreeFactory() {
 	cute::suite s;
 	s.push_back(CUTE(testBStarTreeFromPlacementConstruction));
 	s.push_back(CUTE(testBStarTreeFromTextPlacementConstruction));
-	//s.push_back(CUTE(testThatBuiltTreesAreUnique)); //TODO
+	s.push_back(CUTE(testThatThereCanBeSpaceBetweenTwoRectangles));
+	s.push_back(CUTE(testThatBuiltTreesAreUnique));
 	return s;
 }
 

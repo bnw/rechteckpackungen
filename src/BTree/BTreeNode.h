@@ -16,6 +16,7 @@ public:
 	BTreeNode* getParent();
 	BTreeNode* getLeftChild();
 	BTreeNode* getRightChild();
+	BTreeNode* getClosestParentOfWhichIAmLeft();
 	int getIndex();
 	bool hasParent();
 	bool hasLeftChild();

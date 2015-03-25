@@ -41,6 +41,16 @@ BTreeNode* BTreeNode::getRightChild() {
 	return rightChild;
 }
 
+BTreeNode* BTreeNode::getClosestParentOfWhichIAmLeft(){
+	if(!hasParent()){
+		return NULL;
+	}
+	if(getParent()->getLeftChild() == this){
+		return getParent();
+	}
+	return getParent()->getClosestParentOfWhichIAmLeft();
+}
+
 bool BTreeNode::hasParent() {
 	return getParent() != nullptr;
 }

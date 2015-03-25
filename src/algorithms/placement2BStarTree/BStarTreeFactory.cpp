@@ -27,7 +27,8 @@ BStarTree* BStarTreeFactory::create(Placement* placement) {
 	return tree;
 }
 
-void BStarTreeFactory::buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree, std::vector<PositionedRectangle*>* positionedRectangles) {
+void BStarTreeFactory::buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree,
+		std::vector<PositionedRectangle*>* positionedRectangles) {
 
 	auto rootRectangle = positionedRectangles->at(rootNode->getIndex());
 	auto rootIndex = rootNode->getIndex();
@@ -45,7 +46,10 @@ void BStarTreeFactory::buildTreeRecursively(BTreeNode* rootNode, std::vector<std
 	currentXBucket = &xBuckets.at(rootRectangle->getXMin());
 	if (!currentXBucket->empty()) {
 		auto lowestUnvistedModuleInXBucket = currentXBucket->back();
-		if (rootRectangle->getYMax() == positionedRectangles->at(lowestUnvistedModuleInXBucket)->getYMin()) {
+		auto closestParentOfWhichIAmLeft = rootNode->getClosestParentOfWhichIAmLeft();
+		if (closestParentOfWhichIAmLeft == NULL
+				|| positionedRectangles->at(closestParentOfWhichIAmLeft->getIndex())->getYMax()
+						> positionedRectangles->at(lowestUnvistedModuleInXBucket)->getYMin()) {
 			currentXBucket->pop_back();
 			tree->setRightChild(tree->at(rootIndex), tree->at(lowestUnvistedModuleInXBucket));
 			buildTreeRecursively(tree->at(lowestUnvistedModuleInXBucket), xBuckets, tree, positionedRectangles);
