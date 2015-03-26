@@ -8,7 +8,6 @@ BStarTree::BStarTree(std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> re
 }
 
 BStarTree::~BStarTree() {
-//	delete rectangles;
 }
 
 std::shared_ptr<Rectangle> BStarTree::getRectangle(BTreeNode* node) {
