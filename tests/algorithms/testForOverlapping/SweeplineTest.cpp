@@ -1,6 +1,7 @@
 #include "cute.h"
 #include "SweeplineTest.h"
 
+#include <memory>
 #include "algorithms/testForOverlapping/Sweepline.h"
 
 namespace rechteckpackungen {
@@ -8,20 +9,16 @@ namespace rechteckpackungen {
 void testSweeplineHasOverlapping() {
 	Placement notOverlappingPlacement;
 	notOverlappingPlacement.add(
-			new PositionedRectangle(new Rectangle(2, 3),
-					new Coordinates(0, 1)));
+			new PositionedRectangle(std::shared_ptr<Rectangle>(new Rectangle(2, 3)), std::shared_ptr<Coordinates>(new Coordinates(0, 1))));
 	notOverlappingPlacement.add(
-			new PositionedRectangle(new Rectangle(2, 4),
-					new Coordinates(3, 3)));
+			new PositionedRectangle(std::shared_ptr<Rectangle>(new Rectangle(2, 4)), std::shared_ptr<Coordinates>(new Coordinates(3, 3))));
 
 	//right adjacent
 	Placement notOverlappingPlacement2;
 	notOverlappingPlacement2.add(
-			new PositionedRectangle(new Rectangle(3, 1),
-					new Coordinates(0, 0)));
+			new PositionedRectangle(std::shared_ptr<Rectangle>(new Rectangle(3, 1)), std::shared_ptr<Coordinates>(new Coordinates(0, 0))));
 	notOverlappingPlacement2.add(
-			new PositionedRectangle(new Rectangle(1, 1),
-					new Coordinates(3, 0)));
+			new PositionedRectangle(std::shared_ptr<Rectangle>(new Rectangle(1, 1)), std::shared_ptr<Coordinates>(new Coordinates(3, 0))));
 
 	//top adjacent
 	Placement notOverlappingPlacement3;
@@ -30,11 +27,9 @@ void testSweeplineHasOverlapping() {
 
 	Placement overlappingPlacement;
 	overlappingPlacement.add(
-			new PositionedRectangle(new Rectangle(3, 1),
-					new Coordinates(0, 0)));
+			new PositionedRectangle(std::shared_ptr<Rectangle>(new Rectangle(3, 1)), std::shared_ptr<Coordinates>(new Coordinates(0, 0))));
 	overlappingPlacement.add(
-			new PositionedRectangle(new Rectangle(1, 1),
-					new Coordinates(2, 0)));
+			new PositionedRectangle(std::shared_ptr<Rectangle>(new Rectangle(1, 1)), std::shared_ptr<Coordinates>(new Coordinates(2, 0))));
 
 	Sweepline algorithm;
 	ASSERT(algorithm.hasOverlapping(&notOverlappingPlacement) == false);
