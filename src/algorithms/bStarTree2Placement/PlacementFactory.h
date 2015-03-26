@@ -15,11 +15,12 @@ class PlacementFactory {
 public:
 	Placement* create(BStarTree* tree);
 	/**
-	 * Finds the minimum y-value a new rectangle of specified width can be inserted to,
-	 * if its xMin has to be equal to (*currentHorizontalContourElement)->getXMax().
+	 * Finds the minimum y-value a new rectangle of specified width can be inserted to at xMin.
+	 * currentHorizontalContourElement is the leftmost element in the contour that is below the new rectangle.
+	 * If non exists, currentHorizontalContourElement is equal to horizontalContour->end().
 	 */
-	int findMinY(std::list<PositionedRectangle*>* horizontalContour, std::list<PositionedRectangle*>::iterator currentHorizontalContourElement,
-			int width);
+	int findMinY(std::list<PositionedRectangle*>* horizontalContour,
+			std::list<PositionedRectangle*>::iterator firstHorizontalContourElementBelowNewElement, int width, int xMin);
 	std::list<PositionedRectangle*>::iterator updateContour(std::list<PositionedRectangle*>* horizontalContour,
 			std::list<PositionedRectangle*>::iterator firstHorizontalContourElementBelowNewElement, PositionedRectangle* newElement);
 protected:

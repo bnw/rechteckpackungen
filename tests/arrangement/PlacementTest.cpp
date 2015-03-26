@@ -19,7 +19,7 @@ void testPlacementSort(){ //TODO Test all ISortInt implementations in a separate
 	subject->add(new PositionedRectangle(new Rectangle(0, 0), new Coordinates(3, 0)));
 	subject->sortPositionedRectanglesByXMin(sorter);
 
-	ASSERT(*subject == *expectedResult);
+	ASSERT(*subject == *expectedResult);//TODO
 
 	delete expectedResult, subject, sorter;
 }
