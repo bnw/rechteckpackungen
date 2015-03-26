@@ -2,22 +2,19 @@
 
 namespace rechteckpackungen {
 
-PositionedRectangle::PositionedRectangle(Rectangle *rect, Coordinates *coord) {
+PositionedRectangle::PositionedRectangle(std::shared_ptr<Rectangle> rect, std::shared_ptr<Coordinates> coord) {
 	this->rect = rect;
 	this->coord = coord;
 }
 
-PositionedRectangle::PositionedRectangle(int xMin, int xMax, int yMin,
-		int yMax) {
+PositionedRectangle::PositionedRectangle(int xMin, int xMax, int yMin, int yMax) {
 	int width = xMax - xMin;
 	int height = yMax - yMin;
-	this->rect = new Rectangle(width, height);
-	this->coord = new Coordinates(xMin, yMin);
+	this->rect = std::shared_ptr<Rectangle>(new Rectangle(width, height));
+	this->coord = std::shared_ptr<Coordinates>(new Coordinates(xMin, yMin));
 }
 
 PositionedRectangle::~PositionedRectangle() {
-	delete rect;
-	delete coord;
 }
 
 int PositionedRectangle::getXMin() const {
@@ -36,7 +33,7 @@ int PositionedRectangle::getYMax() const {
 	return this->coord->getY() + this->rect->getHeight();
 }
 
-Rectangle* PositionedRectangle::getRectangle(){
+std::shared_ptr<Rectangle> PositionedRectangle::getRectangle() {
 	return this->rect;
 }
 

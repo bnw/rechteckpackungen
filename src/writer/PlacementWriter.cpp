@@ -2,7 +2,7 @@
 
 namespace rechteckpackungen {
 
-std::string PlacementWriter::toString(Placement* placement) {
+std::string PlacementWriter::toString(std::shared_ptr<Placement> placement) {
 	std::stringstream result;
 	bool first = true;
 	for (auto positionedRectangle : *(placement->getPositionedRectangles())) {

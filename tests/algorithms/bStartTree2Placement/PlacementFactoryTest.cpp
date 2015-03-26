@@ -8,6 +8,7 @@
 #include <vector>
 #include <list>
 #include <unordered_set>
+#include <memory>
 
 namespace rechteckpackungen {
 
@@ -44,12 +45,12 @@ void testFindYMin() {
 	auto cPositioned = new PositionedRectangle(c, new Coordinates(2, 0));
 	auto dPositioned = new PositionedRectangle(d, new Coordinates(5, 0));
 	auto ePositioned = new PositionedRectangle(e, new Coordinates(6, 0));
-	auto rectangles = new std::vector<Rectangle*>();
-	rectangles->push_back(a); // index = 0
-	rectangles->push_back(b); // index = 1
-	rectangles->push_back(c); // index = 2
-	rectangles->push_back(d); // index = 3
-	rectangles->push_back(e); // index = 4
+	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>());
+	rectangles->push_back(std::shared_ptr<Rectangle>(a)); // index = 0
+	rectangles->push_back(std::shared_ptr<Rectangle>(b)); // index = 1
+	rectangles->push_back(std::shared_ptr<Rectangle>(c)); // index = 2
+	rectangles->push_back(std::shared_ptr<Rectangle>(d)); // index = 3
+	rectangles->push_back(std::shared_ptr<Rectangle>(e)); // index = 4
 	auto contour = std::list<PositionedRectangle*>();
 	contour.push_back(aPositioned);
 	contour.push_back(bPositioned);
@@ -195,12 +196,12 @@ void testUpdateContour3() {
  */
 void testCreateHorizontal() {
 	auto factory = bStarTree2Placement::PlacementFactory();
-	auto a = new Rectangle(1, 1);
-	auto b = new Rectangle(1, 1);
-	auto c = new Rectangle(3, 3);
-	auto d = new Rectangle(1, 5);
-	auto e = new Rectangle(1, 1);
-	auto rectangles = new std::vector<Rectangle*>();
+	auto a = std::shared_ptr<Rectangle>(new Rectangle(1, 1));
+	auto b = std::shared_ptr<Rectangle>(new Rectangle(1, 1));
+	auto c = std::shared_ptr<Rectangle>(new Rectangle(3, 3));
+	auto d = std::shared_ptr<Rectangle>(new Rectangle(1, 5));
+	auto e = std::shared_ptr<Rectangle>(new Rectangle(1, 1));
+	auto rectangles = new std::vector<std::shared_ptr<Rectangle>>();
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
 	rectangles->push_back(c); // index = 2

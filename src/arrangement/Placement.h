@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <memory>
 #include "arrangement/PositionedRectangle.h"
 #include "Rectangle.h"
 #include "algorithms/sortInt/IIntSorter.h"
@@ -20,7 +21,7 @@ public:
 	bool operator==(const Placement& other);
 	void add(PositionedRectangle*);
 	std::vector<PositionedRectangle*>* getPositionedRectangles();
-	std::vector<Rectangle*>* getRectangles();
+	std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> getRectangles();
 
 	/*
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
@@ -32,6 +33,8 @@ public:
 	 * Complexity: n
 	 */
 	int getXMax();
+	int getYMax();
+	int getArea();
 private:
 	std::vector<PositionedRectangle*>* positionedRectangles;
 

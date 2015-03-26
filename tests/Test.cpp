@@ -12,6 +12,7 @@
 #include "algorithms/sortInt/IntSorterTest.h"
 #include "algorithms/placement2BStarTree/BStarTreeFactoryTest.h"
 #include "algorithms/bStartTree2Placement/PlacementFactoryTest.h"
+#include "algorithms/enumerateBStarTrees/EnumeratorTest.h"
 #include "util/String2intTest.h"
 #include "writer/PlacementWriterTest.h"
 #include "BTree/BTreeNodeTest.h"
@@ -32,6 +33,7 @@ void runAllTests(int argc, char const *argv[]) {
 	s += rechteckpackungen::make_suite_SortIntTest();
 	s += rechteckpackungen::make_suite_PlacementFactoryTest();
 	s += rechteckpackungen::make_suite_BTreeNodeTest();
+	s += rechteckpackungen::make_suite_EnumeratorTest();
 
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<> > lis(xmlfile.out);

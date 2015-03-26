@@ -22,6 +22,7 @@ public:
 	bool hasLeftChild();
 	bool hasRightChild();
 	bool hasChildren();
+	bool isAncestor(BTreeNode* pssibleAncestor);
 	void setLeftChild(BTreeNode* leftChild);
 	void setRightChild(BTreeNode* rightChild);
 	void removeChild(BTreeNode* child);

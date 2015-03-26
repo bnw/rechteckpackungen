@@ -7,12 +7,13 @@
 
 #include "Coordinates.h"
 #include "../Rectangle.h"
+#include <memory>
 
 namespace rechteckpackungen {
 
 class PositionedRectangle {
 public:
-	PositionedRectangle(Rectangle* rect, Coordinates* coord);
+	PositionedRectangle(std::shared_ptr<Rectangle> rect, std::shared_ptr<Coordinates> coord);
 	PositionedRectangle(int xMin, int xMax, int yMin, int yMax);
 	~PositionedRectangle();
 	bool operator==(const PositionedRectangle& other);
@@ -20,10 +21,10 @@ public:
 	int getXMax() const;
 	int getYMin() const;
 	int getYMax() const;
-	Rectangle* getRectangle();
+	std::shared_ptr<Rectangle> getRectangle();
 private:
-	Rectangle* rect;
-	Coordinates* coord;
+	std::shared_ptr<Rectangle> rect;
+	std::shared_ptr<Coordinates> coord;
 };
 
 }

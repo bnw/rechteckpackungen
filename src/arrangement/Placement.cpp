@@ -41,14 +41,24 @@ int Placement::getXMax() {
 	return (*rightmostRectangle)->getXMax();
 }
 
+int Placement::getYMax() {
+	auto topmostRectangle = std::max_element(positionedRectangles->begin(), positionedRectangles->end(),
+			[](const PositionedRectangle* a, const PositionedRectangle* b) {return a->getYMax() < b->getYMax();});
+	return (*topmostRectangle)->getYMax();
+}
+
+int Placement::getArea(){
+	return getYMax() * getXMax();
+}
+
 std::vector<PositionedRectangle*>* Placement::getPositionedRectangles() {
 	return positionedRectangles;
 }
 
-std::vector<Rectangle*>* Placement::getRectangles() {
-	auto rectangles = new std::vector<Rectangle*>;
+std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> Placement::getRectangles() {
+	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>);
 	for(auto positionedRectangle : *positionedRectangles){
-		rectangles->push_back(positionedRectangle->getRectangle());
+		rectangles->push_back(std::shared_ptr<Rectangle>(positionedRectangle->getRectangle()));
 	}
 	return rectangles;
 }

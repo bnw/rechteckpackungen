@@ -4,20 +4,21 @@
 #include "arrangement/PositionedRectangle.h"
 #include "Rectangle.h"
 #include <vector>
+#include <memory>
 
 namespace rechteckpackungen {
 
 class Instance {
 public:
-	Instance(PositionedRectangle* area);
+	Instance(std::shared_ptr<PositionedRectangle> area);
 	~Instance();
 	bool operator==(const Instance& other);
-	PositionedRectangle* getArea();
-	void addRectangle(Rectangle* rect);
-	std::vector<Rectangle*>* getRectangles();
+	std::shared_ptr<PositionedRectangle> getArea();
+	void addRectangle(std::shared_ptr<Rectangle> rect);
+	std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> getRectangles();
 private:
-	PositionedRectangle* area;
-	std::vector<Rectangle*>* rectangles;
+	std::shared_ptr<PositionedRectangle> area;
+	std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> rectangles;
 };
 
 }

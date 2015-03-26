@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace rechteckpackungen {
 
@@ -17,8 +18,8 @@ class InstanceReader {
 public:
 	Instance* read(std::istream& input);
 private:
-	PositionedRectangle* getAreaFromLine(std::string line);
-	Rectangle* getRectangleFromLineParts(std::vector<std::string>* parts);
+	std::shared_ptr<PositionedRectangle> getAreaFromLine(std::string line);
+	std::shared_ptr<Rectangle> getRectangleFromLineParts(std::vector<std::string>* parts);
 };
 
 }

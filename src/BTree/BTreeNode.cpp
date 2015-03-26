@@ -67,6 +67,16 @@ bool BTreeNode::hasChildren(){
 	return hasLeftChild() || hasRightChild();
 }
 
+bool BTreeNode::isAncestor(BTreeNode* pssibleAncestor){
+	if(!hasParent()){
+		return false;
+	}
+	if(getParent() == pssibleAncestor){
+		return true;
+	}
+	return getParent()->isAncestor(pssibleAncestor);
+}
+
 void BTreeNode::removeChild(BTreeNode* child) {
 	if (leftChild == child) {
 		leftChild = nullptr;

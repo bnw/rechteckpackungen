@@ -6,17 +6,18 @@
 #include "Rectangle.h"
 #include "algorithms/sortInt/BucketSort.h"
 #include <vector>
+#include <memory>
 
 namespace rechteckpackungen {
 
 class BStarTree: public BTree {
 public:
-	BStarTree(std::vector<Rectangle*>* rectangles);
+	BStarTree(std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> rectangles);
 	virtual ~BStarTree();
-	Rectangle* getRectangle(BTreeNode* node);
-	Rectangle* getRectangle(int index);
+	std::shared_ptr<Rectangle> getRectangle(BTreeNode* node);
+	std::shared_ptr<Rectangle> getRectangle(int index);
 private:
-	std::vector<Rectangle*>* rectangles;
+	std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> rectangles;
 };
 
 }

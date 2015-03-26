@@ -2,17 +2,12 @@
 
 namespace rechteckpackungen {
 
-Instance::Instance(PositionedRectangle* area) {
-	this->area = area;
-	rectangles = new std::vector<Rectangle*>;
+Instance::Instance(std::shared_ptr<PositionedRectangle> area) :
+		area(area) {
+	rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>);
 }
 
 Instance::~Instance() {
-	delete area;
-	for (auto rectangle : *rectangles) {
-		delete rectangle;
-	}
-	delete rectangles;
 }
 
 bool Instance::operator==(const Instance& other) {
@@ -20,8 +15,8 @@ bool Instance::operator==(const Instance& other) {
 		return false;
 	}
 	for (int i = 0; i < rectangles->size(); i++) {
-		auto ownRectangle = (Rectangle*) rectangles->at(i);
-		auto otherRectangle = (Rectangle*) other.rectangles->at(i);
+		auto ownRectangle = rectangles->at(i);
+		auto otherRectangle = other.rectangles->at(i);
 		if (!(*ownRectangle == *otherRectangle)) {
 			return false;
 		}
@@ -32,15 +27,15 @@ bool Instance::operator==(const Instance& other) {
 	return true;
 }
 
-void Instance::addRectangle(Rectangle* rect) {
+void Instance::addRectangle(std::shared_ptr<Rectangle> rect) {
 	rectangles->push_back(rect);
 }
 
-std::vector<Rectangle*>* Instance::getRectangles() {
+std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>Instance::getRectangles() {
 	return rectangles;
 }
 
-PositionedRectangle* Instance::getArea() {
+std::shared_ptr<PositionedRectangle> Instance::getArea() {
 	return area;
 }
 

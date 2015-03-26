@@ -17,9 +17,12 @@ public:
 	virtual ~BTree();
 	void setLeftChild(BTreeNode* parent, BTreeNode* leftChild);
 	void setRightChild(BTreeNode* parent, BTreeNode* rightChild);
+	void removeLeftChild(BTreeNode* parent);
+	void removeRightChild(BTreeNode* parent);
 	BTreeNode* at(int i);
 	BTreeNode* getRoot();
 	void setRoot(BTreeNode* node);
+	int getSize();
 protected:
 	std::vector<BTreeNode*> nodes;
 	BTreeNode* root;

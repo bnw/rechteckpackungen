@@ -35,6 +35,22 @@ void BTree::setRightChild(BTreeNode* parent, BTreeNode* rightChild) {
 	parent->setRightChild(rightChild);
 }
 
+void BTree::removeLeftChild(BTreeNode* parent){
+	if(!parent->hasLeftChild()){
+		throw new std::runtime_error("Was asked to remove left child, but no left child present.");
+	}
+	parent->getLeftChild()->setParent(nullptr);
+	parent->setLeftChild(nullptr);
+}
+
+void BTree::removeRightChild(BTreeNode* parent){
+	if(!parent->hasRightChild()){
+		throw new std::runtime_error("Was asked to remove right child, but no right child present.");
+	}
+	parent->getRightChild()->setParent(nullptr);
+	parent->setRightChild(nullptr);
+}
+
 BTreeNode* BTree::at(int i){
 	return nodes.at(i);
 }
@@ -44,11 +60,12 @@ BTreeNode* BTree::getRoot(){
 }
 
 void BTree::setRoot(BTreeNode* node) {
-	if(root != nullptr){
-		throw new std::runtime_error("Cannot set root because root was already set");
-	}
 	node->setParent(nullptr);
 	root = node;
+}
+
+int BTree::getSize(){
+	return size;
 }
 
 }
