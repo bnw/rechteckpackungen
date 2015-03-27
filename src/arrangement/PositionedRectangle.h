@@ -14,6 +14,7 @@ namespace rechteckpackungen {
 class PositionedRectangle {
 public:
 	PositionedRectangle(std::shared_ptr<Rectangle> rect, std::shared_ptr<Coordinates> coord);
+	PositionedRectangle(std::shared_ptr<Rectangle> rect, int xMin, int yMin);
 	PositionedRectangle(int xMin, int xMax, int yMin, int yMax);
 	~PositionedRectangle();
 	bool operator==(const PositionedRectangle& other);

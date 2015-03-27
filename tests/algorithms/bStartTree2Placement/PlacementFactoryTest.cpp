@@ -40,11 +40,11 @@ void testFindYMin() {
 	auto c = std::shared_ptr<Rectangle>(new Rectangle(3, 3));
 	auto d = std::shared_ptr<Rectangle>(new Rectangle(1, 5));
 	auto e = std::shared_ptr<Rectangle>(new Rectangle(1, 1));
-	auto aPositioned = new PositionedRectangle(a, std::shared_ptr<Coordinates>(new Coordinates(0, 0)));
-	auto bPositioned = new PositionedRectangle(b, std::shared_ptr<Coordinates>(new Coordinates(1, 0)));
-	auto cPositioned = new PositionedRectangle(c, std::shared_ptr<Coordinates>(new Coordinates(2, 0)));
-	auto dPositioned = new PositionedRectangle(d, std::shared_ptr<Coordinates>(new Coordinates(5, 0)));
-	auto ePositioned = new PositionedRectangle(e, std::shared_ptr<Coordinates>(new Coordinates(6, 0)));
+	auto aPositioned = new PositionedRectangle(a, 0, 0);
+	auto bPositioned = new PositionedRectangle(b, 1, 0);
+	auto cPositioned = new PositionedRectangle(c, 2, 0);
+	auto dPositioned = new PositionedRectangle(d, 5, 0);
+	auto ePositioned = new PositionedRectangle(e, 6, 0);
 	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
@@ -85,11 +85,11 @@ void testUpdateContour1() {
 	auto c = std::shared_ptr<Rectangle>(new Rectangle(3, 3));
 	auto d = std::shared_ptr<Rectangle>(new Rectangle(1, 5));
 	auto e = std::shared_ptr<Rectangle>(new Rectangle(1, 1));
-	auto aPositioned = new PositionedRectangle(a, std::shared_ptr<Coordinates>(new Coordinates(0, 0)));
-	auto bPositioned = new PositionedRectangle(b, std::shared_ptr<Coordinates>(new Coordinates(1, 0)));
-	auto cPositioned = new PositionedRectangle(c, std::shared_ptr<Coordinates>(new Coordinates(2, 0)));
-	auto dPositioned = new PositionedRectangle(d, std::shared_ptr<Coordinates>(new Coordinates(5, 0)));
-	auto ePositioned = new PositionedRectangle(e, std::shared_ptr<Coordinates>(new Coordinates(6, 0)));
+	auto aPositioned = new PositionedRectangle(a, 0, 0);
+	auto bPositioned = new PositionedRectangle(b, 1, 0);
+	auto cPositioned = new PositionedRectangle(c, 2, 0);
+	auto dPositioned = new PositionedRectangle(d, 5, 0);
+	auto ePositioned = new PositionedRectangle(e, 6, 0);
 	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
@@ -131,11 +131,11 @@ void testUpdateContour2() {
 	auto c = std::shared_ptr<Rectangle>(new Rectangle(3, 3));
 	auto d = std::shared_ptr<Rectangle>(new Rectangle(1, 5));
 	auto e = std::shared_ptr<Rectangle>(new Rectangle(1, 1));
-	auto aPositioned = new PositionedRectangle(a, std::shared_ptr<Coordinates>(new Coordinates(0, 0)));
-	auto bPositioned = new PositionedRectangle(b, std::shared_ptr<Coordinates>(new Coordinates(1, 0)));
-	auto cPositioned = new PositionedRectangle(c, std::shared_ptr<Coordinates>(new Coordinates(2, 0)));
-	auto dPositioned = new PositionedRectangle(d, std::shared_ptr<Coordinates>(new Coordinates(5, 0)));
-	auto ePositioned = new PositionedRectangle(e, std::shared_ptr<Coordinates>(new Coordinates(6, 0)));
+	auto aPositioned = new PositionedRectangle(a, 0, 0);
+	auto bPositioned = new PositionedRectangle(b, 1, 0);
+	auto cPositioned = new PositionedRectangle(c, 2, 0);
+	auto dPositioned = new PositionedRectangle(d, 5, 0);
+	auto ePositioned = new PositionedRectangle(e, 6, 0);
 	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
@@ -168,8 +168,8 @@ void testUpdateContour3() {
 	auto factory = bStarTree2Placement::PlacementFactory();
 	auto a = std::shared_ptr<Rectangle>(new Rectangle(4, 1));
 	auto b = std::shared_ptr<Rectangle>(new Rectangle(2, 1));
-	auto aPositioned = new PositionedRectangle(a, std::shared_ptr<Coordinates>(new Coordinates(0, 0)));
-	auto bPositioned = new PositionedRectangle(b, std::shared_ptr<Coordinates>(new Coordinates(0, 1)));
+	auto aPositioned = new PositionedRectangle(a, 0, 0);
+	auto bPositioned = new PositionedRectangle(b, 0, 1);
 	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
@@ -183,6 +183,34 @@ void testUpdateContour3() {
 
 	auto iterator = contour->begin();
 	ASSERT_EQUAL(2, contour->size());
+	ASSERT_EQUAL(bPositioned, *iterator++);
+	ASSERT_EQUAL(newRectangle, *iterator);
+}
+
+/**
+ *
+ * aabbOO
+ */
+void testUpdateContour4() {
+	auto factory = bStarTree2Placement::PlacementFactory();
+	auto a = std::shared_ptr<Rectangle>(new Rectangle(2, 1));
+	auto b = std::shared_ptr<Rectangle>(new Rectangle(2, 1));
+	auto aPositioned = new PositionedRectangle(a, 0, 0);
+	auto bPositioned = new PositionedRectangle(b, 2, 0);
+	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>());
+	rectangles->push_back(a); // index = 0
+	rectangles->push_back(b); // index = 1
+	auto contour = new std::list<PositionedRectangle*>();
+	contour->push_back(aPositioned);
+	contour->push_back(bPositioned);
+
+	auto newRectangle = new PositionedRectangle(4, 6, 0, 1);
+
+	auto result = factory.updateContour(contour, contour->end(), newRectangle);
+
+	auto iterator = contour->begin();
+	ASSERT_EQUAL(3, contour->size());
+	ASSERT_EQUAL(aPositioned, *iterator++);
 	ASSERT_EQUAL(bPositioned, *iterator++);
 	ASSERT_EQUAL(newRectangle, *iterator);
 }
@@ -202,11 +230,11 @@ void testCreateHorizontal() {
 	auto c = std::shared_ptr<Rectangle>(new Rectangle(3, 3));
 	auto d = std::shared_ptr<Rectangle>(new Rectangle(1, 5));
 	auto e = std::shared_ptr<Rectangle>(new Rectangle(1, 1));
-	auto aPositionedExpected = new PositionedRectangle(a, std::shared_ptr<Coordinates>(new Coordinates(0, 0)));
-	auto bPositionedExpected = new PositionedRectangle(b, std::shared_ptr<Coordinates>(new Coordinates(1, 0)));
-	auto cPositionedExpected = new PositionedRectangle(c, std::shared_ptr<Coordinates>(new Coordinates(2, 0)));
-	auto dPositionedExpected = new PositionedRectangle(d, std::shared_ptr<Coordinates>(new Coordinates(5, 0)));
-	auto ePositionedExpected = new PositionedRectangle(e, std::shared_ptr<Coordinates>(new Coordinates(6, 0)));
+	auto aPositionedExpected = new PositionedRectangle(a, 0, 0);
+	auto bPositionedExpected = new PositionedRectangle(b, 1, 0);
+	auto cPositionedExpected = new PositionedRectangle(c, 2, 0);
+	auto dPositionedExpected = new PositionedRectangle(d, 5, 0);
+	auto ePositionedExpected = new PositionedRectangle(e, 6, 0);
 	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>());
 
 	rectangles->push_back(a); // index = 0
@@ -259,14 +287,14 @@ void testCreateComplete() {
 	rectangles->push_back(f); // index = 5
 	rectangles->push_back(g); // index = 6
 	rectangles->push_back(h); // index = 7
-	auto aPositionedExpected = new PositionedRectangle(a, std::shared_ptr<Coordinates>(new Coordinates(0, 0)));
-	auto bPositionedExpected = new PositionedRectangle(b, std::shared_ptr<Coordinates>(new Coordinates(1, 0)));
-	auto cPositionedExpected = new PositionedRectangle(c, std::shared_ptr<Coordinates>(new Coordinates(2, 0)));
-	auto dPositionedExpected = new PositionedRectangle(d, std::shared_ptr<Coordinates>(new Coordinates(5, 0)));
-	auto ePositionedExpected = new PositionedRectangle(e, std::shared_ptr<Coordinates>(new Coordinates(6, 0)));
-	auto fPositionedExpected = new PositionedRectangle(f, std::shared_ptr<Coordinates>(new Coordinates(1, 3)));
-	auto gPositionedExpected = new PositionedRectangle(g, std::shared_ptr<Coordinates>(new Coordinates(4, 3)));
-	auto hPositionedExpected = new PositionedRectangle(h, std::shared_ptr<Coordinates>(new Coordinates(6, 1)));
+	auto aPositionedExpected = new PositionedRectangle(a, 0, 0);
+	auto bPositionedExpected = new PositionedRectangle(b, 1, 0);
+	auto cPositionedExpected = new PositionedRectangle(c, 2, 0);
+	auto dPositionedExpected = new PositionedRectangle(d, 5, 0);
+	auto ePositionedExpected = new PositionedRectangle(e, 6, 0);
+	auto fPositionedExpected = new PositionedRectangle(f, 1, 3);
+	auto gPositionedExpected = new PositionedRectangle(g, 4, 3);
+	auto hPositionedExpected = new PositionedRectangle(h, 6, 1);
 	auto tree = BStarTree(rectangles);
 	tree.setRoot(tree.at(0));
 	tree.setLeftChild(tree.at(0), tree.at(1));
@@ -300,6 +328,7 @@ cute::suite make_suite_PlacementFactoryTest() {
 	s.push_back(CUTE(testUpdateContour3));
 	s.push_back(CUTE(testCreateHorizontal));
 	s.push_back(CUTE(testCreateComplete));
+	s.push_back(CUTE(testUpdateContour4));
 	return s;
 }
 
