@@ -8,6 +8,7 @@
 #include "reader/InstanceReaderTest.h"
 #include "util/ExplodeTest.h"
 #include "arrangement/PlacementTest.h"
+#include "arrangement/PositionedRectangleTest.h"
 #include "algorithms/testForOverlapping/SweeplineTest.h"
 #include "algorithms/sortInt/IntSorterTest.h"
 #include "algorithms/placement2BStarTree/BStarTreeFactoryTest.h"
@@ -26,6 +27,7 @@ void runAllTests(int argc, char const *argv[]) {
 	s += rechteckpackungen::make_suite_InstanceReaderTest();
 	s += rechteckpackungen::make_suite_ExplodeTest();
 	s += rechteckpackungen::make_suite_PlacementTest();
+	s += rechteckpackungen::make_suite_PositionedRectangleTest();
 	s += rechteckpackungen::make_suite_SweeplineTest();
 	s += rechteckpackungen::make_suite_String2intTest();
 	s += rechteckpackungen::make_suite_PlacementWriterTest();
