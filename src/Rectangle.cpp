@@ -38,4 +38,8 @@ int Rectangle::getHeight() const {
 	return height;
 }
 
+int Rectangle::getArea() const{
+	return width * height;
+}
+
 }

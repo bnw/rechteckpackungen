@@ -13,6 +13,7 @@ public:
 	void rotate();
 	int getWidth() const;
 	int getHeight() const;
+	int getArea() const;
 private:
 	int width;
 	int height;
