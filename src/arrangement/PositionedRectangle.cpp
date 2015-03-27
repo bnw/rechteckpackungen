@@ -45,4 +45,12 @@ bool PositionedRectangle::operator==(const PositionedRectangle& other) {
 	return *rect == *(other.rect) && *coord == *(other.coord);
 }
 
+bool PositionedRectangle::contains(const PositionedRectangle& inner) const{
+	return contains(Coordinates(inner.getXMin(), inner.getYMin())) && contains(Coordinates(inner.getXMax(), inner.getYMax()));
+}
+
+bool PositionedRectangle::contains(const Coordinates& point) const{
+	return getYMin() <= point.getY() && getYMax() >= point.getY() && getXMin() <= point.getX() && getXMax() >= point.getX();
+}
+
 }

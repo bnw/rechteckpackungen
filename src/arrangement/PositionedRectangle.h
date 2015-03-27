@@ -23,6 +23,8 @@ public:
 	int getYMin() const;
 	int getYMax() const;
 	std::shared_ptr<Rectangle> getRectangle();
+	bool contains(const PositionedRectangle& inner) const;
+	bool contains(const Coordinates& point) const;
 private:
 	std::shared_ptr<Rectangle> rect;
 	std::shared_ptr<Coordinates> coord;
