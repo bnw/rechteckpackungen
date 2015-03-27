@@ -22,6 +22,7 @@ public:
 	void add(PositionedRectangle*);
 	std::vector<PositionedRectangle*>* getPositionedRectangles();
 	std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> getRectangles();
+	std::unique_ptr<PositionedRectangle> getBounds() const;
 
 	/*
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
@@ -32,8 +33,8 @@ public:
 	/*
 	 * Complexity: n
 	 */
-	int getXMax();
-	int getYMax();
+	int getXMax() const;
+	int getYMax() const;
 	int getArea();
 private:
 	std::vector<PositionedRectangle*>* positionedRectangles;

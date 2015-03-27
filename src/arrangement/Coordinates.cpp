@@ -12,11 +12,11 @@ Coordinates::Coordinates() {
 	this->y = 0;
 }
 
-int Coordinates::getX(){
+int Coordinates::getX() const{
 	return x;
 }
 
-int Coordinates::getY(){
+int Coordinates::getY() const{
 	return y;
 }
 

@@ -8,8 +8,8 @@ public:
 	Coordinates();
 	Coordinates(int x, int y);
 	bool operator==(const Coordinates& other);
-	int getX();
-	int getY();
+	int getX() const;
+	int getY() const;
 private:
 	int x;
 	int y;

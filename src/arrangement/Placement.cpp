@@ -35,19 +35,19 @@ void Placement::sortPositionedRectanglesByYMin(sortInt::IIntSorter* sortStrategy
 	sortStrategy->sort((std::vector<void*>*) positionedRectangles, [](const void* a) {return ((PositionedRectangle*) a)->getYMin();});
 }
 
-int Placement::getXMax() {
+int Placement::getXMax() const {
 	auto rightmostRectangle = std::max_element(positionedRectangles->begin(), positionedRectangles->end(),
 			[](const PositionedRectangle* a, const PositionedRectangle* b) {return a->getXMax() < b->getXMax();});
 	return (*rightmostRectangle)->getXMax();
 }
 
-int Placement::getYMax() {
+int Placement::getYMax() const {
 	auto topmostRectangle = std::max_element(positionedRectangles->begin(), positionedRectangles->end(),
 			[](const PositionedRectangle* a, const PositionedRectangle* b) {return a->getYMax() < b->getYMax();});
 	return (*topmostRectangle)->getYMax();
 }
 
-int Placement::getArea(){
+int Placement::getArea() {
 	return getYMax() * getXMax();
 }
 
@@ -55,9 +55,13 @@ std::vector<PositionedRectangle*>* Placement::getPositionedRectangles() {
 	return positionedRectangles;
 }
 
-std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> Placement::getRectangles() {
+std::unique_ptr<PositionedRectangle> Placement::getBounds() const {
+	return std::unique_ptr<PositionedRectangle>(new PositionedRectangle(0, getXMax(), 0, getYMax()));
+}
+
+std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>Placement::getRectangles() {
 	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>);
-	for(auto positionedRectangle : *positionedRectangles){
+	for(auto positionedRectangle : *positionedRectangles) {
 		rectangles->push_back(std::shared_ptr<Rectangle>(positionedRectangle->getRectangle()));
 	}
 	return rectangles;
