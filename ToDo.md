@@ -1,7 +1,6 @@
 TODO
 ====
 
-* translate B*-Tree to compactified placement
 * find optimal solution
 * find optimal solution for given bound
 * find local optimal solution
@@ -15,6 +14,7 @@ Done
 ----
 
 * translate compactified placement to B*-Tree
+* translate B*-Tree to compactified placement
 
 Problems
 --------
