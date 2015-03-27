@@ -2,8 +2,8 @@
 
 namespace rechteckpackungen {
 
-Instance::Instance(std::shared_ptr<PositionedRectangle> area) :
-		area(area) {
+Instance::Instance(std::shared_ptr<PositionedRectangle> bounds) :
+		bounds(bounds) {
 	rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>);
 }
 
@@ -21,7 +21,7 @@ bool Instance::operator==(const Instance& other) {
 			return false;
 		}
 	}
-	if (!(*area == *other.area)) {
+	if (!(*bounds == *other.bounds)) {
 		return false;
 	}
 	return true;
@@ -35,8 +35,16 @@ std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>Instance::getRectangles(
 	return rectangles;
 }
 
-std::shared_ptr<PositionedRectangle> Instance::getArea() {
-	return area;
+std::shared_ptr<PositionedRectangle> Instance::getBounds() {
+	return bounds;
+}
+
+int Instance::getAreaSum() const{
+	int areaSum = 0;
+	for(auto rectangle : *rectangles){
+		areaSum += rectangle->getArea();
+	}
+	return areaSum;
 }
 
 }

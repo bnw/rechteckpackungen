@@ -10,14 +10,18 @@ namespace rechteckpackungen {
 
 class Instance {
 public:
-	Instance(std::shared_ptr<PositionedRectangle> area);
+	Instance(std::shared_ptr<PositionedRectangle> bounds);
 	~Instance();
 	bool operator==(const Instance& other);
-	std::shared_ptr<PositionedRectangle> getArea();
+	std::shared_ptr<PositionedRectangle> getBounds();
 	void addRectangle(std::shared_ptr<Rectangle> rect);
 	std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> getRectangles();
+	/**
+	 * Calculates the sum of the area of all rectangles
+	 */
+	int getAreaSum() const;
 private:
-	std::shared_ptr<PositionedRectangle> area;
+	std::shared_ptr<PositionedRectangle> bounds;
 	std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> rectangles;
 };
 
