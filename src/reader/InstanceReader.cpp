@@ -8,26 +8,23 @@ Instance* InstanceReader::read(std::istream& input) {
 	auto instance = new Instance(getAreaFromLine(line));
 
 	while (safeGetline(input, line)) {
-		auto parts = explode(line, ' ');
+		auto parts = std::shared_ptr<std::vector<std::string>>(explode(line, ' '));
 		if(parts->size() == 0){
 			//ignore empty lines
-			delete parts;
 			continue;
 		}
 		if (parts->at(0) == "B" || parts->at(0) == "Net") {
 			//Dont read blockades or nets
-			delete parts;
 			break;
 		}
 		instance->addRectangle(getRectangleFromLineParts(parts));
-		delete parts;
 	}
 
 	return instance;
 }
 
 std::shared_ptr<Rectangle> InstanceReader::getRectangleFromLineParts(
-		std::vector<std::string>* parts) {
+		std::shared_ptr<std::vector<std::string>> parts) {
 	if (parts->size() != 2) {
 		throw std::runtime_error(
 				"Expected rectangle lines to contain exactly 2 numbers");

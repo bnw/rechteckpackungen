@@ -19,7 +19,7 @@ public:
 	Instance* read(std::istream& input);
 private:
 	std::shared_ptr<PositionedRectangle> getAreaFromLine(std::string line);
-	std::shared_ptr<Rectangle> getRectangleFromLineParts(std::vector<std::string>* parts);
+	std::shared_ptr<Rectangle> getRectangleFromLineParts(std::shared_ptr<std::vector<std::string>> parts);
 };
 
 }
