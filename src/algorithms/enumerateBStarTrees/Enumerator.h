@@ -11,9 +11,16 @@ namespace enumerateBStarTrees {
 
 class Enumerator {
 public:
-	void forEachBStarTree(std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> rectangles, const std::function<void(BStarTree*)>& callback);
+	/**
+	 * Calls callback once for every possible BStarTree.
+	 * If callback returns false, enumeration stops.
+	 */
+	void forEachBStarTree(std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> rectangles, const std::function<bool(BStarTree*)>& callback);
 protected:
-	void walkTree(BStarTree* tree, int rootIndex, int currentIndex, const std::function<void(BStarTree*)>& callback);
+	/**
+	 * If returns false, enumeration should stop
+	 */
+	bool walkTree(BStarTree* tree, int rootIndex, int currentIndex, const std::function<bool(BStarTree*)>& callback);
 };
 
 }
