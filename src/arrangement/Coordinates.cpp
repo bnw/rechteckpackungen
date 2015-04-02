@@ -24,4 +24,8 @@ bool Coordinates::operator==(const Coordinates& other) {
 	return x == other.x && y == other.y;
 }
 
+bool Coordinates::areWithin(const Rectangle& bounds) const{
+	return getX() <= bounds.getWidth() && getY() <= bounds.getHeight();
+}
+
 }
