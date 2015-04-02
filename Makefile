@@ -14,7 +14,7 @@ INC = -I./src
 INC_TESTS = -I ./lib/cute -I ./lib/boost $(INC)
 FLAGS_DEVELOPMENT = -std=c++11 -g -O2 -ftest-coverage -fprofile-arcs
 FLAGS_PRODUCTION = -std=c++11 -O3
-FLAGS = $(FLAGS_DEVELOPMENT)
+FLAGS = $(FLAGS_PRODUCTION)
 
 EXECUTABLE_MAIN = rechteckpackungen.exe
 EXECUTABLE_TESTS = test.exe
