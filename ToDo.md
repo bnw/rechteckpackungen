@@ -15,9 +15,3 @@ Done
 
 * translate compactified placement to B*-Tree
 * translate B*-Tree to compactified placement
-
-Problems
---------
-
-* The described algorithm for "placement to B*-Tree" cannot handle all admissible placements, which is not mentioned in the paper. 
-* There are BStarTrees that have no admissible placement.
