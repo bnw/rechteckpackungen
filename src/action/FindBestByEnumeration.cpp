@@ -11,8 +11,8 @@ void FindBestByEnumeration::run(std::istream& input, std::ostream& output) {
 	int areaOfCheapestPlacement = std::numeric_limits<int>::max();
 	int theoreticalOptimalArea = instance->getAreaSum();
 	enumerator.forEachBStarTree(instance->getRectangles(), [&](rechteckpackungen::BStarTree* tree)->bool {
-		auto placement = placementFactory.create(tree);
-		if(instance->getBounds()->contains(*placement->getBounds()) && areaOfCheapestPlacement > placement->getArea()) {
+		auto placement = placementFactory.createBounded(tree, *instance->getBounds()->getRectangle());
+		if(placement != nullptr && areaOfCheapestPlacement > placement->getArea()) {
 			cheapestPlacement = placement;
 			areaOfCheapestPlacement = placement->getArea();
 			if(theoreticalOptimalArea == areaOfCheapestPlacement) {
