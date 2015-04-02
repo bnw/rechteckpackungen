@@ -2,17 +2,31 @@
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
-#include "action/TestOverlappingAction.h"
+#include "action/OverlappingAction.h"
 #include "action/FindBestByEnumeration.h"
+#include "action/IFileAction.h"
 
 using std::cout;
 using std::endl;
-using rechteckpackungen::TestOverlappingAction;
+using rechteckpackungen::OverlappingAction;
 using rechteckpackungen::FindBestByEnumeration;
+using rechteckpackungen::IFileAction;
+
+int runIFileAction(IFileAction& action, char const *filename) {
+	std::ifstream file;
+	file.open(filename);
+	if (!file.is_open()) {
+		std::cout << "Cannot read file " << filename << std::endl;
+		return 1;
+	}
+	action.run(file, std::cout);
+	file.close();
+	return 0;
+}
 
 int main(int argc, char const *argv[]) {
 
-	auto usageInfo = "Usage: rechteckpackungen.exe {test-overlapping|find-optimal-placement} file";
+	auto usageInfo = "Usage: rechteckpackungen.exe { test-overlapping | find-optimal-placement } file";
 
 	if (argc < 3) {
 		cout << usageInfo << endl;
@@ -22,30 +36,19 @@ int main(int argc, char const *argv[]) {
 	auto mode = argv[1];
 	auto filename = argv[2];
 
-	if (strcmp("test-overlapping", mode) == 0) {
-		auto action = TestOverlappingAction();
-		try {
-			action.run(filename);
-		} catch (std::runtime_error &e) {
-			cout << "An exception occurred:" << endl << e.what() << endl;
-		}
-	} else if (strcmp("find-optimal-placement", mode) == 0) {
-		try {
+	try {
+		if (strcmp("test-overlapping", mode) == 0) {
+			auto action = OverlappingAction();
+			return runIFileAction(action, filename);
+		} else if (strcmp("find-optimal-placement", mode) == 0) {
 			auto action = FindBestByEnumeration();
-			std::ifstream file;
-			file.open(filename);
-			if (!file.is_open()) {
-				std::cout << "Cannot read file " << filename << std::endl;
-				return 1;
-			}
-			action.run(file, std::cout);
-			file.close();
-		} catch (std::runtime_error &e) {
-			cout << "An exception occurred:" << endl << e.what() << endl;
+			return runIFileAction(action, filename);
+		} else {
+			cout << "Unrecognized mode '" << mode << "'." << endl << usageInfo << endl;
+			return 1;
 		}
-	} else {
-		cout << "Unrecognized mode '" << mode << "'." << endl << usageInfo << endl;
+	} catch (std::runtime_error &e) {
+		cout << "An exception occurred:" << endl << e.what() << endl;
 	}
-
 	return 0;
 }

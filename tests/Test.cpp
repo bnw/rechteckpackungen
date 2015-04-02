@@ -17,6 +17,8 @@
 #include "util/String2intTest.h"
 #include "writer/PlacementWriterTest.h"
 #include "BTree/BTreeNodeTest.h"
+#include "action/FindByEnumerationTest.h"
+#include "action/OverlappingActionTest.h"
 
 
 void runAllTests(int argc, char const *argv[]) {
@@ -36,6 +38,8 @@ void runAllTests(int argc, char const *argv[]) {
 	s += rechteckpackungen::make_suite_PlacementFactoryTest();
 	s += rechteckpackungen::make_suite_BTreeNodeTest();
 	s += rechteckpackungen::make_suite_EnumeratorTest();
+	s += rechteckpackungen::make_suite_FindByEnumerationTest();
+	s += rechteckpackungen::make_suite_OverlappingActionTest();
 
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<> > lis(xmlfile.out);

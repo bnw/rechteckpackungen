@@ -12,7 +12,7 @@ namespace rechteckpackungen {
 void testInstanceReader() {
 	auto reader = InstanceReader();
 	std::stringstream input;
-	input << "0 5 1 7\n3 2\n2 4\nB 1 3 5 8";
+	input << "0 5 1 7" << std::endl << "3 2" << std::endl << "2 4" << std::endl << "B 1 3 5 8" << std::endl << std::endl << " " << std::endl;
 
 	auto result = reader.read(input);
 	auto expected = Instance(std::shared_ptr<PositionedRectangle>(new PositionedRectangle(0, 5, 1, 7)));

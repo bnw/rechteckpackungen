@@ -16,6 +16,7 @@ namespace rechteckpackungen {
 
 class Placement {
 public:
+	typedef std::shared_ptr<Placement> ptr;
 	Placement();
 	~Placement();
 	bool operator==(const Placement& other);

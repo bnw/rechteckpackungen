@@ -2,12 +2,28 @@
 
 namespace rechteckpackungen {
 
+/**
+ * If a placement is found that optimal (i.e. area of placement = sum of area of rectangles) we stop.
+ * This makes the algorithm really fast for instances that have an optimal solution.
+ */
 void FindBestByEnumeration::run(std::istream& input, std::ostream& output) {
 	auto reader = InstanceReader();
 	auto instance = reader.read(input);
+	auto bestPlacement = findBest(instance);
+	if (bestPlacement == nullptr) {
+		output << "There is no way to fit the rectangles into the given bounds." << std::endl;
+	} else {
+		auto writer = PlacementWriter();
+		output << writer.toString(bestPlacement) << std::endl;
+	}
+
+	delete instance;
+}
+
+Placement::ptr FindBestByEnumeration::findBest(Instance* instance) {
 	auto enumerator = enumerateBStarTrees::Enumerator();
 	auto placementFactory = bStarTree2Placement::PlacementFactory();
-	std::shared_ptr<Placement> cheapestPlacement = nullptr;
+	Placement::ptr cheapestPlacement = nullptr;
 	int areaOfCheapestPlacement = std::numeric_limits<int>::max();
 	int theoreticalOptimalArea = instance->getAreaSum();
 	enumerator.forEachBStarTree(instance->getRectangles(), [&](rechteckpackungen::BStarTree* tree)->bool {
@@ -19,17 +35,9 @@ void FindBestByEnumeration::run(std::istream& input, std::ostream& output) {
 				return false; //break
 			}
 		}
-		return true;
+		return true; //continue
 	});
-
-	if (cheapestPlacement == nullptr) {
-		output << "There is no way to fit the rectangles into the given bounds." << std::endl;
-	} else {
-		auto writer = PlacementWriter();
-		output << writer.toString(cheapestPlacement) << std::endl;
-	}
-
-	delete instance;
+	return cheapestPlacement;
 }
 
 }
