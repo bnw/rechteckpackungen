@@ -10,24 +10,31 @@ CODE_COVERAGE_FILES = $(call rwildcard,./,*.gcda) $(call rwildcard,./,*.gcno) $(
 OBJ_FILES_SRC = $(CPP_FILES_SRC:.cpp=.o)
 OBJ_FILES_TESTS = $(CPP_FILES_TESTS:.cpp=.o)
 
-INC = -I ./lib/cute -I ./lib/boost -I./src
-FLAGS_DEVELOPMENT = -std=c++11 -g -O0 -ftest-coverage -fprofile-arcs
+INC = -I./src
+INC_TESTS = -I ./lib/cute -I ./lib/boost $(INC)
+FLAGS_DEVELOPMENT = -std=c++11 -g -O2 -ftest-coverage -fprofile-arcs
 FLAGS_PRODUCTION = -std=c++11 -O3
 FLAGS = $(FLAGS_DEVELOPMENT)
 
 EXECUTABLE_MAIN = rechteckpackungen.exe
 EXECUTABLE_TESTS = test.exe
 
-all: clean_executables $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS)
+all: $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS)
 
-$(EXECUTABLE_MAIN): $(OBJ_FILES_SRC)
-	$(COMPILER) $(FLAGS) -o $@ $^ 
+$(EXECUTABLE_MAIN): $(OBJ_FILES_SRC) 
+	$(COMPILER) $(FLAGS) -o $@ $^
 
 $(EXECUTABLE_TESTS): $(OBJ_FILES_TESTS)
-	$(COMPILER) $(INC) $(FLAGS) -o $@ $^ 
+	$(COMPILER) $(INC) $(FLAGS) -o $@ $^
 
-%.o: %.cpp
+src/%.o: src/%.cpp
 	$(COMPILER) $(INC) $(FLAGS) -c -o $@ $<
+
+tests/%.o: tests/%.cpp
+	$(COMPILER) $(INC_TESTS) $(FLAGS) -c -o $@ $<
+
+lib/%.o: lib/%.cpp
+	$(COMPILER) $(FLAGS) -c -o $@ $<
 
 clean: clean_executables clean_code_coverage
 	-rm -f $(OBJ_FILES_SRC) $(OBJ_FILES_TESTS) test.xml
@@ -37,5 +44,7 @@ clean_executables:
 	
 clean_code_coverage:
 	-rm -f $(CODE_COVERAGE_FILES)
+	
+.PHONY: clean all clean_executables clean_code_coverage
 
-.PHONY: clean all
+.DELETE_ON_ERROR: $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS) %.o
