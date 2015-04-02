@@ -37,6 +37,10 @@ int PositionedRectangle::getYMax() const {
 	return this->coord->getY() + this->rect->getHeight();
 }
 
+Coordinates PositionedRectangle::getTopRightCoordinates() const{
+	return Coordinates(getXMax(), getYMax());
+}
+
 std::shared_ptr<Rectangle> PositionedRectangle::getRectangle() {
 	return this->rect;
 }
