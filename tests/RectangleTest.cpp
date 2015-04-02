@@ -17,10 +17,20 @@ void testRectangleRotation(){
 	ASSERT_EQUAL(1, r.getHeight());
 }
 
+void testRectangleContains(){
+	Rectangle r1(5,2);
+	Rectangle r2(1,3);
+	Rectangle r3(4,2);
+	ASSERT(r1.contains(r1));
+	ASSERT(!r1.contains(r2));
+	ASSERT(r1.contains(r3));
+}
+
 cute::suite make_suite_Rectangle() {
 	cute::suite s;
 	s.push_back(CUTE(testRectangleConstructor));
 	s.push_back(CUTE(testRectangleRotation));
+	s.push_back(CUTE(testRectangleContains));
 	return s;
 }
 

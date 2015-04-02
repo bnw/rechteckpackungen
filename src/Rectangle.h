@@ -14,6 +14,10 @@ public:
 	int getWidth() const;
 	int getHeight() const;
 	int getArea() const;
+	/**
+	 * Returns true if both width and height of this are at least equal to the width and height of other
+	 */
+	bool contains(const Rectangle& other) const;
 private:
 	int width;
 	int height;

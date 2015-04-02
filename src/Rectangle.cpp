@@ -42,4 +42,8 @@ int Rectangle::getArea() const{
 	return width * height;
 }
 
+bool Rectangle::contains(const Rectangle& other) const{
+	return getWidth() >= other.getWidth() && getHeight() >= other.getHeight();
+}
+
 }
