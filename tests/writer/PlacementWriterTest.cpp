@@ -12,10 +12,13 @@ void testPlacementWriter() {
 	auto writer = new PlacementWriter();
 
 	auto placement = std::shared_ptr<Placement>(new Placement());
-	placement->add(new PositionedRectangle(std::shared_ptr<Rectangle>(new Rectangle(2, 3)), std::shared_ptr<Coordinates>(new Coordinates(0, 1))));
-	placement->add(new PositionedRectangle(std::shared_ptr<Rectangle>(new Rectangle(2, 4)), std::shared_ptr<Coordinates>(new Coordinates(3, 3))));
+	auto a = new PositionedRectangle(Rectangle(2, 3), Coordinates(0, 1));
+	auto b = new PositionedRectangle(Rectangle(2, 4), Coordinates(3, 3));
+	b->rotate();
+	placement->add(a);
+	placement->add(b);
 	std::stringstream expected;
-	expected << "0 2 1 4" << std::endl << "3 5 3 7";
+	expected << "0 2 1 4 0 0" << std::endl << "3 7 3 5 0 1";
 
 	ASSERTM(writer->toString(placement),writer->toString(placement) == expected.str());
 

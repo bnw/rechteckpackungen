@@ -18,6 +18,8 @@ public:
 	 * Returns true if both width and height of this are at least equal to the width and height of other
 	 */
 	bool contains(const Rectangle& other) const;
+	bool isSquare() const;
+	bool isRotated() const;
 private:
 	int width;
 	int height;

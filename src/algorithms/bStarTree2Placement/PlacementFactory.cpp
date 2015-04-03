@@ -52,11 +52,11 @@ bool PlacementFactory::buildPlacementRecursively(Rectangle& bounds, BStarTree* t
 		firstHorizontalContourElementBelowNewElement++;
 		int x = rootPositionedRecangle->getXMax();
 		int y = findMinY(horizontalContour, firstHorizontalContourElementBelowNewElement, leftChildRectangle->getWidth(), x);
-		auto leftChildPositionedRectangle = new PositionedRectangle(leftChildRectangle, x, y);
+		auto leftChildPositionedRectangle = new PositionedRectangle(*leftChildRectangle, x, y);
+		placement->add(leftChildPositionedRectangle);
 		if (!leftChildPositionedRectangle->getTopRightCoordinates().areWithin(bounds)) {
 			return false;
 		}
-		placement->add(leftChildPositionedRectangle);
 		auto newCurrentHorizontalContourElement = updateContour(horizontalContour, firstHorizontalContourElementBelowNewElement,
 				leftChildPositionedRectangle);
 		if (!buildPlacementRecursively(bounds, tree, placement, leftChild, leftChildPositionedRectangle, horizontalContour,
@@ -71,11 +71,11 @@ bool PlacementFactory::buildPlacementRecursively(Rectangle& bounds, BStarTree* t
 		auto rightChildRectangle = tree->getRectangle(rootNode->getRightChild());
 		int x = rootPositionedRecangle->getXMin();
 		int y = findMinY(horizontalContour, currentHorizontalContourElement, rightChildRectangle->getWidth(), x);
-		auto rightChildPositionedRectangle = new PositionedRectangle(rightChildRectangle, x, y);
+		auto rightChildPositionedRectangle = new PositionedRectangle(*rightChildRectangle, x, y);
+		placement->add(rightChildPositionedRectangle);
 		if (!rightChildPositionedRectangle->getTopRightCoordinates().areWithin(bounds)) {
 			return false;
 		}
-		placement->add(rightChildPositionedRectangle);
 		auto newCurrentHorizontalContourElement = updateContour(horizontalContour, currentHorizontalContourElement, rightChildPositionedRectangle);
 		if (!buildPlacementRecursively(bounds, tree, placement, rightChild, rightChildPositionedRectangle, horizontalContour,
 				newCurrentHorizontalContourElement)) {
@@ -95,7 +95,7 @@ std::shared_ptr<Placement> PlacementFactory::createBounded(BStarTree* tree, Rect
 	auto placement = std::shared_ptr<Placement>(new Placement());
 	auto horizontalContour = std::list<PositionedRectangle*>();
 
-	auto rootPositionedRectangle = new PositionedRectangle(tree->getRectangle(tree->getRoot()), 0, 0);
+	auto rootPositionedRectangle = new PositionedRectangle(*tree->getRectangle(tree->getRoot()), 0, 0);
 
 	placement->add(rootPositionedRectangle);
 	horizontalContour.push_back(rootPositionedRectangle);
@@ -104,9 +104,9 @@ std::shared_ptr<Placement> PlacementFactory::createBounded(BStarTree* tree, Rect
 			horizontalContour.begin());
 	if (success) {
 		return placement;
+	} else {
+		return nullptr;
 	}
-
-	return nullptr;
 }
 }
 }

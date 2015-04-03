@@ -59,10 +59,10 @@ std::unique_ptr<PositionedRectangle> Placement::getBounds() const {
 	return std::unique_ptr<PositionedRectangle>(new PositionedRectangle(0, getXMax(), 0, getYMax()));
 }
 
-std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>Placement::getRectangles() {
-	auto rectangles = std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>(new std::vector<std::shared_ptr<Rectangle>>);
+std::shared_ptr<std::vector<Rectangle>>Placement::getRectangles() {
+	auto rectangles = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>);
 	for(auto positionedRectangle : *positionedRectangles) {
-		rectangles->push_back(std::shared_ptr<Rectangle>(positionedRectangle->getRectangle()));
+		rectangles->push_back(positionedRectangle->getRectangle());
 	}
 	return rectangles;
 }

@@ -22,7 +22,7 @@ public:
 	bool operator==(const Placement& other);
 	void add(PositionedRectangle*);
 	std::vector<PositionedRectangle*>* getPositionedRectangles();
-	std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> getRectangles();
+	std::shared_ptr<std::vector<Rectangle>> getRectangles();
 	std::unique_ptr<PositionedRectangle> getBounds() const;
 
 	/*

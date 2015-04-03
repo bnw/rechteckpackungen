@@ -23,13 +23,13 @@ Instance* InstanceReader::read(std::istream& input) {
 	return instance;
 }
 
-std::shared_ptr<Rectangle> InstanceReader::getRectangleFromLineParts(
+Rectangle InstanceReader::getRectangleFromLineParts(
 		std::shared_ptr<std::vector<std::string>> parts) {
 	if (parts->size() != 2) {
 		throw std::runtime_error(
 				"Expected rectangle lines to contain exactly 2 numbers");
 	}
-	return std::shared_ptr<Rectangle>(new Rectangle(string2int(parts->at(0)), string2int(parts->at(1))));
+	return Rectangle(string2int(parts->at(0)), string2int(parts->at(1)));
 }
 
 std::shared_ptr<PositionedRectangle> InstanceReader::getAreaFromLine(std::string line) {

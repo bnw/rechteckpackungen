@@ -26,8 +26,9 @@ Placement::ptr FindBestByEnumeration::findBest(Instance* instance) {
 	Placement::ptr cheapestPlacement = nullptr;
 	int areaOfCheapestPlacement = std::numeric_limits<int>::max();
 	int theoreticalOptimalArea = instance->getAreaSum();
+	auto bounds = instance->getBounds()->getRectangle();
 	enumerator.forEachBStarTree(instance->getRectangles(), [&](rechteckpackungen::BStarTree* tree)->bool {
-		auto placement = placementFactory.createBounded(tree, *instance->getBounds()->getRectangle());
+		auto placement = placementFactory.createBounded(tree, bounds);
 		if(placement != nullptr && areaOfCheapestPlacement > placement->getArea()) {
 			cheapestPlacement = placement;
 			areaOfCheapestPlacement = placement->getArea();

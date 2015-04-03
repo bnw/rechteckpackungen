@@ -36,11 +36,11 @@ void testBStarTreeFromPlacementConstruction() {
 
 	auto tree = createTree(placement);
 
-	ASSERT(tree->getRectangle(tree->getRoot()) == root->getRectangle());
+	ASSERT(*tree->getRectangle(tree->getRoot()) == root->getRectangle());
 	ASSERT(tree->getRoot()->hasLeftChild());
-	ASSERT(tree->getRectangle(tree->getRoot()->getLeftChild()) == right->getRectangle());
+	ASSERT(*tree->getRectangle(tree->getRoot()->getLeftChild()) == right->getRectangle());
 	ASSERT(tree->getRoot()->hasRightChild());
-	ASSERT(tree->getRectangle(tree->getRoot()->getRightChild()) == top->getRectangle());
+	ASSERT(*tree->getRectangle(tree->getRoot()->getRightChild()) == top->getRectangle());
 
 	delete placement;
 	delete tree;
@@ -131,14 +131,14 @@ void testThatThereCanBeSpaceBetweenTwoRectangles() {
 	auto tree = createTree(placement);
 
 	auto root = tree->getRoot();
-	ASSERT_EQUAL(d->getRectangle(), tree->getRectangle(root));
+	ASSERT(d->getRectangle() == *tree->getRectangle(root));
 	ASSERT(root->hasLeftChild());
 	ASSERT(root->hasRightChild() == false);
-	ASSERT_EQUAL(a->getRectangle(), tree->getRectangle(root->getLeftChild()));
+	ASSERT(a->getRectangle() == *tree->getRectangle(root->getLeftChild()));
 	ASSERT(root->getLeftChild()->hasLeftChild());
-	ASSERT_EQUAL(b->getRectangle(), tree->getRectangle(root->getLeftChild()->getLeftChild()));
+	ASSERT(b->getRectangle() == *tree->getRectangle(root->getLeftChild()->getLeftChild()));
 	ASSERT(root->getLeftChild()->hasRightChild());
-	ASSERT_EQUAL(c->getRectangle(), tree->getRectangle(root->getLeftChild()->getRightChild()));
+	ASSERT(c->getRectangle() == *tree->getRectangle(root->getLeftChild()->getRightChild()));
 }
 
 void testThatBuiltTreesAreUnique() {
@@ -169,10 +169,10 @@ void testThatBuiltTreesAreUnique() {
 	ASSERT(n1->hasLeftChild());
 	auto n3 = n1->getLeftChild();
 
-	ASSERT_EQUAL(b0->getRectangle(), tree->getRectangle(n0));
-	ASSERT_EQUAL(b1->getRectangle(), tree->getRectangle(n1));
-	ASSERT_EQUAL(b2->getRectangle(), tree->getRectangle(n2));
-	ASSERT_EQUAL(b3->getRectangle(), tree->getRectangle(n3));
+	ASSERT(b0->getRectangle() == *tree->getRectangle(n0));
+	ASSERT(b1->getRectangle() == *tree->getRectangle(n1));
+	ASSERT(b2->getRectangle() == *tree->getRectangle(n2));
+	ASSERT(b3->getRectangle() == *tree->getRectangle(n3));
 
 	ASSERT_EQUAL(false, n2->hasChildren());
 

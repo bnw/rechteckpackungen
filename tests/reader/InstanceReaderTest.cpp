@@ -16,8 +16,8 @@ void testInstanceReader() {
 
 	auto result = reader.read(input);
 	auto expected = Instance(std::shared_ptr<PositionedRectangle>(new PositionedRectangle(0, 5, 1, 7)));
-	expected.addRectangle(std::shared_ptr<Rectangle>(new Rectangle(3, 2)));
-	expected.addRectangle(std::shared_ptr<Rectangle>(new Rectangle(2, 4)));
+	expected.addRectangle(Rectangle(3, 2));
+	expected.addRectangle(Rectangle(2, 4));
 
 	ASSERT(*result == expected);
 }

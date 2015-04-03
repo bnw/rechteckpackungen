@@ -46,4 +46,12 @@ bool Rectangle::contains(const Rectangle& other) const{
 	return getWidth() >= other.getWidth() && getHeight() >= other.getHeight();
 }
 
+bool Rectangle::isSquare() const{
+	return width == height;
+}
+
+bool Rectangle::isRotated() const{
+	return rotated;
+}
+
 }

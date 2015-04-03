@@ -13,8 +13,8 @@ namespace rechteckpackungen {
 
 class PositionedRectangle {
 public:
-	PositionedRectangle(std::shared_ptr<Rectangle> rect, std::shared_ptr<Coordinates> coord);
-	PositionedRectangle(std::shared_ptr<Rectangle> rect, int xMin, int yMin);
+	PositionedRectangle(Rectangle rect, Coordinates coord);
+	PositionedRectangle(Rectangle rect, int xMin, int yMin);
 	PositionedRectangle(int xMin, int xMax, int yMin, int yMax);
 	~PositionedRectangle();
 	bool operator==(const PositionedRectangle& other);
@@ -23,12 +23,14 @@ public:
 	int getYMin() const;
 	int getYMax() const;
 	Coordinates getTopRightCoordinates() const;
-	std::shared_ptr<Rectangle> getRectangle();
+	Rectangle getRectangle();
 	bool contains(const PositionedRectangle& inner) const;
 	bool contains(const Coordinates& point) const;
+	bool isRotated() const;
+	void rotate();
 private:
-	std::shared_ptr<Rectangle> rect;
-	std::shared_ptr<Coordinates> coord;
+	Rectangle rect;
+	Coordinates coord;
 };
 
 }

@@ -3,19 +3,19 @@
 
 namespace rechteckpackungen {
 
-BStarTree::BStarTree(std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>> rectangles) :
+BStarTree::BStarTree(std::shared_ptr<std::vector<Rectangle>> rectangles) :
 		BTree(rectangles->size()), rectangles(rectangles) {
 }
 
 BStarTree::~BStarTree() {
 }
 
-std::shared_ptr<Rectangle> BStarTree::getRectangle(BTreeNode* node) {
-	return rectangles->at(node->getIndex());
+Rectangle* BStarTree::getRectangle(BTreeNode* node) {
+	return &rectangles->at(node->getIndex());
 }
 
-std::shared_ptr<Rectangle> BStarTree::getRectangle(int index) {
-	return rectangles->at(index);
+Rectangle* BStarTree::getRectangle(int index) {
+	return &rectangles->at(index);
 }
 
 }

@@ -2,51 +2,51 @@
 
 namespace rechteckpackungen {
 
-PositionedRectangle::PositionedRectangle(std::shared_ptr<Rectangle> rect, std::shared_ptr<Coordinates> coord) :
+PositionedRectangle::PositionedRectangle(Rectangle rect, Coordinates coord) :
 		rect(rect), coord(coord) {
 }
 
-PositionedRectangle::PositionedRectangle(std::shared_ptr<Rectangle> rect, int xMin, int yMin) :
+PositionedRectangle::PositionedRectangle(Rectangle rect, int xMin, int yMin) :
 		rect(rect) {
-	coord = std::shared_ptr<Coordinates>(new Coordinates(xMin, yMin));
+	coord = Coordinates(xMin, yMin);
 }
 
 PositionedRectangle::PositionedRectangle(int xMin, int xMax, int yMin, int yMax) {
 	int width = xMax - xMin;
 	int height = yMax - yMin;
-	rect = std::shared_ptr<Rectangle>(new Rectangle(width, height));
-	coord = std::shared_ptr<Coordinates>(new Coordinates(xMin, yMin));
+	rect = Rectangle(width, height);
+	coord = Coordinates(xMin, yMin);
 }
 
 PositionedRectangle::~PositionedRectangle() {
 }
 
 int PositionedRectangle::getXMin() const {
-	return this->coord->getX();
+	return this->coord.getX();
 }
 
 int PositionedRectangle::getXMax() const {
-	return this->coord->getX() + this->rect->getWidth();
+	return this->coord.getX() + this->rect.getWidth();
 }
 
 int PositionedRectangle::getYMin() const {
-	return this->coord->getY();
+	return this->coord.getY();
 }
 
 int PositionedRectangle::getYMax() const {
-	return this->coord->getY() + this->rect->getHeight();
+	return this->coord.getY() + this->rect.getHeight();
 }
 
 Coordinates PositionedRectangle::getTopRightCoordinates() const{
 	return Coordinates(getXMax(), getYMax());
 }
 
-std::shared_ptr<Rectangle> PositionedRectangle::getRectangle() {
-	return this->rect;
+Rectangle PositionedRectangle::getRectangle() {
+	return rect;
 }
 
 bool PositionedRectangle::operator==(const PositionedRectangle& other) {
-	return *rect == *(other.rect) && *coord == *(other.coord);
+	return rect == other.rect && coord == other.coord;
 }
 
 bool PositionedRectangle::contains(const PositionedRectangle& inner) const{
@@ -55,6 +55,14 @@ bool PositionedRectangle::contains(const PositionedRectangle& inner) const{
 
 bool PositionedRectangle::contains(const Coordinates& point) const{
 	return getYMin() <= point.getY() && getYMax() >= point.getY() && getXMin() <= point.getX() && getXMax() >= point.getX();
+}
+
+bool PositionedRectangle::isRotated() const{
+	return rect.isRotated();
+}
+
+void PositionedRectangle::rotate() {
+	rect.rotate();
 }
 
 }

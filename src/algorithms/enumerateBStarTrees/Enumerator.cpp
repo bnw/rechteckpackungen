@@ -3,13 +3,32 @@
 namespace rechteckpackungen {
 namespace enumerateBStarTrees {
 
-void Enumerator::forEachBStarTree(std::shared_ptr<std::vector<std::shared_ptr<Rectangle>>>rectangles, const std::function<bool(BStarTree*)>& callback) {
+/**
+ * TODO Enumeration of the rotations should be refactored. Maybe move to own class?
+ */
+
+bool Enumerator::forBothRotations(const std::function<bool()>& callback, Rectangle* rect) {
+	if (!callback()) {
+		return false;
+	}
+	if (rect->isSquare()) {
+		return true;
+	}
+	rect->rotate();
+	auto result = callback();
+	rect->rotate();
+	return result;
+}
+
+void Enumerator::forEachBStarTree(std::shared_ptr<std::vector<Rectangle>> rectangles, const std::function<bool(BStarTree*)>& callback) {
 	int size = rectangles->size();
 	auto tree = BStarTree(rectangles);
 
 	for (int rootIndex = 0; rootIndex < size; rootIndex++) {
 		tree.setRoot(tree.at(rootIndex));
-		if(!walkTree(&tree, rootIndex, 0, callback)) {
+		if (!forBothRotations([&]() {
+			return walkTree(&tree, rootIndex, 0, callback);
+		}, tree.getRectangle(rootIndex))) {
 			break;
 		}
 	}
@@ -29,20 +48,29 @@ bool Enumerator::walkTree(BStarTree* tree, int rootIndex, int currentIndex, cons
 		if (possibleParent == currentElement || possibleParent->isAncestor(currentElement)) {
 			continue;
 		}
-		if (!possibleParent->hasLeftChild()) {
-			tree->setLeftChild(possibleParent, currentElement);
-			if (!walkTree(tree, rootIndex, currentIndex + 1, callback)) {
-				return false;
+
+		auto result = forBothRotations([&]() {
+			if (!possibleParent->hasLeftChild()) {
+				tree->setLeftChild(possibleParent, currentElement);
+				if (!walkTree(tree, rootIndex, currentIndex + 1, callback)) {
+					return false;
+				}
+				tree->removeLeftChild(possibleParent);
 			}
-			tree->removeLeftChild(possibleParent);
-		}
-		if (!possibleParent->hasRightChild()) {
-			tree->setRightChild(possibleParent, currentElement);
-			if (!walkTree(tree, rootIndex, currentIndex + 1, callback)) {
-				return false;
+			if (!possibleParent->hasRightChild()) {
+				tree->setRightChild(possibleParent, currentElement);
+				if (!walkTree(tree, rootIndex, currentIndex + 1, callback)) {
+					return false;
+				}
+				tree->removeRightChild(possibleParent);
 			}
-			tree->removeRightChild(possibleParent);
+			return true;
+		}, tree->getRectangle(currentIndex));
+
+		if (!result) {
+			return false;
 		}
+
 	}
 	return true;
 }
