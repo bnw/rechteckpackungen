@@ -14,7 +14,7 @@ bool Instance::operator==(const Instance& other) {
 	if (rectangles->size() != other.rectangles->size()) {
 		return false;
 	}
-	for (int i = 0; i < rectangles->size(); i++) {
+	for (unsigned i = 0; i < rectangles->size(); i++) {
 		auto ownRectangle = rectangles->at(i);
 		auto otherRectangle = other.rectangles->at(i);
 		if (!(ownRectangle == otherRectangle)) {

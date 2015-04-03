@@ -22,7 +22,9 @@ void testPlacementSort() {
 
 	ASSERT(*subject == *expectedResult);
 
-	delete expectedResult, subject, sorter;
+	delete expectedResult;
+	delete subject;
+	delete sorter;
 }
 
 void testGetXMax() {

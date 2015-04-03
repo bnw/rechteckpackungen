@@ -179,7 +179,7 @@ void testUpdateContour3() {
 
 	auto newRectangle = new PositionedRectangle(3, 6, 1, 2);
 
-	auto result = factory.updateContour(contour, ++contour->begin(), newRectangle);
+	factory.updateContour(contour, ++contour->begin(), newRectangle);
 
 	auto iterator = contour->begin();
 	ASSERT_EQUAL(2, contour->size());
@@ -206,7 +206,7 @@ void testUpdateContour4() {
 
 	auto newRectangle = new PositionedRectangle(4, 6, 0, 1);
 
-	auto result = factory.updateContour(contour, contour->end(), newRectangle);
+	factory.updateContour(contour, contour->end(), newRectangle);
 
 	auto iterator = contour->begin();
 	ASSERT_EQUAL(3, contour->size());

@@ -13,7 +13,7 @@ void testPlacementReaderInvalidInput(){
 	PlacementReader reader;
 	std::stringstream stream;
 	stream << "1 2 3 4 5 6\n1 2 3 4 5\n1 2 3 4 5 6";
-	ASSERT_THROWSM("Input needs exactly 6 numbers per row", {auto placement = reader.read(stream);}, std::runtime_error);
+	ASSERT_THROWSM("Input needs exactly 6 numbers per row", reader.read(stream), std::runtime_error);
 }
 
 void testPlacementReader(){

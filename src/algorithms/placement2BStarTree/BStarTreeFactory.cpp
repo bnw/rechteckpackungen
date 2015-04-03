@@ -13,7 +13,7 @@ BStarTree* BStarTreeFactory::create(Placement* placement) {
 	/**
 	 * Find root and fill xBuckets in O(n)
 	 */
-	for (int i = 0; i < positionedRectangles->size(); i++) {
+	for (unsigned i = 0; i < positionedRectangles->size(); i++) {
 		auto rectangle = positionedRectangles->at(i);
 		if (rectangle->getXMin() == 0 && rectangle->getYMin() == 0) {
 			tree->setRoot(tree->at(i));

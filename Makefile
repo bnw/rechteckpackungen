@@ -12,7 +12,7 @@ OBJ_FILES_TESTS = $(CPP_FILES_TESTS:.cpp=.o)
 
 INC = -I./src
 INC_TESTS = -I ./lib/cute -I ./lib/boost $(INC)
-FLAGS_DEVELOPMENT = -std=c++11 -g -O2 -ftest-coverage -fprofile-arcs
+FLAGS_DEVELOPMENT = -std=c++11 -g -O0 -ftest-coverage -fprofile-arcs -Wall
 FLAGS_PRODUCTION = -std=c++11 -O3
 FLAGS = $(FLAGS_PRODUCTION)
 

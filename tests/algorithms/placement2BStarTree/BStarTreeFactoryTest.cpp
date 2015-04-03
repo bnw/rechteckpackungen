@@ -108,7 +108,8 @@ void testBStarTreeFromTextPlacementConstruction() {
 	ASSERT(n9->hasLeftChild() == false);
 	ASSERT(n5->hasRightChild() == false);
 
-	delete placement, tree;
+	delete placement;
+	delete tree;
 }
 
 /**
@@ -176,7 +177,8 @@ void testThatBuiltTreesAreUnique() {
 
 	ASSERT_EQUAL(false, n2->hasChildren());
 
-	delete placement, tree;
+	delete placement;
+	delete tree;
 }
 
 cute::suite make_suite_BStarTreeFactory() {

@@ -17,7 +17,7 @@ bool Placement::operator==(const Placement& other) {
 	if (positionedRectangles->size() != other.positionedRectangles->size()) {
 		return false;
 	}
-	for (int i = 0; i < positionedRectangles->size(); i++) {
+	for (unsigned i = 0; i < positionedRectangles->size(); i++) {
 		auto ownPositionedRectangle = (PositionedRectangle*) positionedRectangles->at(i);
 		auto otherPositionedRectangle = (PositionedRectangle*) other.positionedRectangles->at(i);
 		if (!(*ownPositionedRectangle == *otherPositionedRectangle)) {
