@@ -2,45 +2,64 @@ rwildcard = $(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2
 
 COMPILER = g++
 
-CPP_FILES_SRC = $(call rwildcard,src/,*.cpp)
-CPP_FILES_TESTS = $(filter-out src/main.cpp,$(CPP_FILES_SRC)) $(call rwildcard,tests/,*.cpp)
+OBJDIR_PRODUCTION = _build/Production
+OBJDIR_DEBUG = _build/Debug
+
+CPP_FILES_MAIN = $(call rwildcard,src/,*.cpp)
+CPP_FILES_TESTS = $(filter-out src/main.cpp,$(CPP_FILES_MAIN)) $(call rwildcard,tests/,*.cpp)
 
 CODE_COVERAGE_FILES = $(call rwildcard,./,*.gcda) $(call rwildcard,./,*.gcno) $(call rwildcard,./,*.gcov)
 
-OBJ_FILES_SRC = $(CPP_FILES_SRC:.cpp=.o)
+OBJ_FILES_MAIN = $(CPP_FILES_MAIN:.cpp=.o)
 OBJ_FILES_TESTS = $(CPP_FILES_TESTS:.cpp=.o)
 
-INC = -I./src
-INC_TESTS = -I ./lib/cute -I ./lib/boost $(INC)
-FLAGS_DEVELOPMENT = -std=c++11 -g -O0 -ftest-coverage -fprofile-arcs -Wall
+OBJ_FILES_MAIN_PRODUCTION = $(addprefix $(OBJDIR_PRODUCTION)/, $(OBJ_FILES_MAIN))
+OBJ_FILES_MAIN_DEBUG = $(addprefix $(OBJDIR_DEBUG)/, $(OBJ_FILES_MAIN)) 
+OBJ_FILES_TESTS_DEBUG = $(addprefix $(OBJDIR_DEBUG)/, $(OBJ_FILES_TESTS)) 
+
+INC_PRODUCTION = -I./src
+INC_DEBUG = -I ./lib/cute -I ./lib/boost $(INC_PRODUCTION)
 FLAGS_PRODUCTION = -std=c++11 -O3
-FLAGS = $(FLAGS_PRODUCTION)
+FLAGS_DEBUG = -std=c++11 -g -O0 -ftest-coverage -fprofile-arcs -Wall
+FLAGS = $(FLAGS_DEBUG)
 
-EXECUTABLE_MAIN = rechteckpackungen.exe
-EXECUTABLE_TESTS = test.exe
+EXECUTABLE_MAIN_PRODUCTION = rechteckpackungen.exe
+EXECUTABLE_MAIN_DEBUG = rechteckpackungen_debug.exe
+EXECUTABLE_TESTS_DEBUG = tests.exe
 
-all: $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS)
+all: production tests debug
 
-$(EXECUTABLE_MAIN): $(OBJ_FILES_SRC) 
+production: $(EXECUTABLE_MAIN_PRODUCTION)
+
+debug: $(EXECUTABLE_MAIN_DEBUG)
+
+tests: $(EXECUTABLE_TESTS_DEBUG)
+
+$(EXECUTABLE_MAIN_PRODUCTION): $(OBJ_FILES_MAIN_PRODUCTION)
 	$(COMPILER) $(FLAGS) -o $@ $^
 
-$(EXECUTABLE_TESTS): $(OBJ_FILES_TESTS)
-	$(COMPILER) $(INC) $(FLAGS) -o $@ $^
+$(EXECUTABLE_MAIN_DEBUG): $(OBJ_FILES_MAIN_DEBUG)
+	$(COMPILER) $(FLAGS) -o $@ $^
 
-src/%.o: src/%.cpp
-	$(COMPILER) $(INC) $(FLAGS) -c -o $@ $<
+$(EXECUTABLE_TESTS_DEBUG): $(OBJ_FILES_TESTS_DEBUG)
+	$(COMPILER) $(FLAGS) -o $@ $^
 
-tests/%.o: tests/%.cpp
-	$(COMPILER) $(INC_TESTS) $(FLAGS) -c -o $@ $<
+$(OBJDIR_PRODUCTION)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(COMPILER) $(INC_PRODUCTION) $(FLAGS_PRODUCTION) -c -o $@ $<
 
-lib/%.o: lib/%.cpp
-	$(COMPILER) $(FLAGS) -c -o $@ $<
+$(OBJDIR_DEBUG)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(COMPILER) $(INC_DEBUG) $(FLAGS_DEBUG) -c -o $@ $<
+	$(eval _TMP_O := $@)
+	$(eval _TMP_CPP := $<)
+#	@cp $(_TMP_O:.o=.gcno) $(_TMP_CPP:.cpp=.gcno) 
 
 clean: clean_executables clean_code_coverage
-	-rm -f $(OBJ_FILES_SRC) $(OBJ_FILES_TESTS) test.xml
+	-rm -rf $(OBJDIR_PRODUCTION) $(OBJDIR_DEBUG) test.exe.xml
 
 clean_executables:
-	-rm -f $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS) 
+	-rm -f $(EXECUTABLE_MAIN_PRODUCTION) $(EXECUTABLE_MAIN_DEBUG) $(EXECUTABLE_TESTS)
 	
 clean_code_coverage:
 	-rm -f $(CODE_COVERAGE_FILES)
