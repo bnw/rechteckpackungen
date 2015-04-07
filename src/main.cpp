@@ -49,6 +49,7 @@ int main(int argc, char const *argv[]) {
 		}
 	} catch (std::runtime_error &e) {
 		cout << "An exception occurred:" << endl << e.what() << endl;
+		return 1;
 	}
 	return 0;
 }
