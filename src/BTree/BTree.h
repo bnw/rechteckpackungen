@@ -17,8 +17,12 @@ public:
 	virtual ~BTree();
 	void setLeftChild(BTreeNode* parent, BTreeNode* leftChild);
 	void setRightChild(BTreeNode* parent, BTreeNode* rightChild);
-	void removeLeftChild(BTreeNode* parent);
-	void removeRightChild(BTreeNode* parent);
+	BTreeNode* removeLeftChild(BTreeNode* parent);
+	BTreeNode* removeRightChild(BTreeNode* parent);
+	void removeChild(BTreeNode* parent, BTreeNode* child);
+	void pushOrphant(BTreeNode* parent, BTreeNode* orphant);
+	void replaceChild(BTreeNode* parent, BTreeNode* child, BTreeNode* replacement);
+	void remove(BTreeNode* node);
 	BTreeNode* at(int i);
 	BTreeNode* getRoot();
 	void setRoot(BTreeNode* node);

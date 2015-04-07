@@ -77,15 +77,8 @@ bool BTreeNode::isAncestor(BTreeNode* pssibleAncestor){
 	return getParent()->isAncestor(pssibleAncestor);
 }
 
-void BTreeNode::removeChild(BTreeNode* child) {
-	if (leftChild == child) {
-		leftChild = nullptr;
-	} else if (rightChild == child) {
-		rightChild = nullptr;
-	} else {
-		throw new std::runtime_error(
-				"Integrity error. Was asked to remove Child that was not there.");
-	}
+bool BTreeNode::isRoot() const{
+	return tree->getRoot() == this;
 }
 
 }

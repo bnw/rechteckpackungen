@@ -22,17 +22,18 @@ public:
 	bool hasLeftChild();
 	bool hasRightChild();
 	bool hasChildren();
-	bool isAncestor(BTreeNode* pssibleAncestor);
+	bool isAncestor(BTreeNode* possibleAncestor);
+	bool isRoot() const;
 	void setLeftChild(BTreeNode* leftChild);
 	void setRightChild(BTreeNode* rightChild);
-	void removeChild(BTreeNode* child);
+
 private:
 	BTree* tree;
 	BTreeNode* leftChild;
 	BTreeNode* rightChild;
 	BTreeNode* parent;
 	/*
-	 * Index, under which this node is accessible thru in tree->at(index).
+	 * Index, under which this node is accessible thru tree->at(index).
 	 */
 	int index;
 };
