@@ -51,9 +51,6 @@ $(OBJDIR_PRODUCTION)/%.o: %.cpp
 $(OBJDIR_DEBUG)/%.o: %.cpp
 	@mkdir -p $(@D)
 	$(COMPILER) $(INC_DEBUG) $(FLAGS_DEBUG) -c -o $@ $<
-	$(eval _TMP_O := $@)
-	$(eval _TMP_CPP := $<)
-#	@cp $(_TMP_O:.o=.gcno) $(_TMP_CPP:.cpp=.gcno) 
 
 clean: clean_executables clean_code_coverage
 	-rm -rf $(OBJDIR_PRODUCTION) $(OBJDIR_DEBUG) test.exe.xml
