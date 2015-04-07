@@ -25,59 +25,59 @@ void BTreeNode::setParent(BTreeNode* parent) {
 	this->parent = parent;
 }
 
-int BTreeNode::getIndex(){
+int BTreeNode::getIndex() const {
 	return index;
 }
 
-BTreeNode* BTreeNode::getParent() {
+BTreeNode* BTreeNode::getParent() const {
 	return parent;
 }
 
-BTreeNode* BTreeNode::getLeftChild() {
+BTreeNode* BTreeNode::getLeftChild() const {
 	return leftChild;
 }
 
-BTreeNode* BTreeNode::getRightChild() {
+BTreeNode* BTreeNode::getRightChild() const {
 	return rightChild;
 }
 
-BTreeNode* BTreeNode::getClosestParentOfWhichIAmLeft(){
-	if(!hasParent()){
+BTreeNode* BTreeNode::getClosestParentOfWhichIAmLeft() const {
+	if (!hasParent()) {
 		return NULL;
 	}
-	if(getParent()->getLeftChild() == this){
+	if (getParent()->getLeftChild() == this) {
 		return getParent();
 	}
 	return getParent()->getClosestParentOfWhichIAmLeft();
 }
 
-bool BTreeNode::hasParent() {
+bool BTreeNode::hasParent() const {
 	return getParent() != nullptr;
 }
 
-bool BTreeNode::hasLeftChild() {
+bool BTreeNode::hasLeftChild() const {
 	return getLeftChild() != nullptr;
 }
 
-bool BTreeNode::hasRightChild() {
+bool BTreeNode::hasRightChild() const {
 	return getRightChild() != nullptr;
 }
 
-bool BTreeNode::hasChildren(){
+bool BTreeNode::hasChildren() const {
 	return hasLeftChild() || hasRightChild();
 }
 
-bool BTreeNode::isAncestor(BTreeNode* pssibleAncestor){
-	if(!hasParent()){
+bool BTreeNode::isAncestor(BTreeNode* pssibleAncestor) const {
+	if (!hasParent()) {
 		return false;
 	}
-	if(getParent() == pssibleAncestor){
+	if (getParent() == pssibleAncestor) {
 		return true;
 	}
 	return getParent()->isAncestor(pssibleAncestor);
 }
 
-bool BTreeNode::isRoot() const{
+bool BTreeNode::isRoot() const {
 	return tree->getRoot() == this;
 }
 
