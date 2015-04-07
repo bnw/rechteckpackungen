@@ -78,16 +78,16 @@ void BTree::replaceChild(BTreeNode* parent, BTreeNode* child, BTreeNode* replace
 	}
 }
 
-void BTree::pushOrphant(BTreeNode* parent, BTreeNode* orphant) {
+void BTree::pushOrphan(BTreeNode* parent, BTreeNode* orphan) {
 	if (!parent->hasLeftChild()) {
-		setLeftChild(parent, orphant);
+		setLeftChild(parent, orphan);
 	} else if (!parent->hasRightChild()) {
-		setRightChild(parent, orphant);
+		setRightChild(parent, orphan);
 	} else {
-		auto newOrphant = parent->getLeftChild();
+		auto newOrphan = parent->getLeftChild();
 		removeLeftChild(parent);
-		setLeftChild(parent, orphant);
-		pushOrphant(parent->getRightChild(), newOrphant);
+		setLeftChild(parent, orphan);
+		pushOrphan(parent->getRightChild(), newOrphan);
 	}
 }
 
@@ -109,7 +109,7 @@ void BTree::remove(BTreeNode* node) {
 		} else {
 			replaceChild(parent, node, replacement);
 		}
-		pushOrphant(replacement, formerLeftChild);
+		pushOrphan(replacement, formerLeftChild);
 	} else { // has exactly 1 child
 		BTreeNode* child;
 		if (node->hasLeftChild()) {
