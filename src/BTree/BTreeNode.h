@@ -10,7 +10,7 @@ class BTree;
 
 class BTreeNode {
 public:
-	BTreeNode(BTree* tree, int index);
+	BTreeNode(int index);
 	virtual ~BTreeNode();
 	void setParent(BTreeNode* parent);
 	BTreeNode* getParent() const;
@@ -28,7 +28,6 @@ public:
 	void setRightChild(BTreeNode* rightChild);
 
 private:
-	BTree* tree;
 	BTreeNode* leftChild;
 	BTreeNode* rightChild;
 	BTreeNode* parent;

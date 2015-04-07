@@ -2,15 +2,14 @@
 
 namespace rechteckpackungen {
 
-BTreeNode::BTreeNode(BTree* tree, int index) :
-		tree(tree), index(index) {
+BTreeNode::BTreeNode(int index) :
+		index(index) {
 	leftChild = nullptr;
 	rightChild = nullptr;
 	parent = nullptr;
 }
 
 BTreeNode::~BTreeNode() {
-	// TODO Auto-generated destructor stub
 }
 
 void BTreeNode::setLeftChild(BTreeNode* leftChild) {
@@ -75,10 +74,6 @@ bool BTreeNode::isAncestor(BTreeNode* pssibleAncestor) const {
 		return true;
 	}
 	return getParent()->isAncestor(pssibleAncestor);
-}
-
-bool BTreeNode::isRoot() const {
-	return tree->getRoot() == this;
 }
 
 }

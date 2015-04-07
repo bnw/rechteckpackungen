@@ -7,7 +7,7 @@ BTree::BTree(int size) {
 	this->root = nullptr;
 	nodes = std::vector<BTreeNode*>(size, nullptr);
 	for (int i = 0; i < size; i++) {
-		nodes.at(i) = new BTreeNode(this, i);
+		nodes.at(i) = new BTreeNode(i);
 	}
 }
 
@@ -94,7 +94,7 @@ void BTree::pushOrphant(BTreeNode* parent, BTreeNode* orphant) {
 void BTree::remove(BTreeNode* node) {
 	auto parent = node->getParent();
 	if (!node->hasChildren()) { // has no children
-		if (node->isRoot()) {
+		if (isRoot(node)) {
 			throw new std::runtime_error("Cannot remove root without children");
 		} else {
 			removeChild(parent, node);
@@ -104,7 +104,7 @@ void BTree::remove(BTreeNode* node) {
 		removeRightChild(node);
 		auto formerLeftChild = node->getLeftChild();
 		removeLeftChild(node);
-		if (node->isRoot()) {
+		if (isRoot(node)) {
 			setRoot(replacement);
 		} else {
 			replaceChild(parent, node, replacement);
@@ -118,7 +118,7 @@ void BTree::remove(BTreeNode* node) {
 			child = node->getRightChild();
 		}
 		removeChild(node, child);
-		if (node->isRoot()) {
+		if (isRoot(node)) {
 			removeChild(node, child);
 			setRoot(child);
 		} else {
@@ -138,6 +138,10 @@ BTreeNode* BTree::getRoot() {
 void BTree::setRoot(BTreeNode* node) {
 	node->setParent(nullptr);
 	root = node;
+}
+
+bool BTree::isRoot(BTreeNode* node) const{
+	return root == node;
 }
 
 int BTree::getSize() {

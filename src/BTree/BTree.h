@@ -26,6 +26,7 @@ public:
 	BTreeNode* at(int i);
 	BTreeNode* getRoot();
 	void setRoot(BTreeNode* node);
+	bool isRoot(BTreeNode* node) const;
 	int getSize();
 protected:
 	std::vector<BTreeNode*> nodes;
