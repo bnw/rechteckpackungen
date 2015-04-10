@@ -14,6 +14,7 @@
 #include "algorithms/placement2BStarTree/BStarTreeFactoryTest.h"
 #include "algorithms/bStartTree2Placement/PlacementFactoryTest.h"
 #include "algorithms/enumerateBStarTrees/EnumeratorTest.h"
+#include "algorithms/enumerateSubsets/EnumeratorTest.h"
 #include "util/String2intTest.h"
 #include "writer/PlacementWriterTest.h"
 #include "BTree/BTreeNodeTest.h"
@@ -38,6 +39,7 @@ void runAllTests(int argc, char const *argv[]) {
 	s += rechteckpackungen::make_suite_PlacementFactoryTest();
 	s += rechteckpackungen::make_suite_BTreeNodeTest();
 	s += rechteckpackungen::make_suite_EnumeratorTest();
+	s += rechteckpackungen::enumerateSubsets::make_suite_EnumeratorTest();
 	s += rechteckpackungen::make_suite_FindByEnumerationTest();
 	s += rechteckpackungen::make_suite_OverlappingActionTest();
 
