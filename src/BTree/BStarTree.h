@@ -13,9 +13,11 @@ namespace rechteckpackungen {
 class BStarTree: public BTree {
 public:
 	BStarTree(std::shared_ptr<std::vector<Rectangle>> rectangles);
+	BStarTree(const BStarTree& original);
 	virtual ~BStarTree();
-	Rectangle* getRectangle(BTreeNode* node);
-	Rectangle* getRectangle(int index);
+	Rectangle* getRectangle(BTreeNode* node) const;
+	Rectangle* getRectangle(int index) const;
+	std::shared_ptr<std::vector<Rectangle>> getRectangles() const;
 private:
 	std::shared_ptr<std::vector<Rectangle>> rectangles;
 };
