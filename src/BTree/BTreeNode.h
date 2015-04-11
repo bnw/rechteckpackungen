@@ -1,12 +1,9 @@
 #ifndef SRC_BTREE_BTREENODE_H_
 #define SRC_BTREE_BTREENODE_H_
 
-#include "BTree/BTree.h"
 #include <stdexcept>
 
 namespace rechteckpackungen {
-
-class BTree;
 
 class BTreeNode {
 public:
