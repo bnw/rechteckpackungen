@@ -20,6 +20,7 @@ public:
 	virtual ~FindBestByEnumeration() {
 	}
 	void run(std::istream& instance, std::ostream& output);
+	// Public only for testability
 	Placement::ptr findBest(Instance* instance);
 };
 
