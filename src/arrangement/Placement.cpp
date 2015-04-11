@@ -48,7 +48,17 @@ int Placement::getYMax() const {
 }
 
 int Placement::getArea() {
-	return getYMax() * getXMax();
+	int xMax = 0;
+	int yMax = 0;
+	for(auto rectangle : *positionedRectangles){
+		if(xMax < rectangle->getXMax()){
+			xMax = rectangle->getXMax();
+		}
+		if(yMax < rectangle->getYMax()){
+			yMax = rectangle->getYMax();
+		}
+	}
+	return xMax * yMax;
 }
 
 std::vector<PositionedRectangle*>* Placement::getPositionedRectangles() {
