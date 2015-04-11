@@ -29,7 +29,7 @@ BTree::~BTree() {
 
 void BTree::setLeftChild(BTreeNode* parent, BTreeNode* leftChild) {
 	if (leftChild->hasParent() || parent->hasLeftChild()) {
-		throw new std::runtime_error("Cannot set left child because parent->leftChild or leftChild->parent are occupied!");
+		throw std::runtime_error("Cannot set left child because parent->leftChild or leftChild->parent are occupied!");
 	}
 	leftChild->setParent(parent);
 	parent->setLeftChild(leftChild);
@@ -37,7 +37,7 @@ void BTree::setLeftChild(BTreeNode* parent, BTreeNode* leftChild) {
 
 void BTree::setRightChild(BTreeNode* parent, BTreeNode* rightChild) {
 	if (rightChild->hasParent() || parent->hasRightChild()) {
-		throw new std::runtime_error("Cannot set left child because parent->rightChild or rightChild->parent are occupied!");
+		throw std::runtime_error("Cannot set left child because parent->rightChild or rightChild->parent are occupied!");
 	}
 	rightChild->setParent(parent);
 	parent->setRightChild(rightChild);
@@ -61,7 +61,7 @@ void BTree::squeezeInRightChild(BTreeNode* parent, BTreeNode* rightChild) {
 
 BTreeNode* BTree::removeLeftChild(BTreeNode* parent) {
 	if (!parent->hasLeftChild()) {
-		throw new std::runtime_error("Was asked to remove left child, but no left child present.");
+		throw std::runtime_error("Was asked to remove left child, but no left child present.");
 	}
 	auto leftChild = parent->getLeftChild();
 	leftChild->setParent(nullptr);
@@ -71,7 +71,7 @@ BTreeNode* BTree::removeLeftChild(BTreeNode* parent) {
 
 BTreeNode* BTree::removeRightChild(BTreeNode* parent) {
 	if (!parent->hasRightChild()) {
-		throw new std::runtime_error("Was asked to remove right child, but no right child present.");
+		throw std::runtime_error("Was asked to remove right child, but no right child present.");
 	}
 	auto rightChild = parent->getRightChild();
 	rightChild->setParent(nullptr);
@@ -88,7 +88,7 @@ void BTree::removeChild(BTreeNode* parent, BTreeNode* child) {
 		removeLeftChild(parent);
 		return;
 	}
-	throw new std::runtime_error("Was asked to remove child from parent, but child is neither left nor right child of parent.");
+	throw std::runtime_error("Was asked to remove child from parent, but child is neither left nor right child of parent.");
 }
 
 void BTree::replaceChild(BTreeNode* parent, BTreeNode* child, BTreeNode* replacement) {
@@ -121,7 +121,7 @@ void BTree::remove(BTreeNode* node) {
 	auto parent = node->getParent();
 	if (!node->hasChildren()) { // has no children
 		if (isRoot(node)) {
-			throw new std::runtime_error("Cannot remove root without children");
+			throw std::runtime_error("Cannot remove root without children");
 		} else {
 			removeChild(parent, node);
 		}
