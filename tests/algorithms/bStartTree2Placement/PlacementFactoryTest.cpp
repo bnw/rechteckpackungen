@@ -256,7 +256,7 @@ void testCreateHorizontal() {
 	expected->add(dPositionedExpected);
 	expected->add(ePositionedExpected);
 
-	auto result = factory.create(&tree);
+	auto result = factory.create(tree);
 
 	assertPlacementsEqual(expected, result);
 }
@@ -315,7 +315,7 @@ void testCreateComplete() {
 	expected->add(gPositionedExpected);
 	expected->add(hPositionedExpected);
 
-	auto result = factory.create(&tree);
+	auto result = factory.create(tree);
 
 	assertPlacementsEqual(expected, result);
 }

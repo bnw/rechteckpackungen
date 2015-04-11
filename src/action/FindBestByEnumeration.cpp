@@ -20,6 +20,7 @@ void FindBestByEnumeration::run(std::istream& input, std::ostream& output) {
 	delete instance;
 }
 
+//TODO refactor! unreadable!
 Placement::ptr FindBestByEnumeration::findBest(Instance* instance) {
 	auto enumerator = enumerateBStarTrees::Enumerator();
 	auto placementFactory = bStarTree2Placement::PlacementFactory();
@@ -28,7 +29,7 @@ Placement::ptr FindBestByEnumeration::findBest(Instance* instance) {
 	int theoreticalOptimalArea = instance->getAreaSum();
 	auto bounds = instance->getBounds()->getRectangle();
 	enumerator.forEachBStarTree(instance->getRectangles(), [&](rechteckpackungen::BStarTree* tree)->bool {
-		auto placement = placementFactory.createBounded(tree, bounds);
+		auto placement = placementFactory.createBounded(*tree, bounds);
 		if(placement != nullptr && areaOfCheapestPlacement > placement->getArea()) {
 			cheapestPlacement = placement;
 			areaOfCheapestPlacement = placement->getArea();
