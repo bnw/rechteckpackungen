@@ -35,7 +35,7 @@ std::shared_ptr<std::vector<Rectangle>>Instance::getRectangles() {
 	return rectangles;
 }
 
-std::shared_ptr<PositionedRectangle> Instance::getBounds() {
+std::shared_ptr<PositionedRectangle> Instance::getBounds() const {
 	return bounds;
 }
 

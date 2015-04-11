@@ -13,7 +13,7 @@ public:
 	Instance(std::shared_ptr<PositionedRectangle> bounds);
 	~Instance();
 	bool operator==(const Instance& other);
-	std::shared_ptr<PositionedRectangle> getBounds();
+	std::shared_ptr<PositionedRectangle> getBounds() const;
 	void addRectangle(Rectangle rect);
 	std::shared_ptr<std::vector<Rectangle>> getRectangles();
 	/**
