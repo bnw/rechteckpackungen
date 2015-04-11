@@ -44,6 +44,7 @@ public:
 	BTreeNode* getRoot() const;
 	const std::vector<BTreeNode*>& getNodes() const;
 	void setRoot(BTreeNode* node);
+	bool hasRoot() const;
 	bool isRoot(BTreeNode* node) const;
 	int getSize() const;
 protected:

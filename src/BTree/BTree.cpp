@@ -170,6 +170,10 @@ void BTree::setRoot(BTreeNode* node) {
 	root = node;
 }
 
+bool BTree::hasRoot() const{
+	return root != nullptr;
+}
+
 bool BTree::isRoot(BTreeNode* node) const {
 	return root == node;
 }
