@@ -27,20 +27,21 @@ void testPlacementSort() {
 	delete sorter;
 }
 
-void testGetXMax() {
+void testGetXMaxAndArea() {
 	auto placement = new Placement;
 	placement->add(new PositionedRectangle(Rectangle(1, 2), Coordinates(4, 0)));
 	placement->add(new PositionedRectangle(Rectangle(1, 3), Coordinates(2, 0)));
 	placement->add(new PositionedRectangle(Rectangle(1, 16), Coordinates(3, 0)));
 
-	ASSERT(placement->getXMax() == 5);
+	ASSERT_EQUAL(5, placement->getXMax());
+	ASSERT_EQUAL(5 * 16, placement->getArea());
 	delete placement;
 }
 
 cute::suite make_suite_PlacementTest() {
 	cute::suite s;
 	s.push_back(CUTE(testPlacementSort));
-	s.push_back(CUTE(testGetXMax));
+	s.push_back(CUTE(testGetXMaxAndArea));
 	return s;
 }
 
