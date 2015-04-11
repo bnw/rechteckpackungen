@@ -33,6 +33,7 @@ _build
 *.gcda
 *.gcno
 
+callgrind*
 *.stackdump
 
 *.xml

@@ -7,15 +7,19 @@
 namespace rechteckpackungen {
 namespace enumerateSubsets {
 
+template<class F>
 class Enumerator {
 public:
-	void forEachSubset(const std::vector<void*>& set, const unsigned& sizeOfSubset, const std::function<void(const std::vector<void*>*)>& callback) const;
+	typedef std::vector<F> vector;
+	typedef const std::function<void(const vector)> callbackType;
+	void forEachSubset(const vector& set, const unsigned sizeOfSubset, callbackType &callback) const;
 protected:
-	void constructSubset(const std::vector<void*>& set, unsigned setIndex, unsigned subsetIndex, std::vector<void*>& partialSubset,
-			const std::function<void(const std::vector<void*>*)>& callback) const;
+	void constructSubset(const vector& set, unsigned setIndex, unsigned subsetIndex, vector& partialSubset, callbackType& callback) const;
 };
 
 }
 }
+
+#include "Enumerator_impl.h"
 
 #endif /* SRC_ALGORITHMS_ENUMERATESUBSETS_ENUMERATOR_H_ */

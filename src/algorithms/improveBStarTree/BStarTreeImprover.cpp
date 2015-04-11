@@ -11,15 +11,15 @@ BStarTreeImprover::BStarTreeImprover() {
 
 BStarTree* BStarTreeImprover::improve(const BStarTree& tree, const Instance& instance, unsigned k) const {
 	auto placementFactory = PlacementFactory();
-	auto subsetEnumerator = enumerateSubsets::Enumerator();
+	auto subsetEnumerator = enumerateSubsets::Enumerator<BTreeNode*>();
 	auto mutationEnumerator = enumerateBStarTreeMutations::Enumerator();
 	BStarTree* currentOptimalTree = nullptr;
 	int currentOptimalTreeArea = std::numeric_limits<int>::max();
 	auto workingTree = BStarTree(tree);
 	auto nodes = workingTree.getNodes();
 
-	subsetEnumerator.forEachSubset((std::vector<void*>&) nodes, k, [&](const std::vector<void*>* subset) {
-		mutationEnumerator.forEachMutation(tree, (std::vector<BTreeNode*>&) *subset, [&](const BStarTree& mutatedTree) {
+	subsetEnumerator.forEachSubset(nodes, k, [&](const std::vector<BTreeNode*>& subset) {
+		mutationEnumerator.forEachMutation(tree, subset, [&](const BStarTree& mutatedTree) {
 					challangeOptimum(currentOptimalTree, currentOptimalTreeArea, mutatedTree, placementFactory, instance);
 				});
 	});
