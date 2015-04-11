@@ -1,28 +1,31 @@
 #ifndef SRC_BTREE_BTREE_H_
 #define SRC_BTREE_BTREE_H_
 
-#include "arrangement/Placement.h"
 #include "BTree/BTreeNode.h"
+#include "arrangement/Placement.h"
 #include <vector>
 #include <stdexcept>
 
 namespace rechteckpackungen {
 
-class BTreeNode;
-
 class BTree {
 public:
 	BTree(int size);
 	BTree(Placement* placement);
+	BTree(const BTree& original);
 	virtual ~BTree();
 	void setLeftChild(BTreeNode* parent, BTreeNode* leftChild);
 	void setRightChild(BTreeNode* parent, BTreeNode* rightChild);
-	//TODO
-	//void BTree::squeezeInLeftChild(BTreeNode* parent, BTreeNode* leftChild)
-	//void BTree::squeezeInRightChild(BTreeNode* parent, BTreeNode* leftChild)
+	/**
+	 * If parent has no left child, squeezeInLeftChild is the same as setLeftChild.
+	 * Otherwise, the left child of parent will become the left child of leftChild and
+	 * leftChild will become the left child of parent.
+	 */
+	void squeezeInLeftChild(BTreeNode* parent, BTreeNode* leftChild);
+	void squeezeInRightChild(BTreeNode* parent, BTreeNode* leftChild);
 	BTreeNode* removeLeftChild(BTreeNode* parent);
 	BTreeNode* removeRightChild(BTreeNode* parent);
-	/*
+	/**
 	 * Convenient method to remove a child from its parent if you don't know if its
 	 * the left or right child.
 	 */
@@ -37,11 +40,12 @@ public:
 	 * Complexity: O(h) where h is the height of the tree
 	 */
 	void remove(BTreeNode* node);
-	BTreeNode* at(int i);
-	BTreeNode* getRoot();
+	BTreeNode* at(int i) const;
+	BTreeNode* getRoot() const;
+	const std::vector<BTreeNode*>& getNodes() const;
 	void setRoot(BTreeNode* node);
 	bool isRoot(BTreeNode* node) const;
-	int getSize();
+	int getSize() const;
 protected:
 	/**
 	 * Try to make orphan the child of parent (left or right).

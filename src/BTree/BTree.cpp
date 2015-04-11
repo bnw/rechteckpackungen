@@ -11,6 +11,16 @@ BTree::BTree(int size) {
 	}
 }
 
+BTree::BTree(const BTree& original) {
+	size = original.getSize();
+	nodes = std::vector<BTreeNode*>(size, nullptr);
+	for (int i = 0; i < size; i++) {
+		nodes.at(i) = new BTreeNode(*original.at(i));
+	}
+	auto rootIndex = original.getRoot()->getIndex();
+	setRoot(at(rootIndex));
+}
+
 BTree::~BTree() {
 	for (auto node : nodes) {
 		delete node;
@@ -31,6 +41,22 @@ void BTree::setRightChild(BTreeNode* parent, BTreeNode* rightChild) {
 	}
 	rightChild->setParent(parent);
 	parent->setRightChild(rightChild);
+}
+
+void BTree::squeezeInLeftChild(BTreeNode* parent, BTreeNode* leftChild) {
+	if (parent->hasLeftChild()) {
+		auto formerLeftChild = removeLeftChild(parent);
+		setLeftChild(leftChild, formerLeftChild);
+	}
+	setLeftChild(parent, leftChild);
+}
+
+void BTree::squeezeInRightChild(BTreeNode* parent, BTreeNode* rightChild) {
+	if (parent->hasRightChild()) {
+		auto formerRightChild = removeRightChild(parent);
+		setRightChild(rightChild, formerRightChild);
+	}
+	setRightChild(parent, rightChild);
 }
 
 BTreeNode* BTree::removeLeftChild(BTreeNode* parent) {
@@ -127,12 +153,16 @@ void BTree::remove(BTreeNode* node) {
 	}
 }
 
-BTreeNode* BTree::at(int i) {
+BTreeNode* BTree::at(int i) const {
 	return nodes.at(i);
 }
 
-BTreeNode* BTree::getRoot() {
+BTreeNode* BTree::getRoot() const {
 	return root;
+}
+
+const std::vector<BTreeNode*>& BTree::getNodes() const{
+	return nodes;
 }
 
 void BTree::setRoot(BTreeNode* node) {
@@ -140,11 +170,11 @@ void BTree::setRoot(BTreeNode* node) {
 	root = node;
 }
 
-bool BTree::isRoot(BTreeNode* node) const{
+bool BTree::isRoot(BTreeNode* node) const {
 	return root == node;
 }
 
-int BTree::getSize() {
+int BTree::getSize() const {
 	return size;
 }
 
