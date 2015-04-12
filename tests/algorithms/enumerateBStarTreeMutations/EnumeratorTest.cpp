@@ -9,7 +9,7 @@
 namespace rechteckpackungen {
 namespace enumerateBStarTreeMutations {
 
-void testEnumerator() {
+void testMutationsEnumerator() {
 	auto enumerator = Enumerator();
 	auto a = Rectangle(1, 2);
 	auto b = Rectangle(3, 3);
@@ -23,24 +23,23 @@ void testEnumerator() {
 
 	subset = {tree.at(0)};
 	unsigned counter = 0;
-	enumerator.forEachMutation(tree, subset, [&](const BStarTree& tree){
+	enumerator.forEachMutation(tree, subset, [&](const BStarTree& tree) {
 		counter++;
 	});
-	ASSERT_EQUAL(3, counter); //rotate a, swap a and b, dont rotate b (which is now the rectangle of node 0) because its square
+	ASSERT_EQUAL(8, counter); // 2 * 2 * 2 = [alternative positions (left child & right child of other node)] * [rotated and not rotated] * [swapped and not swapped]
 
 	subset = {tree.at(0), tree.at(1)};
 	counter = 0;
-	enumerator.forEachMutation(tree, subset, [&](const BStarTree& tree){
+	enumerator.forEachMutation(tree, subset, [&](const BStarTree& tree) {
 		counter++;
 	});
-	ASSERT_EQUAL(9, counter); //rotate node 0 and dont rotate node 1, swap a and b, rotate node 0 and dont rotate node 1
-
+	ASSERT_EQUAL(32, counter);
 
 }
 
 cute::suite make_suite_EnumeratorTest() {
 	cute::suite s;
-	s.push_back(CUTE(testEnumerator));
+	s.push_back(CUTE(testMutationsEnumerator));
 	return s;
 }
 

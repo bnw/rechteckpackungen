@@ -5,7 +5,7 @@ namespace rechteckpackungen {
 BTree::BTree(int size) {
 	this->size = size;
 	this->root = nullptr;
-	nodes = std::vector<BTreeNode*>(size, nullptr);
+	nodes = std::vector<BTreeNode*>(size);
 	for (int i = 0; i < size; i++) {
 		nodes.at(i) = new BTreeNode(i);
 	}
@@ -13,9 +13,19 @@ BTree::BTree(int size) {
 
 BTree::BTree(const BTree& original) {
 	size = original.getSize();
-	nodes = std::vector<BTreeNode*>(size, nullptr);
+	nodes = std::vector<BTreeNode*>(size);
 	for (int i = 0; i < size; i++) {
-		nodes.at(i) = new BTreeNode(*original.at(i));
+		nodes.at(i) = new BTreeNode(i);
+	}
+	for (int i = 0; i < size; i++) {
+		BTreeNode* originalNode = original.at(i);
+		BTreeNode* newNode = nodes.at(i);
+		if (originalNode->hasLeftChild()) {
+			setLeftChild(newNode, nodes.at(originalNode->getLeftChild()->getIndex()));
+		}
+		if (originalNode->hasRightChild()) {
+			setRightChild(newNode, nodes.at(originalNode->getRightChild()->getIndex()));
+		}
 	}
 	auto rootIndex = original.getRoot()->getIndex();
 	setRoot(at(rootIndex));
@@ -28,6 +38,9 @@ BTree::~BTree() {
 }
 
 void BTree::setLeftChild(BTreeNode* parent, BTreeNode* leftChild) {
+	if (parent == leftChild) {
+		throw std::runtime_error("Cannot be my own child!");
+	}
 	if (leftChild->hasParent() || parent->hasLeftChild()) {
 		throw std::runtime_error("Cannot set left child because parent->leftChild or leftChild->parent are occupied!");
 	}
@@ -36,6 +49,9 @@ void BTree::setLeftChild(BTreeNode* parent, BTreeNode* leftChild) {
 }
 
 void BTree::setRightChild(BTreeNode* parent, BTreeNode* rightChild) {
+	if (parent == rightChild) {
+		throw std::runtime_error("Cannot be my own child!");
+	}
 	if (rightChild->hasParent() || parent->hasRightChild()) {
 		throw std::runtime_error("Cannot set left child because parent->rightChild or rightChild->parent are occupied!");
 	}
@@ -145,7 +161,6 @@ void BTree::remove(BTreeNode* node) {
 		}
 		removeChild(node, child);
 		if (isRoot(node)) {
-			removeChild(node, child);
 			setRoot(child);
 		} else {
 			replaceChild(parent, node, child);
@@ -161,7 +176,7 @@ BTreeNode* BTree::getRoot() const {
 	return root;
 }
 
-const std::vector<BTreeNode*>& BTree::getNodes() const{
+const std::vector<BTreeNode*>& BTree::getNodes() const {
 	return nodes;
 }
 
@@ -170,7 +185,7 @@ void BTree::setRoot(BTreeNode* node) {
 	root = node;
 }
 
-bool BTree::hasRoot() const{
+bool BTree::hasRoot() const {
 	return root != nullptr;
 }
 
