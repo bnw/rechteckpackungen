@@ -7,6 +7,7 @@
 #include "action/FindBestByEnumeration.h"
 #include "action/IFileAction.h"
 #include "action/FindLocalOptimum.h"
+#include "action/FindGoodPlacement.h"
 
 using std::cout;
 using std::endl;
@@ -14,6 +15,7 @@ using rechteckpackungen::OverlappingAction;
 using rechteckpackungen::FindBestByEnumeration;
 using rechteckpackungen::IFileAction;
 using rechteckpackungen::FindLocalOptimum;
+using rechteckpackungen::FindGoodPlacement;
 
 std::ifstream* openFile(char const *filename) {
 	auto file = new std::ifstream;
@@ -21,7 +23,7 @@ std::ifstream* openFile(char const *filename) {
 		file->open(filename);
 	} catch (std::ios_base::failure &e) {
 	}
-	if (!file->is_open() || !file->good()){
+	if (!file->is_open() || !file->good()) {
 		std::stringstream errorMessage;
 		errorMessage << "Cannot open file " << filename;
 		throw std::runtime_error(errorMessage.str());
@@ -39,7 +41,7 @@ void runIFileAction(IFileAction& action, char const *filename) {
 int main(int argc, char const *argv[]) {
 
 	auto usageInfo =
-			"Usage: rechteckpackungen.exe { test-overlapping | find-optimal-placement | find-local-optimal-placement } file [initial_placement_file]";
+			"Usage: rechteckpackungen.exe { test-overlapping | find-optimal-placement | improve-placement } file [initial_placement_file]";
 
 	if (argc < 3) {
 		cout << usageInfo << endl;
@@ -56,12 +58,15 @@ int main(int argc, char const *argv[]) {
 		} else if (strcmp("find-optimal-placement", mode) == 0) {
 			auto action = FindBestByEnumeration();
 			runIFileAction(action, filename);
-		} else if (strcmp("find-local-optimal-placement", mode) == 0) {
+		} else if (strcmp("find-good-placement", mode) == 0) {
+			auto action = FindGoodPlacement();
+			runIFileAction(action, filename);
+		} else if (strcmp("improve-placement", mode) == 0) {
 			if (argc < 4) {
-				cout << "Usage: rechteckpackungen.exe find-local-optimal-placement instance_file initial_placement_file" << endl;
+				cout << "Usage: rechteckpackungen.exe improve-placement instance_file initial_placement_file" << endl;
 				return 1;
 			}
-			auto action = FindLocalOptimum(4);
+			auto action = FindLocalOptimum(1);
 			auto instanceFile = openFile(filename);
 			auto initialPlacementFile = openFile(argv[3]);
 			action.run(*instanceFile, *initialPlacementFile, std::cout);
