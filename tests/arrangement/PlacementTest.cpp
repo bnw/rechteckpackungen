@@ -9,15 +9,15 @@ namespace rechteckpackungen {
 
 void testPlacementSort() {
 	auto expectedResult = new Placement;
-	expectedResult->add(new PositionedRectangle(Rectangle(0, 0), Coordinates(1, 0)));
-	expectedResult->add(new PositionedRectangle(Rectangle(0, 0), Coordinates(3, 0)));
-	expectedResult->add(new PositionedRectangle(Rectangle(0, 0), Coordinates(3, 0)));
+	expectedResult->add(PositionedRectangle(Rectangle(0, 0), Coordinates(1, 0)));
+	expectedResult->add(PositionedRectangle(Rectangle(0, 0), Coordinates(3, 0)));
+	expectedResult->add(PositionedRectangle(Rectangle(0, 0), Coordinates(3, 0)));
 
-	auto sorter = new sortInt::BuiltIn();
+	auto sorter = new sortInt::BuiltIn<PositionedRectangle>();
 	auto subject = new Placement;
-	subject->add(new PositionedRectangle(Rectangle(0, 0), Coordinates(3, 0)));
-	subject->add(new PositionedRectangle(Rectangle(0, 0), Coordinates(1, 0)));
-	subject->add(new PositionedRectangle(Rectangle(0, 0), Coordinates(3, 0)));
+	subject->add(PositionedRectangle(Rectangle(0, 0), Coordinates(3, 0)));
+	subject->add(PositionedRectangle(Rectangle(0, 0), Coordinates(1, 0)));
+	subject->add(PositionedRectangle(Rectangle(0, 0), Coordinates(3, 0)));
 	subject->sortPositionedRectanglesByXMin(sorter);
 
 	ASSERT(*subject == *expectedResult);
@@ -29,9 +29,9 @@ void testPlacementSort() {
 
 void testGetXMaxAndArea() {
 	auto placement = new Placement;
-	placement->add(new PositionedRectangle(Rectangle(1, 2), Coordinates(4, 0)));
-	placement->add(new PositionedRectangle(Rectangle(1, 3), Coordinates(2, 0)));
-	placement->add(new PositionedRectangle(Rectangle(1, 16), Coordinates(3, 0)));
+	placement->add(PositionedRectangle(Rectangle(1, 2), Coordinates(4, 0)));
+	placement->add(PositionedRectangle(Rectangle(1, 3), Coordinates(2, 0)));
+	placement->add(PositionedRectangle(Rectangle(1, 16), Coordinates(3, 0)));
 
 	ASSERT_EQUAL(5, placement->getXMax());
 	ASSERT_EQUAL(5 * 16, placement->getArea());

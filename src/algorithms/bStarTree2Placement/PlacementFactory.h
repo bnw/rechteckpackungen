@@ -25,14 +25,14 @@ public:
 	 * If non exists, currentHorizontalContourElement is equal to horizontalContour->end().
 	 * Only public for testing.
 	 */
-	int findMinY(std::list<PositionedRectangle*>* horizontalContour,
-			std::list<PositionedRectangle*>::iterator firstHorizontalContourElementBelowNewElement, int width, int xMin) const;
-	std::list<PositionedRectangle*>::iterator updateContour(std::list<PositionedRectangle*>* horizontalContour,
-			std::list<PositionedRectangle*>::iterator firstHorizontalContourElementBelowNewElement, PositionedRectangle* newElement) const;
+	int findMinY(std::list<PositionedRectangle>* horizontalContour,
+			std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, int width, int xMin) const;
+	std::list<PositionedRectangle>::iterator updateContour(std::list<PositionedRectangle>* horizontalContour,
+			std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, PositionedRectangle newElement) const;
 protected:
 	bool buildPlacementRecursively(const Rectangle& bounds, const BStarTree& tree, std::shared_ptr<Placement> placement, BTreeNode* rootNode,
-			PositionedRectangle* rootPositionedRecangle, std::list<PositionedRectangle*>* horizontalContour,
-			std::list<PositionedRectangle*>::iterator currentHorizontalContourElement) const;
+			PositionedRectangle rootPositionedRecangle, std::list<PositionedRectangle>* horizontalContour,
+			std::list<PositionedRectangle>::iterator currentHorizontalContourElement) const;
 };
 
 }

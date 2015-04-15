@@ -20,16 +20,16 @@ public:
 	Placement();
 	~Placement();
 	bool operator==(const Placement& other);
-	void add(PositionedRectangle*);
-	std::vector<PositionedRectangle*>* getPositionedRectangles();
+	void add(PositionedRectangle);
+	std::vector<PositionedRectangle>* getPositionedRectangles();
 	std::shared_ptr<std::vector<Rectangle>> getRectangles();
 	std::unique_ptr<PositionedRectangle> getBounds() const;
 
 	/*
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
 	 */
-	void sortPositionedRectanglesByXMin(sortInt::IIntSorter* sortStrategy);
-	void sortPositionedRectanglesByYMin(sortInt::IIntSorter* sortStrategy);
+	void sortPositionedRectanglesByXMin(sortInt::IIntSorter<PositionedRectangle>* sortStrategy);
+	void sortPositionedRectanglesByYMin(sortInt::IIntSorter<PositionedRectangle>* sortStrategy);
 
 	/*
 	 * Complexity: n
@@ -38,7 +38,7 @@ public:
 	int getYMax() const;
 	int getArea();
 private:
-	std::vector<PositionedRectangle*>* positionedRectangles;
+	std::vector<PositionedRectangle>* positionedRectangles;
 
 };
 

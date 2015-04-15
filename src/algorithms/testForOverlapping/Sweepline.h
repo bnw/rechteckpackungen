@@ -17,8 +17,8 @@ public:
 	bool hasOverlapping(Placement* placement);
 
 private:
-	bool doPositionedRectanglesOverlapVertically(PositionedRectangle* a, PositionedRectangle* b);
-	std::vector<PositionedRectangle*>* getPositionedRectanglesSortedByXMin(Placement* placement);
+	bool doPositionedRectanglesOverlapVertically(PositionedRectangle a, PositionedRectangle b);
+	std::vector<PositionedRectangle>* getPositionedRectanglesSortedByXMin(Placement* placement);
 };
 
 }

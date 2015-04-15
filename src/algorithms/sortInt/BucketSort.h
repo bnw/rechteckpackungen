@@ -8,7 +8,8 @@
 namespace rechteckpackungen {
 namespace sortInt {
 
-class BucketSort: public virtual IIntSorter {
+template<class T>
+class BucketSort: public virtual IIntSorter<T> {
 public:
 	BucketSort(bool reverse);
 	virtual ~BucketSort();
@@ -16,12 +17,14 @@ public:
 	 * Complexity: O(n)
 	 * Memory: O(n)
 	 */
-	virtual void sort(std::vector<void*>*, int (*getInt)(const void *));
+	virtual void sort(std::vector<T>*, int (*getInt)(const T));
 private:
 	bool reverse = false;
 };
 
 }
 }
+
+#include "BucketSort_impl.h"
 
 #endif

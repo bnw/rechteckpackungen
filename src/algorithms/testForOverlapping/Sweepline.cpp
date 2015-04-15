@@ -12,14 +12,14 @@ namespace rechteckpackungen {
 bool Sweepline::hasOverlapping(Placement* placement) {
 	auto positionedRectangles = getPositionedRectanglesSortedByXMin(placement); // O(n * log(n))
 
-	std::list<PositionedRectangle*> workingSet;
+	std::list<PositionedRectangle> workingSet;
 	for (auto newPositionedRectangle : *positionedRectangles) { // O(n)
 		auto workingSetIterator = workingSet.begin();
 		while (workingSetIterator != workingSet.end()) { // O(k)
 			auto oldPositionedRectangle = *workingSetIterator;
 
 			//remove old positioned rectangles whose right border is left of the rectangle
-			if (oldPositionedRectangle->getXMax() <= newPositionedRectangle->getXMin()) {
+			if (oldPositionedRectangle.getXMax() <= newPositionedRectangle.getXMin()) {
 				workingSetIterator = workingSet.erase(workingSetIterator);
 				continue;
 			}
@@ -36,16 +36,16 @@ bool Sweepline::hasOverlapping(Placement* placement) {
 	return false;
 }
 
-bool Sweepline::doPositionedRectanglesOverlapVertically(PositionedRectangle* a, PositionedRectangle* b) {
-	if (a->getYMin() >= b->getYMax() || a->getYMax() <= b->getYMin()) {
+bool Sweepline::doPositionedRectanglesOverlapVertically(PositionedRectangle a, PositionedRectangle b) {
+	if (a.getYMin() >= b.getYMax() || a.getYMax() <= b.getYMin()) {
 		return false;
 	}
 	return true;
 }
 
-std::vector<PositionedRectangle*>* Sweepline::getPositionedRectanglesSortedByXMin(
+std::vector<PositionedRectangle>* Sweepline::getPositionedRectanglesSortedByXMin(
 		Placement* placement) {
-	auto sorter = sortInt::BucketSort(false);
+	auto sorter = sortInt::BucketSort<PositionedRectangle>(false);
 	placement->sortPositionedRectanglesByXMin(&sorter);
 	return placement->getPositionedRectangles();
 }

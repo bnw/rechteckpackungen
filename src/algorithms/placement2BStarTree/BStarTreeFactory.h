@@ -17,7 +17,7 @@ private:
 	/**
 	 * Complexity: O(1)
 	 */
-	void buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree, std::vector<PositionedRectangle*>* positionedRectangles);
+	void buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree, std::vector<PositionedRectangle>* positionedRectangles);
 };
 
 }

@@ -17,7 +17,7 @@ void assertPlacementsEqual(std::shared_ptr<Placement> expected, std::shared_ptr<
 	for (auto expectedPositionedRectangle : *expected->getPositionedRectangles()) {
 		bool foundExpectedPositionedRectangle = false;
 		for (auto actualPositionedRectangle : *actual->getPositionedRectangles()) {
-			if (*expectedPositionedRectangle == *actualPositionedRectangle) {
+			if (expectedPositionedRectangle == actualPositionedRectangle) {
 				foundExpectedPositionedRectangle = true;
 				break;
 			}
@@ -40,18 +40,18 @@ void testFindYMin() {
 	auto c = Rectangle(3, 3);
 	auto d = Rectangle(1, 5);
 	auto e = Rectangle(1, 1);
-	auto aPositioned = new PositionedRectangle(a, 0, 0);
-	auto bPositioned = new PositionedRectangle(b, 1, 0);
-	auto cPositioned = new PositionedRectangle(c, 2, 0);
-	auto dPositioned = new PositionedRectangle(d, 5, 0);
-	auto ePositioned = new PositionedRectangle(e, 6, 0);
+	auto aPositioned = PositionedRectangle(a, 0, 0);
+	auto bPositioned = PositionedRectangle(b, 1, 0);
+	auto cPositioned = PositionedRectangle(c, 2, 0);
+	auto dPositioned = PositionedRectangle(d, 5, 0);
+	auto ePositioned = PositionedRectangle(e, 6, 0);
 	auto rectangles = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
 	rectangles->push_back(c); // index = 2
 	rectangles->push_back(d); // index = 3
 	rectangles->push_back(e); // index = 4
-	auto contour = std::list<PositionedRectangle*>();
+	auto contour = std::list<PositionedRectangle>();
 	contour.push_back(aPositioned);
 	contour.push_back(bPositioned);
 	contour.push_back(cPositioned);
@@ -85,35 +85,35 @@ void testUpdateContour1() {
 	auto c = Rectangle(3, 3);
 	auto d = Rectangle(1, 5);
 	auto e = Rectangle(1, 1);
-	auto aPositioned = new PositionedRectangle(a, 0, 0);
-	auto bPositioned = new PositionedRectangle(b, 1, 0);
-	auto cPositioned = new PositionedRectangle(c, 2, 0);
-	auto dPositioned = new PositionedRectangle(d, 5, 0);
-	auto ePositioned = new PositionedRectangle(e, 6, 0);
+	auto aPositioned = PositionedRectangle(a, 0, 0);
+	auto bPositioned = PositionedRectangle(b, 1, 0);
+	auto cPositioned = PositionedRectangle(c, 2, 0);
+	auto dPositioned = PositionedRectangle(d, 5, 0);
+	auto ePositioned = PositionedRectangle(e, 6, 0);
 	auto rectangles = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
 	rectangles->push_back(c); // index = 2
 	rectangles->push_back(d); // index = 3
 	rectangles->push_back(e); // index = 4
-	auto contour = new std::list<PositionedRectangle*>();
+	auto contour = new std::list<PositionedRectangle>();
 	contour->push_back(aPositioned);
 	contour->push_back(bPositioned);
 	contour->push_back(cPositioned);
 	contour->push_back(dPositioned);
 	contour->push_back(ePositioned);
 
-	auto newRectangle = new PositionedRectangle(0, 3, 3, 4);
+	auto newRectangle = PositionedRectangle(0, 3, 3, 4);
 
 	auto result = factory.updateContour(contour, contour->begin(), newRectangle);
 
 	auto iterator = contour->begin();
 	ASSERT_EQUAL(result, iterator);
 	ASSERT_EQUAL(4, contour->size());
-	ASSERT_EQUAL(newRectangle, *iterator++);
-	ASSERT_EQUAL(cPositioned, *iterator++);
-	ASSERT_EQUAL(dPositioned, *iterator++);
-	ASSERT_EQUAL(ePositioned, *iterator++);
+	ASSERT(newRectangle == *iterator++);
+	ASSERT(cPositioned == *iterator++);
+	ASSERT(dPositioned == *iterator++);
+	ASSERT(ePositioned == *iterator++);
 }
 
 /*
@@ -131,33 +131,33 @@ void testUpdateContour2() {
 	auto c = Rectangle(3, 3);
 	auto d = Rectangle(1, 5);
 	auto e = Rectangle(1, 1);
-	auto aPositioned = new PositionedRectangle(a, 0, 0);
-	auto bPositioned = new PositionedRectangle(b, 1, 0);
-	auto cPositioned = new PositionedRectangle(c, 2, 0);
-	auto dPositioned = new PositionedRectangle(d, 5, 0);
-	auto ePositioned = new PositionedRectangle(e, 6, 0);
+	auto aPositioned = PositionedRectangle(a, 0, 0);
+	auto bPositioned = PositionedRectangle(b, 1, 0);
+	auto cPositioned = PositionedRectangle(c, 2, 0);
+	auto dPositioned = PositionedRectangle(d, 5, 0);
+	auto ePositioned = PositionedRectangle(e, 6, 0);
 	auto rectangles = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
 	rectangles->push_back(c); // index = 2
 	rectangles->push_back(d); // index = 3
 	rectangles->push_back(e); // index = 4
-	auto contour = new std::list<PositionedRectangle*>();
+	auto contour = new std::list<PositionedRectangle>();
 	contour->push_back(aPositioned);
 	contour->push_back(bPositioned);
 	contour->push_back(cPositioned);
 	contour->push_back(dPositioned);
 	contour->push_back(ePositioned);
 
-	auto newRectangle = new PositionedRectangle(1, 8, 5, 6);
+	auto newRectangle = PositionedRectangle(1, 8, 5, 6);
 
 	auto result = factory.updateContour(contour, ++contour->begin(), newRectangle);
 
 	auto iterator = contour->begin();
 	ASSERT_EQUAL(2, contour->size());
-	ASSERT_EQUAL(aPositioned, *iterator++);
-	ASSERT_EQUAL(newRectangle, *result);
-	ASSERT_EQUAL(newRectangle, *iterator);
+	ASSERT(aPositioned == *iterator++);
+	ASSERT(newRectangle == *result);
+	ASSERT(newRectangle == *iterator);
 }
 
 /**
@@ -168,23 +168,23 @@ void testUpdateContour3() {
 	auto factory = bStarTree2Placement::PlacementFactory();
 	auto a = Rectangle(4, 1);
 	auto b = Rectangle(2, 1);
-	auto aPositioned = new PositionedRectangle(a, 0, 0);
-	auto bPositioned = new PositionedRectangle(b, 0, 1);
+	auto aPositioned = PositionedRectangle(a, 0, 0);
+	auto bPositioned = PositionedRectangle(b, 0, 1);
 	auto rectangles = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
-	auto contour = new std::list<PositionedRectangle*>();
+	auto contour = new std::list<PositionedRectangle>();
 	contour->push_back(bPositioned);
 	contour->push_back(aPositioned);
 
-	auto newRectangle = new PositionedRectangle(3, 6, 1, 2);
+	auto newRectangle = PositionedRectangle(3, 6, 1, 2);
 
 	factory.updateContour(contour, ++contour->begin(), newRectangle);
 
 	auto iterator = contour->begin();
 	ASSERT_EQUAL(2, contour->size());
-	ASSERT_EQUAL(bPositioned, *iterator++);
-	ASSERT_EQUAL(newRectangle, *iterator);
+	ASSERT(bPositioned == *iterator++);
+	ASSERT(newRectangle == *iterator);
 }
 
 /**
@@ -195,24 +195,24 @@ void testUpdateContour4() {
 	auto factory = bStarTree2Placement::PlacementFactory();
 	auto a = Rectangle(2, 1);
 	auto b = Rectangle(2, 1);
-	auto aPositioned = new PositionedRectangle(a, 0, 0);
-	auto bPositioned = new PositionedRectangle(b, 2, 0);
+	auto aPositioned = PositionedRectangle(a, 0, 0);
+	auto bPositioned = PositionedRectangle(b, 2, 0);
 	auto rectangles = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>());
 	rectangles->push_back(a); // index = 0
 	rectangles->push_back(b); // index = 1
-	auto contour = new std::list<PositionedRectangle*>();
+	auto contour = new std::list<PositionedRectangle>();
 	contour->push_back(aPositioned);
 	contour->push_back(bPositioned);
 
-	auto newRectangle = new PositionedRectangle(4, 6, 0, 1);
+	auto newRectangle = PositionedRectangle(4, 6, 0, 1);
 
 	factory.updateContour(contour, contour->end(), newRectangle);
 
 	auto iterator = contour->begin();
 	ASSERT_EQUAL(3, contour->size());
-	ASSERT_EQUAL(aPositioned, *iterator++);
-	ASSERT_EQUAL(bPositioned, *iterator++);
-	ASSERT_EQUAL(newRectangle, *iterator);
+	ASSERT(aPositioned == *iterator++);
+	ASSERT(bPositioned == *iterator++);
+	ASSERT(newRectangle == *iterator);
 }
 
 /*
@@ -230,11 +230,11 @@ void testCreateHorizontal() {
 	auto c = Rectangle(3, 3);
 	auto d = Rectangle(1, 5);
 	auto e = Rectangle(1, 1);
-	auto aPositionedExpected = new PositionedRectangle(a, 0, 0);
-	auto bPositionedExpected = new PositionedRectangle(b, 1, 0);
-	auto cPositionedExpected = new PositionedRectangle(c, 2, 0);
-	auto dPositionedExpected = new PositionedRectangle(d, 5, 0);
-	auto ePositionedExpected = new PositionedRectangle(e, 6, 0);
+	auto aPositionedExpected = PositionedRectangle(a, 0, 0);
+	auto bPositionedExpected = PositionedRectangle(b, 1, 0);
+	auto cPositionedExpected = PositionedRectangle(c, 2, 0);
+	auto dPositionedExpected = PositionedRectangle(d, 5, 0);
+	auto ePositionedExpected = PositionedRectangle(e, 6, 0);
 	auto rectangles = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>());
 
 	rectangles->push_back(a); // index = 0
@@ -287,14 +287,14 @@ void testCreateComplete() {
 	rectangles->push_back(f); // index = 5
 	rectangles->push_back(g); // index = 6
 	rectangles->push_back(h); // index = 7
-	auto aPositionedExpected = new PositionedRectangle(a, 0, 0);
-	auto bPositionedExpected = new PositionedRectangle(b, 1, 0);
-	auto cPositionedExpected = new PositionedRectangle(c, 2, 0);
-	auto dPositionedExpected = new PositionedRectangle(d, 5, 0);
-	auto ePositionedExpected = new PositionedRectangle(e, 6, 0);
-	auto fPositionedExpected = new PositionedRectangle(f, 1, 3);
-	auto gPositionedExpected = new PositionedRectangle(g, 4, 3);
-	auto hPositionedExpected = new PositionedRectangle(h, 6, 1);
+	auto aPositionedExpected = PositionedRectangle(a, 0, 0);
+	auto bPositionedExpected = PositionedRectangle(b, 1, 0);
+	auto cPositionedExpected = PositionedRectangle(c, 2, 0);
+	auto dPositionedExpected = PositionedRectangle(d, 5, 0);
+	auto ePositionedExpected = PositionedRectangle(e, 6, 0);
+	auto fPositionedExpected = PositionedRectangle(f, 1, 3);
+	auto gPositionedExpected = PositionedRectangle(g, 4, 3);
+	auto hPositionedExpected = PositionedRectangle(h, 6, 1);
 	auto tree = BStarTree(rectangles);
 	tree.setRoot(tree.at(0));
 	tree.setLeftChild(tree.at(0), tree.at(1));

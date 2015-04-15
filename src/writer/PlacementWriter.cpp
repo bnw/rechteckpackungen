@@ -11,12 +11,12 @@ std::string PlacementWriter::toString(std::shared_ptr<Placement> placement) {
 		} else {
 			result << std::endl;
 		}
-		result << positionedRectangle->getXMin() << " ";
-		result << positionedRectangle->getXMax() << " ";
-		result << positionedRectangle->getYMin() << " ";
-		result << positionedRectangle->getYMax() << " ";
+		result << positionedRectangle.getXMin() << " ";
+		result << positionedRectangle.getXMax() << " ";
+		result << positionedRectangle.getYMin() << " ";
+		result << positionedRectangle.getYMax() << " ";
 		result << "0 "; //not mirrored
-		result << (positionedRectangle->isRotated() ? "1" : "0");
+		result << (positionedRectangle.isRotated() ? "1" : "0");
 	}
 	return result.str();
 }

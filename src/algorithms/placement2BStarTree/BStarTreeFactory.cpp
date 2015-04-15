@@ -4,7 +4,7 @@ namespace rechteckpackungen {
 namespace placement2BStarTree {
 
 BStarTree* BStarTreeFactory::create(Placement* placement) {
-	auto sorter = sortInt::BucketSort(true);
+	auto sorter = sortInt::BucketSort<PositionedRectangle>(true);
 	placement->sortPositionedRectanglesByYMin(&sorter);
 	auto positionedRectangles = placement->getPositionedRectangles();
 	auto tree = new BStarTree(placement->getRectangles());
@@ -15,10 +15,10 @@ BStarTree* BStarTreeFactory::create(Placement* placement) {
 	 */
 	for (unsigned i = 0; i < positionedRectangles->size(); i++) {
 		auto rectangle = positionedRectangles->at(i);
-		if (rectangle->getXMin() == 0 && rectangle->getYMin() == 0) {
+		if (rectangle.getXMin() == 0 && rectangle.getYMin() == 0) {
 			tree->setRoot(tree->at(i));
 		} else {
-			xBuckets.at(rectangle->getXMin()).push_back(i);
+			xBuckets.at(rectangle.getXMin()).push_back(i);
 		}
 	}
 
@@ -28,13 +28,13 @@ BStarTree* BStarTreeFactory::create(Placement* placement) {
 }
 
 void BStarTreeFactory::buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree,
-		std::vector<PositionedRectangle*>* positionedRectangles) {
+		std::vector<PositionedRectangle>* positionedRectangles) {
 
 	auto rootRectangle = positionedRectangles->at(rootNode->getIndex());
 	auto rootIndex = rootNode->getIndex();
 
 	//build left tree (rectangles to the right)
-	auto currentXBucket = &xBuckets.at(rootRectangle->getXMax());
+	auto currentXBucket = &xBuckets.at(rootRectangle.getXMax());
 	if (!currentXBucket->empty()) {
 		int lowestUnvistedModuleInXBucket = currentXBucket->back();
 		currentXBucket->pop_back();
@@ -43,13 +43,13 @@ void BStarTreeFactory::buildTreeRecursively(BTreeNode* rootNode, std::vector<std
 	}
 
 	//build right tree (rectangles above)
-	currentXBucket = &xBuckets.at(rootRectangle->getXMin());
+	currentXBucket = &xBuckets.at(rootRectangle.getXMin());
 	if (!currentXBucket->empty()) {
 		auto lowestUnvistedModuleInXBucket = currentXBucket->back();
 		auto closestParentOfWhichIAmLeft = rootNode->getClosestParentOfWhichIAmLeft();
 		if (closestParentOfWhichIAmLeft == NULL
-				|| positionedRectangles->at(closestParentOfWhichIAmLeft->getIndex())->getYMax()
-						> positionedRectangles->at(lowestUnvistedModuleInXBucket)->getYMin()) {
+				|| positionedRectangles->at(closestParentOfWhichIAmLeft->getIndex()).getYMax()
+						> positionedRectangles->at(lowestUnvistedModuleInXBucket).getYMin()) {
 			currentXBucket->pop_back();
 			tree->setRightChild(tree->at(rootIndex), tree->at(lowestUnvistedModuleInXBucket));
 			buildTreeRecursively(tree->at(lowestUnvistedModuleInXBucket), xBuckets, tree, positionedRectangles);

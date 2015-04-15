@@ -15,7 +15,7 @@ class PlacementReader {
 public:
 	Placement* read(std::istream& filename);
 private:
-	PositionedRectangle* getPositionedRectangleFromLine(std::string& line);
+	PositionedRectangle getPositionedRectangleFromLine(std::string& line);
 };
 
 }
