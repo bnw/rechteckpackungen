@@ -17,6 +17,11 @@ namespace rechteckpackungen {
 class Placement {
 public:
 	typedef std::shared_ptr<Placement> ptr;
+	/*
+	 * If the constructor is called with an estimatedSize, the needed memory is allocated in one big chunk (rather than incrementally).
+	 * This usually results in a noticeable performance improvement.
+	 */
+	Placement(int estimatedSize);
 	Placement();
 	~Placement();
 	bool operator==(const Placement& other);

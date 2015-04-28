@@ -2,8 +2,13 @@
 
 namespace rechteckpackungen {
 
-Placement::Placement() {
+Placement::Placement(int estimatedSize) {
 	positionedRectangles = new std::vector<PositionedRectangle>;
+	positionedRectangles->reserve(estimatedSize);
+}
+
+Placement::Placement() :
+		Placement(1) {
 }
 
 Placement::~Placement() {
@@ -47,11 +52,11 @@ int Placement::getYMax() const {
 int Placement::getArea() {
 	int xMax = 0;
 	int yMax = 0;
-	for(auto rectangle : *positionedRectangles){
-		if(xMax < rectangle.getXMax()){
+	for (auto rectangle : *positionedRectangles) {
+		if (xMax < rectangle.getXMax()) {
 			xMax = rectangle.getXMax();
 		}
-		if(yMax < rectangle.getYMax()){
+		if (yMax < rectangle.getYMax()) {
 			yMax = rectangle.getYMax();
 		}
 	}
@@ -66,9 +71,9 @@ std::unique_ptr<PositionedRectangle> Placement::getBounds() const {
 	return std::unique_ptr<PositionedRectangle>(new PositionedRectangle(0, getXMax(), 0, getYMax()));
 }
 
-std::shared_ptr<std::vector<Rectangle>>Placement::getRectangles() {
+std::shared_ptr<std::vector<Rectangle>> Placement::getRectangles() {
 	auto rectangles = std::shared_ptr<std::vector<Rectangle>>(new std::vector<Rectangle>);
-	for(auto positionedRectangle : *positionedRectangles) {
+	for (auto positionedRectangle : *positionedRectangles) {
 		rectangles->push_back(positionedRectangle.getRectangle());
 	}
 	return rectangles;

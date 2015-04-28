@@ -97,7 +97,7 @@ std::shared_ptr<Placement> PlacementFactory::createBounded(const BStarTree& tree
 
 //TODO work with bounds that are PositionedRectangles
 std::shared_ptr<Placement> PlacementFactory::createBounded(const BStarTree& tree, const Rectangle& bounds) const {
-	auto placement = std::shared_ptr<Placement>(new Placement());
+	auto placement = std::shared_ptr<Placement>(new Placement(tree.getSize()));
 	auto horizontalContour = std::list<PositionedRectangle>();
 
 	auto rootPositionedRectangle = PositionedRectangle(*tree.getRectangle(tree.getRoot()), 0, 0);
