@@ -11,7 +11,7 @@
 namespace rechteckpackungen {
 
 extern std::vector<std::string>* explode(std::string string, char delimiter);
-extern std::vector<int>* explode2int(std::string string, char delimiter);
+extern std::vector<int>* explode2int(std::string string, char delimiter, int expectedSize = 1);
 
 }
 

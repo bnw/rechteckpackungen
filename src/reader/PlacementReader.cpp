@@ -13,7 +13,7 @@ Placement* PlacementReader::read(std::istream& input) {
 }
 
 PositionedRectangle PlacementReader::getPositionedRectangleFromLine(std::string& line) {
-	auto parts = explode2int(line, ' ');
+	auto parts = explode2int(line, ' ', 6);
 	if (parts->size() != 6) {
 		throw std::runtime_error(
 				"Expected each line to contain exactly 6 numbers");

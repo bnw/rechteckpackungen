@@ -33,7 +33,7 @@ Rectangle InstanceReader::getRectangleFromLineParts(
 }
 
 std::shared_ptr<PositionedRectangle> InstanceReader::getAreaFromLine(std::string line) {
-	auto parts = explode2int(line, ' ');
+	auto parts = explode2int(line, ' ', 4);
 
 	if (parts->size() != 4) {
 		throw std::runtime_error(
