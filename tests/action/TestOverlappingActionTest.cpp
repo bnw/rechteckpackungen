@@ -1,12 +1,12 @@
 #include "cute.h"
 #include "OverlappingActionTest.h"
 
-#include "action/OverlappingAction.h"
+#include "action/TestOverlappingAction.h"
 
 namespace rechteckpackungen {
 
 void testNoOverlapping() {
-	auto action = OverlappingAction();
+	auto action = TestOverlappingAction();
 	std::stringstream input;
 	input << "0 3 1 4 0 3"<< std::endl <<"3 5 3 7 0 0";
 	std::stringstream output;
@@ -17,7 +17,7 @@ void testNoOverlapping() {
 }
 
 void testWithOverlapping() {
-	auto action = OverlappingAction();
+	auto action = TestOverlappingAction();
 	std::stringstream input;
 	input << "0 4 1 4 0 3"<< std::endl <<"3 5 3 7 0 0";
 	std::stringstream output;

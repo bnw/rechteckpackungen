@@ -3,7 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
-#include "action/OverlappingAction.h"
+#include "action/TestOverlappingAction.h"
 #include "action/FindBestByEnumeration.h"
 #include "action/IFileAction.h"
 #include "action/FindLocalOptimum.h"
@@ -11,7 +11,7 @@
 
 using std::cout;
 using std::endl;
-using rechteckpackungen::OverlappingAction;
+using rechteckpackungen::TestOverlappingAction;
 using rechteckpackungen::FindBestByEnumeration;
 using rechteckpackungen::IFileAction;
 using rechteckpackungen::FindLocalOptimum;
@@ -69,7 +69,7 @@ int main(int argc, char const *argv[]) {
 
 	try {
 		if (strcmp("test-overlapping", mode) == 0) {
-			auto action = OverlappingAction();
+			auto action = TestOverlappingAction();
 			runIFileAction(action, filename);
 		} else if (strcmp("find-optimal-placement", mode) == 0) {
 			auto action = FindBestByEnumeration();
