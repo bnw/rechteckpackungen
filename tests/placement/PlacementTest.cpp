@@ -1,7 +1,7 @@
 #include "cute.h"
 #include "PlacementTest.h"
 
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include "algorithms/sortInt/BuiltIn.h"
 #include <memory>
 

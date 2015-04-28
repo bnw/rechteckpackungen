@@ -1,8 +1,8 @@
 #include "cute.h"
 #include "PositionedRectangleTest.h"
 
-#include "arrangement/PositionedRectangle.h"
-#include "arrangement/Coordinates.h"
+#include "placement/PositionedRectangle.h"
+#include "placement/Coordinates.h"
 
 namespace rechteckpackungen {
 

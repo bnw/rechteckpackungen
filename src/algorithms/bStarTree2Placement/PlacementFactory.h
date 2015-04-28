@@ -2,8 +2,8 @@
 #define SRC_ALGORITHMS_BSTARTREE2PLACEMENT_PLACEMENTFACTORY_H_
 
 #include "BTree/BStarTree.h"
-#include "arrangement/Placement.h"
-#include "arrangement/Coordinates.h"
+#include "placement/Placement.h"
+#include "placement/Coordinates.h"
 #include "instance/Instance.h"
 #include <list>
 #include <iterator>

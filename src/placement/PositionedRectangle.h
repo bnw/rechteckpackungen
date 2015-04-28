@@ -2,8 +2,8 @@
  * The placement of a single Rectangle in the plane
  */
 
-#ifndef SRC_ARRANGEMENT_POSITIONEDRECTANGLE_H_
-#define SRC_ARRANGEMENT_POSITIONEDRECTANGLE_H_
+#ifndef SRC_PLACEMENT_POSITIONEDRECTANGLE_H_
+#define SRC_PLACEMENT_POSITIONEDRECTANGLE_H_
 
 #include "Coordinates.h"
 #include "../Rectangle.h"
@@ -35,4 +35,4 @@ private:
 
 }
 
-#endif /* SRC_ARRANGEMENT_POSITIONEDRECTANGLE_H_ */
+#endif /* SRC_PLACEMENT_POSITIONEDRECTANGLE_H_ */

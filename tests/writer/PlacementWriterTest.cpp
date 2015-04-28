@@ -1,7 +1,7 @@
 #include "cute.h"
 #include "PlacementWriterTest.h"
 
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include "writer/PlacementWriter.h"
 #include <string>
 #include <sstream>

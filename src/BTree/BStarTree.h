@@ -2,7 +2,7 @@
 #define SRC_BTREE_BSTARTREE_H_
 
 #include "BTree/BTree.h"
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include "Rectangle.h"
 #include "algorithms/sortInt/BucketSort.h"
 #include <vector>

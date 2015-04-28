@@ -7,7 +7,7 @@
 #include <iostream>
 #include "instance/Instance.h"
 #include "reader/InstanceReader.h"
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include "writer/PlacementWriter.h"
 #include "algorithms/enumerateBStarTrees/Enumerator.h"
 #include "algorithms/bStarTree2Placement/PlacementFactory.h"

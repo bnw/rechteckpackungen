@@ -1,8 +1,8 @@
 #ifndef SRC_ALGORITHMS_TESTFOROVERLAPPING_SWEEPLINE_H_
 #define SRC_ALGORITHMS_TESTFOROVERLAPPING_SWEEPLINE_H_
 
-#include "arrangement/Placement.h"
-#include "arrangement/PositionedRectangle.h"
+#include "placement/Placement.h"
+#include "placement/PositionedRectangle.h"
 #include "algorithms/sortInt/BucketSort.h"
 #include <list>
 

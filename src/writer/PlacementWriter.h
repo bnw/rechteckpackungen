@@ -1,7 +1,7 @@
 #ifndef SRC_WRITER_PLACEMENTWRITER_H_
 #define SRC_WRITER_PLACEMENTWRITER_H_
 
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include <string>
 #include <sstream>
 #include <memory>

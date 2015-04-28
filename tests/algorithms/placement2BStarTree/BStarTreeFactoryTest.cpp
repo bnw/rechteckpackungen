@@ -2,7 +2,7 @@
 #include "BStarTreeFactoryTest.h"
 
 #include "BTree/BStarTree.h"
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include "Rectangle.h"
 #include "reader/PlacementReader.h"
 #include "algorithms/placement2BStarTree/BStarTreeFactory.h"

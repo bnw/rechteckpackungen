@@ -2,7 +2,7 @@
 #define SRC_BTREE_BTREE_H_
 
 #include "BTree/BTreeNode.h"
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include <vector>
 #include <stdexcept>
 

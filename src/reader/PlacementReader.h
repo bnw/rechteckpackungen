@@ -3,7 +3,7 @@
 
 #include "util/explode.h"
 #include "util/safeGetline.h"
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include <string>
 #include <stdio.h>
 #include <fstream>

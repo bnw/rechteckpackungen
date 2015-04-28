@@ -2,7 +2,7 @@
 #include "PlacementFactoryTest.h"
 
 #include "Rectangle.h"
-#include "arrangement/PositionedRectangle.h"
+#include "placement/PositionedRectangle.h"
 #include "BTree/BStarTree.h"
 #include "algorithms/bStarTree2Placement/PlacementFactory.h"
 #include <vector>

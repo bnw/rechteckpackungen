@@ -2,13 +2,13 @@
  * An Placement represents a number of PositionedRecangles placed on a plane
  */
 
-#ifndef SRC_ARRANGEMENT_PLACEMENT_H_
-#define SRC_ARRANGEMENT_PLACEMENT_H_
+#ifndef SRC_PLACEMENT_PLACEMENT_H_
+#define SRC_PLACEMENT_PLACEMENT_H_
 
 #include <vector>
 #include <algorithm>
 #include <memory>
-#include "arrangement/PositionedRectangle.h"
+#include "placement/PositionedRectangle.h"
 #include "Rectangle.h"
 #include "algorithms/sortInt/IIntSorter.h"
 

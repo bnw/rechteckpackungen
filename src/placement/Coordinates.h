@@ -1,5 +1,5 @@
-#ifndef SRC_ARRANGEMENT_COORDINATES_H_
-#define SRC_ARRANGEMENT_COORDINATES_H_
+#ifndef SRC_PLACEMENT_COORDINATES_H_
+#define SRC_PLACEMENT_COORDINATES_H_
 
 #include <memory>
 #include "Rectangle.h"

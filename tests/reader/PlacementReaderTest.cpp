@@ -1,8 +1,8 @@
 #include "cute.h"
 #include "PlacementReaderTest.h"
 
-#include "../../src/reader/PlacementReader.h"
-#include "../../src/arrangement/Placement.h"
+#include "reader/PlacementReader.h"
+#include "placement/Placement.h"
 #include <stdio.h>
 #include <stdexcept>
 #include <memory>
