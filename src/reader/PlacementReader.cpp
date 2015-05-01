@@ -12,8 +12,8 @@ Placement* PlacementReader::read(std::istream& input) {
 	return placement;
 }
 
-PositionedRectangle* PlacementReader::getPositionedRectangleFromLine(std::string& line) {
-	auto parts = explode2int(line, ' ');
+PositionedRectangle PlacementReader::getPositionedRectangleFromLine(std::string& line) {
+	auto parts = explode2int(line, ' ', 6);
 	if (parts->size() != 6) {
 		throw std::runtime_error(
 				"Expected each line to contain exactly 6 numbers");
@@ -25,7 +25,7 @@ PositionedRectangle* PlacementReader::getPositionedRectangleFromLine(std::string
 
 	delete parts;
 
-	return new PositionedRectangle(xMin, xMax, yMin, yMax);
+	return PositionedRectangle(xMin, xMax, yMin, yMax);
 }
 
 }

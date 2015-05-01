@@ -1,5 +1,5 @@
-#ifndef SRC_ACTION_OVERLAPPINGACTION_H_
-#define SRC_ACTION_OVERLAPPINGACTION_H_
+#ifndef SRC_ACTION_TESTOVERLAPPINGACTION_H_
+#define SRC_ACTION_TESTOVERLAPPINGACTION_H_
 
 #include <string>
 #include "reader/PlacementReader.h"
@@ -10,9 +10,9 @@
 
 namespace rechteckpackungen {
 
-class OverlappingAction : public virtual IFileAction{
+class TestOverlappingAction : public virtual IFileAction{
 public:
-	virtual ~OverlappingAction() {
+	virtual ~TestOverlappingAction() {
 	}
 	void run(std::istream& input, std::ostream& output);
 };

@@ -2,7 +2,7 @@
 #include "InstanceReaderTest.h"
 
 #include "reader/InstanceReader.h"
-#include "arrangement/PositionedRectangle.h"
+#include "placement/PositionedRectangle.h"
 #include "instance/Instance.h"
 #include <stdio.h>
 #include <memory>

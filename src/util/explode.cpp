@@ -12,9 +12,10 @@ std::vector<std::string>* explode(std::string string, char delimiter) {
 	return parts;
 }
 
-std::vector<int>* explode2int(std::string string, char delimiter){
+std::vector<int>* explode2int(std::string string, char delimiter, int expectedSize){
 	auto parts = explode(string, delimiter);
 	auto intParts = new std::vector<int>;
+	intParts->reserve(expectedSize);
 	for(auto part : *parts){
 		intParts->push_back(string2int(part));
 	}

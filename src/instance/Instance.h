@@ -1,7 +1,7 @@
 #ifndef SRC_INSTANCE_INSTANCE_H_
 #define SRC_INSTANCE_INSTANCE_H_
 
-#include "arrangement/PositionedRectangle.h"
+#include "placement/PositionedRectangle.h"
 #include "Rectangle.h"
 #include <vector>
 #include <memory>

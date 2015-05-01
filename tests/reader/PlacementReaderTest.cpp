@@ -1,8 +1,8 @@
 #include "cute.h"
 #include "PlacementReaderTest.h"
 
-#include "../../src/reader/PlacementReader.h"
-#include "../../src/arrangement/Placement.h"
+#include "reader/PlacementReader.h"
+#include "placement/Placement.h"
 #include <stdio.h>
 #include <stdexcept>
 #include <memory>
@@ -21,8 +21,8 @@ void testPlacementReader(){
 	std::stringstream stream;
 	stream << "0 2 1 4 0 3\n3 5 3 7 0 0";
 	Placement expectedResult;
-	expectedResult.add(new PositionedRectangle(Rectangle(2, 3), Coordinates(0, 1)));
-	expectedResult.add(new PositionedRectangle(Rectangle(2, 4), Coordinates(3, 3)));
+	expectedResult.add(PositionedRectangle(Rectangle(2, 3), Coordinates(0, 1)));
+	expectedResult.add(PositionedRectangle(Rectangle(2, 4), Coordinates(3, 3)));
 	auto placement = reader.read(stream);
 	ASSERT(expectedResult == *placement);
 	delete placement;

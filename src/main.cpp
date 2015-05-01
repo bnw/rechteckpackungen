@@ -3,7 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
-#include "action/OverlappingAction.h"
+#include "action/TestOverlappingAction.h"
 #include "action/FindBestByEnumeration.h"
 #include "action/IFileAction.h"
 #include "action/FindLocalOptimum.h"
@@ -11,7 +11,7 @@
 
 using std::cout;
 using std::endl;
-using rechteckpackungen::OverlappingAction;
+using rechteckpackungen::TestOverlappingAction;
 using rechteckpackungen::FindBestByEnumeration;
 using rechteckpackungen::IFileAction;
 using rechteckpackungen::FindLocalOptimum;
@@ -38,14 +38,30 @@ void runIFileAction(IFileAction& action, char const *filename) {
 	delete file;
 }
 
+void printUsageInfo(){
+	cout
+	<< "Usage: rechteckpackungen.exe MODE FILES [OPTIONS]" << endl
+	<< "Available modes: test-overlapping, find-optimal-placement, find-good-placement, improve-placement" << endl << endl
+	<< "See below for detailed description:" << endl << endl
+	<< "test-overlapping FILE" << endl
+	<< "\t Tests if the placement described in FILE has any overlapping." << endl << endl
+	<< "find-optimal-placement FILE" << endl
+	<< "\t Prints an optimal placement for the instance described in FILE. Works by enumerating all possible placements." << endl << endl
+	<< "find-good-placement FILE" << endl
+	<< "\t Prints a placement for the instance described in FILE. Works by guessing a solution and then finding a local optimum based on this solution." << endl << endl
+	<< "improve-placement INSTANCE_FILE PLACEMENT_FILE" << endl
+	<< "\t Prints a placement for the instance described in INSTANCE_FILE by finding a local optimum based on the placement described in PLACEMENT_FILE." << endl << endl;
+}
+
+int missingArgumentError(){
+	cout << "Missing argument!" << endl << endl;
+	printUsageInfo();
+	return 1;
+}
+
 int main(int argc, char const *argv[]) {
-
-	auto usageInfo =
-			"Usage: rechteckpackungen.exe { test-overlapping | find-optimal-placement | improve-placement } file [initial_placement_file]";
-
 	if (argc < 3) {
-		cout << usageInfo << endl;
-		return 1;
+		return missingArgumentError();
 	}
 
 	auto mode = argv[1];
@@ -53,7 +69,7 @@ int main(int argc, char const *argv[]) {
 
 	try {
 		if (strcmp("test-overlapping", mode) == 0) {
-			auto action = OverlappingAction();
+			auto action = TestOverlappingAction();
 			runIFileAction(action, filename);
 		} else if (strcmp("find-optimal-placement", mode) == 0) {
 			auto action = FindBestByEnumeration();
@@ -63,8 +79,7 @@ int main(int argc, char const *argv[]) {
 			runIFileAction(action, filename);
 		} else if (strcmp("improve-placement", mode) == 0) {
 			if (argc < 4) {
-				cout << "Usage: rechteckpackungen.exe improve-placement instance_file initial_placement_file" << endl;
-				return 1;
+				return missingArgumentError();
 			}
 			auto action = FindLocalOptimum(1);
 			auto instanceFile = openFile(filename);
@@ -73,7 +88,8 @@ int main(int argc, char const *argv[]) {
 			delete instanceFile;
 			delete initialPlacementFile;
 		} else {
-			cout << "Unrecognized mode '" << mode << "'." << endl << usageInfo << endl;
+			cout << "Unrecognized mode '" << mode << "'." << endl;
+			printUsageInfo();
 			return 1;
 		}
 	} catch (std::runtime_error &e) {

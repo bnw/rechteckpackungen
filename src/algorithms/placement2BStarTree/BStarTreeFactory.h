@@ -2,7 +2,7 @@
 #define SRC_ALGORITHMS_PLACEMENT2BSTARTREE_BSTARTREEFACTORY_H_
 
 #include "BTree/BStarTree.h"
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 
 namespace rechteckpackungen {
 namespace placement2BStarTree {
@@ -17,7 +17,7 @@ private:
 	/**
 	 * Complexity: O(1)
 	 */
-	void buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree, std::vector<PositionedRectangle*>* positionedRectangles);
+	void buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree, std::vector<PositionedRectangle>* positionedRectangles);
 };
 
 }

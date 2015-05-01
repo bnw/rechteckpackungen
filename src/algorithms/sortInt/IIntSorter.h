@@ -6,11 +6,12 @@
 namespace rechteckpackungen {
 namespace sortInt {
 
+template<class T>
 class IIntSorter {
 public:
 	virtual ~IIntSorter() {
 	}
-	virtual void sort(std::vector<void*>*, int(*getInt)(const void *)) = 0;
+	virtual void sort(std::vector<T>*, int(*getInt)(const T)) = 0;
 };
 
 }

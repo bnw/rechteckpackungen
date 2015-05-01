@@ -1,8 +1,8 @@
 #ifndef SRC_ALGORITHMS_TESTFOROVERLAPPING_SWEEPLINE_H_
 #define SRC_ALGORITHMS_TESTFOROVERLAPPING_SWEEPLINE_H_
 
-#include "arrangement/Placement.h"
-#include "arrangement/PositionedRectangle.h"
+#include "placement/Placement.h"
+#include "placement/PositionedRectangle.h"
 #include "algorithms/sortInt/BucketSort.h"
 #include <list>
 
@@ -17,8 +17,8 @@ public:
 	bool hasOverlapping(Placement* placement);
 
 private:
-	bool doPositionedRectanglesOverlapVertically(PositionedRectangle* a, PositionedRectangle* b);
-	std::vector<PositionedRectangle*>* getPositionedRectanglesSortedByXMin(Placement* placement);
+	bool doPositionedRectanglesOverlapVertically(PositionedRectangle a, PositionedRectangle b);
+	std::vector<PositionedRectangle>* getPositionedRectanglesSortedByXMin(Placement* placement);
 };
 
 }

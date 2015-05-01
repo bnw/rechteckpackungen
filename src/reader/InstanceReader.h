@@ -2,7 +2,7 @@
 #define SRC_READER_INSTANCEREADER_H_
 
 #include "instance/Instance.h"
-#include "arrangement/PositionedRectangle.h"
+#include "placement/PositionedRectangle.h"
 #include "util/explode.h"
 #include "util/string2int.h"
 #include "util/safeGetline.h"

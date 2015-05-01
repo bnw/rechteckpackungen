@@ -1,7 +1,7 @@
 #include "cute.h"
 #include "PlacementWriterTest.h"
 
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include "writer/PlacementWriter.h"
 #include <string>
 #include <sstream>
@@ -12,9 +12,9 @@ void testPlacementWriter() {
 	auto writer = new PlacementWriter();
 
 	auto placement = std::shared_ptr<Placement>(new Placement());
-	auto a = new PositionedRectangle(Rectangle(2, 3), Coordinates(0, 1));
-	auto b = new PositionedRectangle(Rectangle(2, 4), Coordinates(3, 3));
-	b->rotate();
+	auto a = PositionedRectangle(Rectangle(2, 3), Coordinates(0, 1));
+	auto b = PositionedRectangle(Rectangle(2, 4), Coordinates(3, 3));
+	b.rotate();
 	placement->add(a);
 	placement->add(b);
 	std::stringstream expected;

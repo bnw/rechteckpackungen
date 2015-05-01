@@ -2,7 +2,7 @@
 #include "BStarTreeFactoryTest.h"
 
 #include "BTree/BStarTree.h"
-#include "arrangement/Placement.h"
+#include "placement/Placement.h"
 #include "Rectangle.h"
 #include "reader/PlacementReader.h"
 #include "algorithms/placement2BStarTree/BStarTreeFactory.h"
@@ -26,9 +26,9 @@ void testBStarTreeFromPlacementConstruction() {
 	 * #  ##
 	 * #####
 	 */
-	auto root = new PositionedRectangle(0, 4, 0, 4);
-	auto right = new PositionedRectangle(4, 6, 0, 2);
-	auto top = new PositionedRectangle(0, 5, 4, 5);
+	auto root = PositionedRectangle(0, 4, 0, 4);
+	auto right = PositionedRectangle(4, 6, 0, 2);
+	auto top = PositionedRectangle(0, 5, 4, 5);
 
 	placement->add(root);
 	placement->add(right);
@@ -36,11 +36,11 @@ void testBStarTreeFromPlacementConstruction() {
 
 	auto tree = createTree(placement);
 
-	ASSERT(*tree->getRectangle(tree->getRoot()) == root->getRectangle());
+	ASSERT(*tree->getRectangle(tree->getRoot()) == root.getRectangle());
 	ASSERT(tree->getRoot()->hasLeftChild());
-	ASSERT(*tree->getRectangle(tree->getRoot()->getLeftChild()) == right->getRectangle());
+	ASSERT(*tree->getRectangle(tree->getRoot()->getLeftChild()) == right.getRectangle());
 	ASSERT(tree->getRoot()->hasRightChild());
-	ASSERT(*tree->getRectangle(tree->getRoot()->getRightChild()) == top->getRectangle());
+	ASSERT(*tree->getRectangle(tree->getRoot()->getRightChild()) == top.getRectangle());
 
 	delete placement;
 	delete tree;
@@ -120,10 +120,10 @@ void testBStarTreeFromTextPlacementConstruction() {
  */
 void testThatThereCanBeSpaceBetweenTwoRectangles() {
 	auto placement = new Placement();
-	auto a = new PositionedRectangle(1, 2, 0, 1);
-	auto b = new PositionedRectangle(2, 3, 0, 2);
-	auto c = new PositionedRectangle(1, 4, 2, 3);
-	auto d = new PositionedRectangle(0, 1, 0, 4);
+	auto a = PositionedRectangle(1, 2, 0, 1);
+	auto b = PositionedRectangle(2, 3, 0, 2);
+	auto c = PositionedRectangle(1, 4, 2, 3);
+	auto d = PositionedRectangle(0, 1, 0, 4);
 
 	placement->add(a);
 	placement->add(b);
@@ -132,14 +132,14 @@ void testThatThereCanBeSpaceBetweenTwoRectangles() {
 	auto tree = createTree(placement);
 
 	auto root = tree->getRoot();
-	ASSERT(d->getRectangle() == *tree->getRectangle(root));
+	ASSERT(d.getRectangle() == *tree->getRectangle(root));
 	ASSERT(root->hasLeftChild());
 	ASSERT(root->hasRightChild() == false);
-	ASSERT(a->getRectangle() == *tree->getRectangle(root->getLeftChild()));
+	ASSERT(a.getRectangle() == *tree->getRectangle(root->getLeftChild()));
 	ASSERT(root->getLeftChild()->hasLeftChild());
-	ASSERT(b->getRectangle() == *tree->getRectangle(root->getLeftChild()->getLeftChild()));
+	ASSERT(b.getRectangle() == *tree->getRectangle(root->getLeftChild()->getLeftChild()));
 	ASSERT(root->getLeftChild()->hasRightChild());
-	ASSERT(c->getRectangle() == *tree->getRectangle(root->getLeftChild()->getRightChild()));
+	ASSERT(c.getRectangle() == *tree->getRectangle(root->getLeftChild()->getRightChild()));
 }
 
 void testThatBuiltTreesAreUnique() {
@@ -148,10 +148,10 @@ void testThatBuiltTreesAreUnique() {
 	 * 13
 	 * 02
 	 */
-	auto b0 = new PositionedRectangle(0, 1, 0, 1);
-	auto b1 = new PositionedRectangle(0, 1, 1, 2);
-	auto b2 = new PositionedRectangle(1, 2, 0, 1);
-	auto b3 = new PositionedRectangle(1, 2, 1, 2);
+	auto b0 = PositionedRectangle(0, 1, 0, 1);
+	auto b1 = PositionedRectangle(0, 1, 1, 2);
+	auto b2 = PositionedRectangle(1, 2, 0, 1);
+	auto b3 = PositionedRectangle(1, 2, 1, 2);
 
 	placement->add(b0);
 	placement->add(b1);
@@ -170,10 +170,10 @@ void testThatBuiltTreesAreUnique() {
 	ASSERT(n1->hasLeftChild());
 	auto n3 = n1->getLeftChild();
 
-	ASSERT(b0->getRectangle() == *tree->getRectangle(n0));
-	ASSERT(b1->getRectangle() == *tree->getRectangle(n1));
-	ASSERT(b2->getRectangle() == *tree->getRectangle(n2));
-	ASSERT(b3->getRectangle() == *tree->getRectangle(n3));
+	ASSERT(b0.getRectangle() == *tree->getRectangle(n0));
+	ASSERT(b1.getRectangle() == *tree->getRectangle(n1));
+	ASSERT(b2.getRectangle() == *tree->getRectangle(n2));
+	ASSERT(b3.getRectangle() == *tree->getRectangle(n3));
 
 	ASSERT_EQUAL(false, n2->hasChildren());
 

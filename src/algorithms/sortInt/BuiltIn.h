@@ -8,18 +8,21 @@
 namespace rechteckpackungen {
 namespace sortInt {
 
-class BuiltIn: public virtual IIntSorter {
+template<class T>
+class BuiltIn: public virtual IIntSorter<T> {
 public:
 	virtual ~BuiltIn();
 	/**
 	 * Complexity: O(n * log(n))
 	 * Memory: ?
 	 */
-	virtual void sort(std::vector<void*>*, int(*getInt)(const void *));
+	virtual void sort(std::vector<T>*, int(*getInt)(const T));
 private:
 };
 
 }
 }
+
+#include "BuiltIn_impl.h"
 
 #endif /* SRC_ALGORITHMS_SORTINT_BUILTIN_H_ */

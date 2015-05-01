@@ -3,17 +3,20 @@
 namespace rechteckpackungen {
 namespace sortInt {
 
-BucketSort::BucketSort(bool reverse) :
+template<class T>
+BucketSort<T>::BucketSort(bool reverse) :
 		reverse(reverse) {
 }
 
-BucketSort::~BucketSort() {
+template<class T>
+BucketSort<T>::~BucketSort() {
 }
 
-void BucketSort::sort(std::vector<void*>* vector, int (*getInt)(const void *)) {
-	auto max_element = std::max_element(vector->begin(), vector->end(), [getInt, this](const void* a, const void* b) {return getInt(a) < getInt(b);});
+template<class T>
+void BucketSort<T>::sort(std::vector<T>* vector, int (*getInt)(const T)) {
+	auto max_element = std::max_element(vector->begin(), vector->end(), [getInt, this](const T a, const T b) {return getInt(a) < getInt(b);});
 	int max = getInt(*max_element);
-	auto buckets = std::vector<std::vector<void*>>(max + 1);
+	auto buckets = std::vector<std::vector<T>>(max + 1);
 	for (auto element : *vector) {
 		buckets.at(getInt(element)).push_back(element);
 	}
