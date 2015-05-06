@@ -1,7 +1,7 @@
 TODO
 ====
 
-* find local optimal solution
+* find optimal solution for given bound, even if bound does not start at (0,0)
 
 Optional
 --------
@@ -15,4 +15,5 @@ Done
 * translate B*-Tree to compactified placement
 
 * find optimal solution
+* find local optimal solution
 * find optimal solution for given bound
