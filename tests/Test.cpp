@@ -17,6 +17,7 @@
 #include "algorithms/enumerateSubsets/EnumeratorTest.h"
 #include "algorithms/enumerateBStarTreeMutations/EnumeratorTest.h"
 #include "algorithms/improveBStarTree/BStarTreeImproverTest.h"
+#include "algorithms/findBestPlacement/FindBestPlacementByEnumerationTest.h"
 #include "util/String2intTest.h"
 #include "writer/PlacementWriterTest.h"
 #include "BTree/BTreeNodeTest.h"
@@ -44,6 +45,7 @@ bool runAllTests(int argc, char const *argv[]) {
 	s += rechteckpackungen::enumerateSubsets::make_suite_EnumeratorTest();
 	s += rechteckpackungen::enumerateBStarTreeMutations::make_suite_EnumeratorTest();
 	s += rechteckpackungen::improveBStarTree::make_suite_BStarTreeImproverTest();
+	s += rechteckpackungen::findBestPlacement::make_suite_FindBestPlacementByEnumerationTest();
 	s += rechteckpackungen::make_suite_FindByEnumerationTest();
 	s += rechteckpackungen::make_suite_OverlappingActionTest();
 
