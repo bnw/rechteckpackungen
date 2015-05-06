@@ -3,12 +3,11 @@
 namespace rechteckpackungen {
 namespace bStarTree2Placement {
 
-//TODO assert that y is not smaller than yMin - height (+-1?) of root and not too big either
 int PlacementFactory::findMinY(std::list<PositionedRectangle>* horizontalContour,
 		std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, int width, int xMin) const {
 	int y = 0;
 	int xMax = xMin + width;
-	if (horizontalContour->end() != firstHorizontalContourElementBelowNewElement) {
+	if (firstHorizontalContourElementBelowNewElement != horizontalContour->end()) {
 		y = std::max(y, firstHorizontalContourElementBelowNewElement->getYMax());
 		while (firstHorizontalContourElementBelowNewElement != std::prev(horizontalContour->end()) && firstHorizontalContourElementBelowNewElement->getXMax() < xMax) {
 			firstHorizontalContourElementBelowNewElement++;
@@ -21,7 +20,7 @@ int PlacementFactory::findMinY(std::list<PositionedRectangle>* horizontalContour
 std::list<PositionedRectangle>::iterator PlacementFactory::updateContour(std::list<PositionedRectangle>* horizontalContour,
 		std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, const PositionedRectangle newElement) const {
 	auto currentHorizontalontourElementBelowNewElement = firstHorizontalContourElementBelowNewElement;
-	while (horizontalContour->end() != currentHorizontalontourElementBelowNewElement
+	while (currentHorizontalontourElementBelowNewElement != horizontalContour->end()
 			&& currentHorizontalontourElementBelowNewElement->getXMax() <= newElement.getXMax()) {
 		currentHorizontalontourElementBelowNewElement = horizontalContour->erase(currentHorizontalontourElementBelowNewElement);
 	}

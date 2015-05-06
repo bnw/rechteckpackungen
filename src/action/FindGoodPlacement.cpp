@@ -2,6 +2,7 @@
 
 namespace rechteckpackungen {
 
+//TODO refactor
 BStarTree* constructInitialBStarTree(Instance& instance) {
 	auto placementFactory = bStarTree2Placement::PlacementFactory();
 	auto rectangles = instance.getRectangles();

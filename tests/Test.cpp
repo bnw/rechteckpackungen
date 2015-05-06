@@ -24,7 +24,7 @@
 #include "action/OverlappingActionTest.h"
 
 
-void runAllTests(int argc, char const *argv[]) {
+bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s;
 
 	s += rechteckpackungen::make_suite_Rectangle();
@@ -49,10 +49,9 @@ void runAllTests(int argc, char const *argv[]) {
 
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<> > lis(xmlfile.out);
-	cute::makeRunner(lis, argc, argv)(s, "AllTests");
+	return cute::makeRunner(lis, argc, argv)(s, "AllTests");
 }
 
 int main(int argc, char const *argv[]) {
-	runAllTests(argc, argv);
-	return 0;
+	return !runAllTests(argc, argv);
 }

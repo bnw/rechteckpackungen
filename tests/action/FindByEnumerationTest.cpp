@@ -8,19 +8,20 @@
 
 namespace rechteckpackungen {
 
-void testFindBest() {
-	auto action = FindBestByEnumeration();
-	auto instanceReader = InstanceReader();
-	std::stringstream input;
-	input << "0 5 1 7" << std::endl << "3 2" << std::endl << "2 4" << std::endl << "2 2";
-	auto instance = instanceReader.read(input);
-
-	auto result = action.findBest(instance);
-
-	ASSERT_EQUAL(20, result->getArea());
-
-	delete instance;
-}
+//TODO move to own test class
+//void testFindBest() {
+//	auto action = FindBestByEnumeration();
+//	auto instanceReader = InstanceReader();
+//	std::stringstream input;
+//	input << "0 5 1 7" << std::endl << "3 2" << std::endl << "2 4" << std::endl << "2 2";
+//	auto instance = instanceReader.read(input);
+//
+//	auto result = action.findBest(instance);
+//
+//	ASSERT_EQUAL(20, result->getArea());
+//
+//	delete instance;
+//}
 
 void integrationTest() {
 	auto action = FindBestByEnumeration();
@@ -37,7 +38,7 @@ void integrationTest() {
 
 cute::suite make_suite_FindByEnumerationTest() {
 	cute::suite s;
-	s.push_back(CUTE(testFindBest));
+//	s.push_back(CUTE(testFindBest));
 	s.push_back(CUTE(integrationTest));
 	return s;
 }
