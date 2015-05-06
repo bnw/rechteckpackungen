@@ -19,22 +19,11 @@ int PlacementFactory::findMinY(std::list<PositionedRectangle>* horizontalContour
 }
 
 std::list<PositionedRectangle>::iterator PlacementFactory::updateContour(std::list<PositionedRectangle>* horizontalContour,
-		std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, PositionedRectangle newElement) const {
-	//TODO refactor
-	if (firstHorizontalContourElementBelowNewElement == horizontalContour->end()) {
-		horizontalContour->push_back(newElement);
-		return --horizontalContour->end();
-	}
-
+		std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, const PositionedRectangle newElement) const {
 	auto currentHorizontalontourElementBelowNewElement = firstHorizontalContourElementBelowNewElement;
-	while (currentHorizontalontourElementBelowNewElement->getXMax() <= newElement.getXMax()) {
-		if (std::prev(horizontalContour->end()) == currentHorizontalontourElementBelowNewElement) {
-			horizontalContour->pop_back();
-			horizontalContour->push_back(newElement);
-			return --horizontalContour->end();
-		} else {
-			currentHorizontalontourElementBelowNewElement = horizontalContour->erase(currentHorizontalontourElementBelowNewElement);
-		}
+	while (horizontalContour->end() != currentHorizontalontourElementBelowNewElement
+			&& currentHorizontalontourElementBelowNewElement->getXMax() <= newElement.getXMax()) {
+		currentHorizontalontourElementBelowNewElement = horizontalContour->erase(currentHorizontalontourElementBelowNewElement);
 	}
 	return horizontalContour->insert(currentHorizontalontourElementBelowNewElement, newElement);
 }
