@@ -10,7 +10,14 @@
 
 namespace rechteckpackungen {
 
+/**
+ * Splits string at each delimiter (dropping the delimiter).
+ */
 extern std::vector<std::string>* explode(std::string string, char delimiter);
+
+/**
+ * Same as explode, but converts the vector of strings to an vector of ints by calling string2int.
+ */
 extern std::vector<int>* explode2int(std::string string, char delimiter, int expectedSize = 1);
 
 }

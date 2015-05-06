@@ -7,6 +7,10 @@
 
 namespace rechteckpackungen {
 
+/**
+ * Converts a number string to an int.
+ * @Throws std::runtime_error
+ */
 extern int string2int(std::string string);
 
 }
