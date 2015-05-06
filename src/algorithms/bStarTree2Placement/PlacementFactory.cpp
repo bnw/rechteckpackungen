@@ -3,7 +3,6 @@
 namespace rechteckpackungen {
 namespace bStarTree2Placement {
 
-//TODO assert that y is not smaller than yMin - height (+-1?) of root and not too big either
 int PlacementFactory::findMinY(std::list<PositionedRectangle>* horizontalContour,
 		std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, int width, int xMin) const {
 	int y = 0;
