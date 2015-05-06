@@ -47,6 +47,12 @@ void testThatMovementsAreFound() {
 	ASSERT_EQUAL(2 * 7, improvedPlacement->getArea());
 }
 
+
+
+//TODO write test with an instance, whoes bounds are to small
+
+
+
 /*
  * aa      cc
  * aa      cc
