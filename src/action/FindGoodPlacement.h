@@ -5,6 +5,7 @@
 #include "algorithms/placement2BStarTree/BStarTreeFactory.h"
 #include "algorithms/improveBStarTree/BStarTreeImprover.h"
 #include "algorithms/bStarTree2Placement/PlacementFactory.h"
+#include "algorithms/constructGoodBStarTree/BStarTreeConstructor.h"
 #include "reader/InstanceReader.h"
 #include "writer/PlacementWriter.h"
 #include <istream>
