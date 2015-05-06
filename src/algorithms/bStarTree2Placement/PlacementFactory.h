@@ -28,7 +28,7 @@ public:
 	int findMinY(std::list<PositionedRectangle>* horizontalContour,
 			std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, int width, int xMin) const;
 	std::list<PositionedRectangle>::iterator updateContour(std::list<PositionedRectangle>* horizontalContour,
-			std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, PositionedRectangle newElement) const;
+			std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, const PositionedRectangle newElement) const;
 protected:
 	bool buildPlacementRecursively(const Rectangle& bounds, const BStarTree& tree, std::shared_ptr<Placement> placement, BTreeNode* rootNode,
 			PositionedRectangle rootPositionedRecangle, std::list<PositionedRectangle>* horizontalContour,
