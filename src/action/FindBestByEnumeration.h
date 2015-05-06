@@ -5,13 +5,9 @@
 #include <ostream>
 #include <limits>
 #include <iostream>
-#include "instance/Instance.h"
 #include "reader/InstanceReader.h"
-#include "placement/Placement.h"
-#include "writer/PlacementWriter.h"
-#include "algorithms/enumerateBStarTrees/Enumerator.h"
-#include "algorithms/bStarTree2Placement/PlacementFactory.h"
 #include "action/IFileAction.h"
+#include "algorithms/findBestPlacement/FindBestPlacementByEnumeration.h"
 
 namespace rechteckpackungen {
 
@@ -20,8 +16,6 @@ public:
 	virtual ~FindBestByEnumeration() {
 	}
 	void run(std::istream& instance, std::ostream& output);
-	// Public only for testability
-	Placement::ptr findBest(Instance* instance);
 };
 
 }
