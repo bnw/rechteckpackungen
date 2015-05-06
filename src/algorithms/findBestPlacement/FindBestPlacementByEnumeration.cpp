@@ -4,7 +4,7 @@ namespace rechteckpackungen {
 namespace findBestPlacement {
 
 /**
- * If a placement is found that optimal (i.e. area of placement = sum of area of rectangles) we stop.
+ * If a placement is found that is optimal (i.e. area of placement = sum of area of rectangles) we stop.
  * This makes the algorithm really fast for instances that have an optimal solution.
  */
 Placement::ptr FindBestPlacementByEnumeration::findBest(Instance *instance) {
