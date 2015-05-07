@@ -1,6 +1,8 @@
 TODO
 ====
 
+* Add "quality"-option to CLI-interface (for find-good-placement and improve-placement)  
+
 Optional
 --------
 
