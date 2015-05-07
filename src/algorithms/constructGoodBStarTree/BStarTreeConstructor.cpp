@@ -3,8 +3,6 @@
 namespace rechteckpackungen {
 namespace constructGoodBStarTree {
 
-//TODO refactor
-//TODO add tests
 BStarTree *BStarTreeConstructor::create(Instance &instance) {
     auto placementFactory = bStarTree2Placement::PlacementFactory();
     auto tree = new BStarTree(instance.getRectangles());
