@@ -11,18 +11,23 @@ void FindGoodPlacement::run(std::istream &input, std::ostream &output) {
 
 	auto instance = instanceReader.read(input);
 	auto initialBStarTree = bStarTreeConstructor.create(*instance);
-	auto improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, 3);
 
-	if (improvedBStarTree == nullptr) {
-		output << "Did not find a solution that fits the given bounds.";
+	auto errorMsg = "Did not find a solution that fits the given bounds.";
+
+	if (initialBStarTree == nullptr) {
+		output << errorMsg;
 	} else {
-		auto improvedPlacement = placementFactory.createBounded(*improvedBStarTree, *instance);
-		output << placementWriter.toString(improvedPlacement);
+		auto improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, 3);
+		if (improvedBStarTree == nullptr) {
+			output << errorMsg;
+		} else {
+			auto improvedPlacement = placementFactory.createBounded(*improvedBStarTree, *instance);
+			output << placementWriter.toString(improvedPlacement);
+			delete improvedBStarTree;
+		}
+		delete initialBStarTree;
 	}
-
 	delete instance;
-	delete initialBStarTree;
-	delete improvedBStarTree;
 }
 
 }
