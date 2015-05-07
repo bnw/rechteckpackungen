@@ -3,10 +3,6 @@
 namespace rechteckpackungen {
 namespace enumerateBStarTrees {
 
-/**
- * TODO Enumeration of the rotations should be refactored. Maybe move to own class?
- */
-
 bool Enumerator::forBothRotations(const std::function<bool()>& callback, Rectangle* rect) {
 	if (!callback()) {
 		return false;
