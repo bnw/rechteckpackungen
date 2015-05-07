@@ -7,56 +7,40 @@ namespace constructGoodBStarTree {
 //TODO add tests
 BStarTree *BStarTreeConstructor::create(Instance &instance) {
     auto placementFactory = bStarTree2Placement::PlacementFactory();
-    auto rectangles = instance.getRectangles();
     auto tree = new BStarTree(instance.getRectangles());
+    auto nodes = tree->getNodes();
     tree->setRoot(tree->at(0));
-    for (unsigned i = 1; i < tree->getRectangles()->size(); i++) {
-        auto partialRectangles = std::shared_ptr<std::vector<Rectangle>>(
-                new std::vector<Rectangle>(rectangles->begin(), rectangles->begin() + i + 1));
-        auto partialTree = BStarTree(partialRectangles);
-        for (auto newNode : partialTree.getNodes()) {
-            auto originalNode = tree->at(newNode->getIndex());
-            if (tree->isRoot(originalNode)) {
-                partialTree.setRoot(newNode);
-            }
-            if (originalNode->hasLeftChild()) {
-                partialTree.setLeftChild(newNode, partialTree.at(originalNode->getLeftChild()->getIndex()));
-            }
-            if (originalNode->hasRightChild()) {
-                partialTree.setRightChild(newNode, partialTree.at(originalNode->getRightChild()->getIndex()));
-            }
-        }
-        BTreeNode *newNode = partialTree.at(i);
-        int bestParentId = 0;
+    for (auto newNodeIterator = nodes.begin()+1; newNodeIterator < nodes.end(); newNodeIterator++) {
+        BTreeNode* newNode = *newNodeIterator;
+        BTreeNode *bestParent = nullptr;
         bool insertAsLeftChild = true;
         int cheapestPlacementArea = std::numeric_limits<int>::max();
-        for (unsigned j = 0; j < i; j++) {
-            auto possibleParent = partialTree.at(j);
+        for (auto possibleParentIterator = nodes.begin(); possibleParentIterator != newNodeIterator; possibleParentIterator++) {
+            BTreeNode* possibleParent = *possibleParentIterator;
             if (!possibleParent->hasLeftChild()) {
-                partialTree.setLeftChild(possibleParent, newNode);
-                auto placement = placementFactory.create(partialTree);
+                tree->setLeftChild(possibleParent, newNode);
+                auto placement = placementFactory.create(*tree);
                 if (cheapestPlacementArea > placement->getArea()) {
-                    bestParentId = j;
-                    insertAsLeftChild = true;
+                    bestParent = possibleParent;
                     cheapestPlacementArea = placement->getArea();
                 }
-                partialTree.removeChild(possibleParent, newNode);
+                tree->removeChild(possibleParent, newNode);
             }
             if (!possibleParent->hasRightChild()) {
-                partialTree.setRightChild(possibleParent, newNode);
-                auto placement = placementFactory.create(partialTree);
+                tree->setRightChild(possibleParent, newNode);
+                auto placement = placementFactory.create(*tree);
                 if (cheapestPlacementArea > placement->getArea()) {
-                    bestParentId = j;
-                    insertAsLeftChild = false;
+                    bestParent = possibleParent;
                     cheapestPlacementArea = placement->getArea();
+                    insertAsLeftChild = false;
                 }
-                partialTree.removeChild(possibleParent, newNode);
+                tree->removeChild(possibleParent, newNode);
             }
         }
         if (insertAsLeftChild) {
-            tree->setLeftChild(tree->at(bestParentId), tree->at(i));
+            tree->setLeftChild(bestParent, newNode);
         } else {
-            tree->setRightChild(tree->at(bestParentId), tree->at(i));
+            tree->setRightChild(bestParent, newNode);
         }
     }
     return tree;
