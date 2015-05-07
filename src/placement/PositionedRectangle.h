@@ -23,11 +23,13 @@ public:
 	int getYMin() const;
 	int getYMax() const;
 	Coordinates getTopRightCoordinates() const;
-	Rectangle getRectangle();
+	Coordinates getBottomeLeftCoordinates() const;
+	Rectangle getRectangle() const;
 	bool contains(const PositionedRectangle& inner) const;
 	bool contains(const Coordinates& point) const;
 	bool isRotated() const;
 	void rotate();
+	void shift(const Coordinates offset);
 private:
 	Rectangle rect;
 	Coordinates coord;

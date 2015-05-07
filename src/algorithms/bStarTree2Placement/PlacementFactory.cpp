@@ -79,12 +79,16 @@ std::shared_ptr<Placement> PlacementFactory::create(const BStarTree& tree) const
 }
 
 std::shared_ptr<Placement> PlacementFactory::createBounded(const BStarTree& tree, const Instance& instanceWithBounds) const {
-	Rectangle bounds = instanceWithBounds.getBounds()->getRectangle();
-	return createBounded(tree, bounds);
+	return createBounded(tree, *instanceWithBounds.getBounds());
 }
 
-//TODO work with bounds that are PositionedRectangles
 std::shared_ptr<Placement> PlacementFactory::createBounded(const BStarTree& tree, const Rectangle& bounds) const {
+	auto positionedRectangle = PositionedRectangle(bounds, 0, 0);
+	return createBounded(tree, positionedRectangle);
+}
+
+std::shared_ptr<Placement> PlacementFactory::createBounded(const BStarTree &tree,
+		const PositionedRectangle &bounds) const {
 	auto placement = std::shared_ptr<Placement>(new Placement(tree.getSize()));
 	auto horizontalContour = std::list<PositionedRectangle>();
 
@@ -93,9 +97,10 @@ std::shared_ptr<Placement> PlacementFactory::createBounded(const BStarTree& tree
 	placement->add(rootPositionedRectangle);
 	horizontalContour.push_back(rootPositionedRectangle);
 
-	bool success = buildPlacementRecursively(bounds, tree, placement, tree.getRoot(), rootPositionedRectangle, &horizontalContour,
-			horizontalContour.begin());
+	bool success = buildPlacementRecursively(bounds.getRectangle(), tree, placement, tree.getRoot(), rootPositionedRectangle, &horizontalContour,
+											 horizontalContour.begin());
 	if (success) {
+		placement->shift(bounds.getBottomeLeftCoordinates());
 		return placement;
 	} else {
 		return nullptr;

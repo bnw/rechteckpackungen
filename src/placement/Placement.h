@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
+#include <limits>
 #include "placement/PositionedRectangle.h"
 #include "Rectangle.h"
 #include "algorithms/sortInt/IIntSorter.h"
@@ -29,6 +30,8 @@ public:
 	std::vector<PositionedRectangle>* getPositionedRectangles();
 	std::shared_ptr<std::vector<Rectangle>> getRectangles();
 	std::unique_ptr<PositionedRectangle> getBounds() const;
+
+	void shift(const Coordinates offset);
 
 	/*
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle

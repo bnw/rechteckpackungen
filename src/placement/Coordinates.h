@@ -15,6 +15,7 @@ public:
 	int getX() const;
 	int getY() const;
 	bool areWithin(const Rectangle& bounds) const;
+	void shift(const Coordinates offset);
 private:
 	int x;
 	int y;

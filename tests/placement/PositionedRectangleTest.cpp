@@ -31,10 +31,19 @@ void testGetTopRightCoordinates(){
 	ASSERT(bExpected == bActual);
 }
 
+void testShift(){
+	auto a = PositionedRectangle(0, 1, 2 , 3);
+	a.shift(Coordinates(0,0));
+	ASSERT(PositionedRectangle(0, 1, 2 , 3) == a);
+	a.shift(Coordinates(10,20));
+	ASSERT(PositionedRectangle(10, 11, 22 , 23) == a);
+}
+
 cute::suite make_suite_PositionedRectangleTest() {
 	cute::suite s;
 	s.push_back(CUTE(testContains));
 	s.push_back(CUTE(testGetTopRightCoordinates));
+	s.push_back(CUTE(testShift));
 	return s;
 }
 

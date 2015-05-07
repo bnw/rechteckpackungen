@@ -41,7 +41,11 @@ Coordinates PositionedRectangle::getTopRightCoordinates() const{
 	return Coordinates(getXMax(), getYMax());
 }
 
-Rectangle PositionedRectangle::getRectangle() {
+Coordinates PositionedRectangle::getBottomeLeftCoordinates() const {
+	return coord;
+}
+
+Rectangle PositionedRectangle::getRectangle() const {
 	return rect;
 }
 
@@ -63,6 +67,10 @@ bool PositionedRectangle::isRotated() const{
 
 void PositionedRectangle::rotate() {
 	rect.rotate();
+}
+
+void PositionedRectangle::shift(const Coordinates offset) {
+	coord.shift(offset);
 }
 
 }

@@ -1,8 +1,6 @@
 TODO
 ====
 
-* find optimal solution for given bound, even if bound does not start at (0,0)
-
 Optional
 --------
 

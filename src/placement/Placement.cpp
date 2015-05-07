@@ -50,17 +50,20 @@ int Placement::getYMax() const {
 }
 
 int Placement::getArea() {
+	if(positionedRectangles->empty()){
+		return 0;
+	}
 	int xMax = 0;
 	int yMax = 0;
+	int xMin = std::numeric_limits<int>::max();
+	int yMin = std::numeric_limits<int>::max();
 	for (auto rectangle : *positionedRectangles) {
-		if (xMax < rectangle.getXMax()) {
-			xMax = rectangle.getXMax();
-		}
-		if (yMax < rectangle.getYMax()) {
-			yMax = rectangle.getYMax();
-		}
+		xMax = std::max(xMax, rectangle.getXMax());
+		yMax = std::max(yMax, rectangle.getYMax());
+		xMin = std::min(xMin, rectangle.getXMin());
+		yMin = std::min(yMin, rectangle.getYMin());
 	}
-	return xMax * yMax;
+	return (xMax - xMin) * (yMax - yMin);
 }
 
 std::vector<PositionedRectangle>* Placement::getPositionedRectangles() {
@@ -69,6 +72,15 @@ std::vector<PositionedRectangle>* Placement::getPositionedRectangles() {
 
 std::unique_ptr<PositionedRectangle> Placement::getBounds() const {
 	return std::unique_ptr<PositionedRectangle>(new PositionedRectangle(0, getXMax(), 0, getYMax()));
+}
+
+void Placement::shift(const Coordinates offset) {
+	if(Coordinates(0,0) == offset){
+		return;
+	}
+	for(auto i = positionedRectangles->begin(); i != positionedRectangles->end(); i++){
+		i->shift(offset);
+	}
 }
 
 std::shared_ptr<std::vector<Rectangle>> Placement::getRectangles() {

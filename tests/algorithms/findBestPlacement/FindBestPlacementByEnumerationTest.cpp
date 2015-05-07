@@ -18,6 +18,7 @@ void testFindBest() {
 
 	auto result = worker.findBest(instance);
 
+	ASSERT(Coordinates(0,1) == result->getPositionedRectangles()->front().getBottomeLeftCoordinates());
 	ASSERT_EQUAL(20, result->getArea());
 
 	delete instance;
@@ -27,7 +28,7 @@ void testFindBestFails() {
 	auto worker = FindBestPlacementByEnumeration();
 	auto instanceReader = InstanceReader();
 	std::stringstream input;
-	input << "0 1 0 2" << std::endl << "1 1" << std::endl << "1 1" << std::endl << "1 1";
+	input << "1 2 1 3" << std::endl << "1 1" << std::endl << "1 1" << std::endl << "1 1";
 	auto instance = instanceReader.read(input);
 
 	auto result = worker.findBest(instance);
