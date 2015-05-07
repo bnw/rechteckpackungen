@@ -20,7 +20,6 @@ public:
 	bool hasRightChild() const;
 	bool hasChildren() const;
 	bool isAncestor(BTreeNode* possibleAncestor) const;
-	bool isRoot() const;
 	void setLeftChild(BTreeNode* leftChild);
 	void setRightChild(BTreeNode* rightChild);
 
