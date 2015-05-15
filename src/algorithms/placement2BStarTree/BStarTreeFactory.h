@@ -3,6 +3,7 @@
 
 #include "BTree/BStarTree.h"
 #include "placement/Placement.h"
+#include <stdexcept>
 
 namespace rechteckpackungen {
 namespace placement2BStarTree {

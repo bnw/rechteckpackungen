@@ -61,7 +61,7 @@ void printUsageInfo(){
 
 	<< "improve-placement INSTANCE_FILE PLACEMENT_FILE [QUALITY]" << endl
 	<< "\t Prints a placement for the instance described in INSTANCE_FILE by finding a" << endl
-	<< "\t local optimum based on the placement described in PLACEMENT_FILE." << endl
+	<< "\t local optimum based on the compacted(!) placement described in PLACEMENT_FILE." << endl
 	<< "\t QUALITY (default=2): Higher means better results but slower computation." << endl;
 }
 

@@ -39,14 +39,34 @@ void Placement::sortPositionedRectanglesByYMin(sortInt::IIntSorter<PositionedRec
 
 int Placement::getXMax() const {
 	auto rightmostRectangle = std::max_element(positionedRectangles->begin(), positionedRectangles->end(),
-			[](const PositionedRectangle a, const PositionedRectangle b) {return a.getXMax() < b.getXMax();});
+											   [](const PositionedRectangle a, const PositionedRectangle b) {
+												   return a.getXMax() < b.getXMax();
+											   });
 	return (*rightmostRectangle).getXMax();
+}
+
+int Placement::getXMin() const {
+	auto leftmostRectangle = std::min_element(positionedRectangles->begin(), positionedRectangles->end(),
+											   [](const PositionedRectangle a, const PositionedRectangle b) {
+												   return a.getXMin() < b.getXMin();
+											   });
+	return (*leftmostRectangle).getXMin();
 }
 
 int Placement::getYMax() const {
 	auto topmostRectangle = std::max_element(positionedRectangles->begin(), positionedRectangles->end(),
-			[](const PositionedRectangle a, const PositionedRectangle b) {return a.getYMax() < b.getYMax();});
+											 [](const PositionedRectangle a, const PositionedRectangle b) {
+												 return a.getYMax() < b.getYMax();
+											 });
 	return topmostRectangle->getYMax();
+}
+
+int Placement::getYMin() const {
+	auto bottommostRectangle = std::min_element(positionedRectangles->begin(), positionedRectangles->end(),
+											  [](const PositionedRectangle a, const PositionedRectangle b) {
+												  return a.getYMin() < b.getYMin();
+											  });
+	return (*bottommostRectangle).getYMin();
 }
 
 int Placement::getArea() {

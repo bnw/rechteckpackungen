@@ -43,7 +43,9 @@ public:
 	 * Complexity: n
 	 */
 	int getXMax() const;
+	int getXMin() const;
 	int getYMax() const;
+	int getYMin() const;
 	int getArea();
 private:
 	std::vector<PositionedRectangle>* positionedRectangles;

@@ -42,7 +42,7 @@ BTreeNode* BTreeNode::getRightChild() const {
 
 BTreeNode* BTreeNode::getClosestParentOfWhichIAmLeft() const {
 	if (!hasParent()) {
-		return NULL;
+		return nullptr;
 	}
 	if (getParent()->getLeftChild() == this) {
 		return getParent();

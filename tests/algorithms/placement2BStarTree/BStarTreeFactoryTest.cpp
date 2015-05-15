@@ -17,18 +17,19 @@ BStarTree* createTree(Placement* placement) {
 	return factory.create(placement);
 }
 
-void testBStarTreeFromPlacementConstruction() {
+void testBStarTreeFromPlacementThatIsNotZeroZeroBased() {
 	auto placement = new Placement();
 	/*
-	 * #####
-	 * ####
-	 * #  #
-	 * #  ##
-	 * #####
+	 *   #####
+	 *   ####
+	 *   #  #
+	 *   #  ##
+	 *   #####
+	 *
 	 */
-	auto root = PositionedRectangle(0, 4, 0, 4);
-	auto right = PositionedRectangle(4, 6, 0, 2);
-	auto top = PositionedRectangle(0, 5, 4, 5);
+	auto root = PositionedRectangle(2, 6, 1, 5);
+	auto right = PositionedRectangle(6, 8, 1, 3);
+	auto top = PositionedRectangle(2, 7, 5, 6);
 
 	placement->add(root);
 	placement->add(right);
@@ -44,6 +45,26 @@ void testBStarTreeFromPlacementConstruction() {
 
 	delete placement;
 	delete tree;
+}
+
+void testBStarTreeFromPlacementWhereRootCannotBeFoundBecauseItIsNotCompacted() {
+	auto placement = new Placement();
+	/*
+	 *   ####
+	 *   #  #
+	 *   #  ##
+	 *   #####
+	 *       #
+	 */
+	auto root = PositionedRectangle(2, 6, 1, 5);
+	auto right = PositionedRectangle(6, 8, 0, 3);
+
+	placement->add(root);
+	placement->add(right);
+
+	ASSERT_THROWS(createTree(placement), std::runtime_error);
+
+	delete placement;
 }
 
 void testBStarTreeFromTextPlacementConstruction() {
@@ -183,7 +204,8 @@ void testThatBuiltTreesAreUnique() {
 
 cute::suite make_suite_BStarTreeFactory() {
 	cute::suite s;
-	s.push_back(CUTE(testBStarTreeFromPlacementConstruction));
+	s.push_back(CUTE(testBStarTreeFromPlacementThatIsNotZeroZeroBased));
+	s.push_back(CUTE(testBStarTreeFromPlacementWhereRootCannotBeFoundBecauseItIsNotCompacted));
 	s.push_back(CUTE(testBStarTreeFromTextPlacementConstruction));
 	s.push_back(CUTE(testThatThereCanBeSpaceBetweenTwoRectangles));
 	s.push_back(CUTE(testThatBuiltTreesAreUnique));
