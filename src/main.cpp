@@ -5,7 +5,6 @@
 #include <stdexcept>
 #include "action/TestOverlappingAction.h"
 #include "action/FindBestByEnumeration.h"
-#include "action/IFileAction.h"
 #include "action/FindLocalOptimum.h"
 #include "action/FindGoodPlacement.h"
 
@@ -41,30 +40,52 @@ void runIFileAction(IFileAction& action, char const *filename) {
 void printUsageInfo(){
 	cout
 	<< "Usage: rechteckpackungen.exe MODE FILES [OPTIONS]" << endl
-	<< "Available modes: test-overlapping, find-optimal-placement, find-good-placement, improve-placement" << endl << endl
+	<< "Available modes:" << endl
+	<< "\t test-overlapping, find-optimal-placement, find-good-placement, improve-placement" << endl << endl
+
 	<< "See below for detailed description:" << endl << endl
+
 	<< "test-overlapping FILE" << endl
 	<< "\t Tests if the placement described in FILE has any overlapping." << endl << endl
+
 	<< "find-optimal-placement FILE" << endl
-	<< "\t Prints an optimal placement for the instance described in FILE. Works by enumerating all possible placements." << endl << endl
+	<< "\t Prints an optimal placement for the instance described in FILE."<< endl
+	<< "\t Works by enumerating all possible placements." << endl << endl
+
 	<< "find-good-placement FILE" << endl
-	<< "\t Prints a placement for the instance described in FILE. Works by guessing a solution and then finding a local optimum based on this solution." << endl << endl
+	<< "\t Prints a placement for the instance described in FILE. Works by guessing a" << endl
+	<< "\t solution and then finding a local optimum based on this solution." << endl << endl
+
 	<< "improve-placement INSTANCE_FILE PLACEMENT_FILE" << endl
-	<< "\t Prints a placement for the instance described in INSTANCE_FILE by finding a local optimum based on the placement described in PLACEMENT_FILE." << endl << endl;
+	<< "\t Prints a placement for the instance described in INSTANCE_FILE by finding a" << endl
+	<< "\t local optimum based on the placement described in PLACEMENT_FILE." << endl;
+}
+
+void printUsageHint(){
+	cout << "Try 'rechteckpackungen.exe help' for more information." << endl;
 }
 
 int missingArgumentError(){
-	cout << "Missing argument!" << endl << endl;
-	printUsageInfo();
+	cout << "Missing argument(s)!" << endl << endl;
+	printUsageHint();
 	return 1;
 }
 
 int main(int argc, char const *argv[]) {
+	if (argc < 2) {
+		return missingArgumentError();
+	}
+	auto mode = argv[1];
+
+	if(strcmp("help", mode) == 0){
+		printUsageInfo();
+		return 0;
+	}
+
 	if (argc < 3) {
 		return missingArgumentError();
 	}
 
-	auto mode = argv[1];
 	auto filename = argv[2];
 
 	try {
@@ -89,7 +110,7 @@ int main(int argc, char const *argv[]) {
 			delete initialPlacementFile;
 		} else {
 			cout << "Unrecognized mode '" << mode << "'." << endl;
-			printUsageInfo();
+			printUsageHint();
 			return 1;
 		}
 	} catch (std::runtime_error &e) {
