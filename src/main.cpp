@@ -7,6 +7,7 @@
 #include "action/FindBestByEnumeration.h"
 #include "action/FindLocalOptimum.h"
 #include "action/FindGoodPlacement.h"
+#include "util/string2int.h"
 
 using std::cout;
 using std::endl;
@@ -15,6 +16,7 @@ using rechteckpackungen::FindBestByEnumeration;
 using rechteckpackungen::IFileAction;
 using rechteckpackungen::FindLocalOptimum;
 using rechteckpackungen::FindGoodPlacement;
+using rechteckpackungen::string2int;
 
 std::ifstream* openFile(char const *filename) {
 	auto file = new std::ifstream;
@@ -52,13 +54,15 @@ void printUsageInfo(){
 	<< "\t Prints an optimal placement for the instance described in FILE."<< endl
 	<< "\t Works by enumerating all possible placements." << endl << endl
 
-	<< "find-good-placement FILE" << endl
+	<< "find-good-placement FILE [QUALITY]" << endl
 	<< "\t Prints a placement for the instance described in FILE. Works by guessing a" << endl
-	<< "\t solution and then finding a local optimum based on this solution." << endl << endl
+	<< "\t solution and then finding a local optimum based on this solution." << endl
+	<< "\t QUALITY (default=2): Higher means better results but slower computation." << endl << endl
 
-	<< "improve-placement INSTANCE_FILE PLACEMENT_FILE" << endl
+	<< "improve-placement INSTANCE_FILE PLACEMENT_FILE [QUALITY]" << endl
 	<< "\t Prints a placement for the instance described in INSTANCE_FILE by finding a" << endl
-	<< "\t local optimum based on the placement described in PLACEMENT_FILE." << endl;
+	<< "\t local optimum based on the placement described in PLACEMENT_FILE." << endl
+	<< "\t QUALITY (default=2): Higher means better results but slower computation." << endl;
 }
 
 void printUsageHint(){
@@ -96,13 +100,21 @@ int main(int argc, char const *argv[]) {
 			auto action = FindBestByEnumeration();
 			runIFileAction(action, filename);
 		} else if (strcmp("find-good-placement", mode) == 0) {
-			auto action = FindGoodPlacement();
+			int quality = 2;
+			if(argc == 4){
+				quality = string2int(std::string(argv[3]));
+			}
+			auto action = FindGoodPlacement(quality);
 			runIFileAction(action, filename);
 		} else if (strcmp("improve-placement", mode) == 0) {
 			if (argc < 4) {
 				return missingArgumentError();
 			}
-			auto action = FindLocalOptimum(1);
+			int quality = 2;
+			if(argc == 5){
+				quality = string2int(std::string(argv[4]));
+			}
+			auto action = FindLocalOptimum(quality);
 			auto instanceFile = openFile(filename);
 			auto initialPlacementFile = openFile(argv[3]);
 			action.run(*instanceFile, *initialPlacementFile, std::cout);

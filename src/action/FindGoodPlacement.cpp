@@ -2,6 +2,10 @@
 
 namespace rechteckpackungen {
 
+FindGoodPlacement::FindGoodPlacement(unsigned numberOfNodesThatCanBeMutated) :
+		numberOfNodesThatCanBeMutated(numberOfNodesThatCanBeMutated) {
+}
+
 void FindGoodPlacement::run(std::istream &input, std::ostream &output) {
 	auto instanceReader = InstanceReader();
 	auto bStarTreeImprover = improveBStarTree::BStarTreeImprover();
@@ -17,7 +21,7 @@ void FindGoodPlacement::run(std::istream &input, std::ostream &output) {
 	if (initialBStarTree == nullptr) {
 		output << errorMsg;
 	} else {
-		auto improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, 3);
+		auto improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, numberOfNodesThatCanBeMutated);
 		if (improvedBStarTree == nullptr) {
 			output << errorMsg;
 		} else {

@@ -19,9 +19,12 @@ namespace rechteckpackungen {
 
 class FindGoodPlacement: public virtual IFileAction {
 public:
+	FindGoodPlacement(unsigned numberOfNodesThatCanBeMutated);
 	virtual ~FindGoodPlacement() {
 	}
 	void run(std::istream& input, std::ostream& output);
+protected:
+	unsigned numberOfNodesThatCanBeMutated;
 };
 
 }
