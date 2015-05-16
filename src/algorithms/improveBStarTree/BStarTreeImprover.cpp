@@ -20,15 +20,16 @@ BStarTree* BStarTreeImprover::improve(const BStarTree& tree, const Instance& ins
 
 	subsetEnumerator.forEachSubset(nodes, k, [&](const std::vector<BTreeNode*>& subset) {
 		mutationEnumerator.forEachMutation(tree, subset, [&](const BStarTree& mutatedTree) {
-					challangeOptimum(currentOptimalTree, currentOptimalTreeArea, mutatedTree, placementFactory, instance);
+			challengeOptimum(currentOptimalTree, currentOptimalTreeArea, mutatedTree, placementFactory, instance);
 				});
 	});
 
 	return currentOptimalTree;
 }
 
-void BStarTreeImprover::challangeOptimum(BStarTree*& currentOptimalTree, int& currentOptimalTreeArea, const BStarTree& challenger,
-		const PlacementFactory& placementFactory, const Instance& instance) const {
+void BStarTreeImprover::challengeOptimum(BStarTree *&currentOptimalTree, int &currentOptimalTreeArea,
+		const BStarTree &challenger,
+		const PlacementFactory &placementFactory, const Instance &instance) const {
 	auto challengerPlacement = placementFactory.createBounded(challenger, instance);
 	if (challengerPlacement == nullptr) { //placement does not fit into the bounds of the instance, abort!
 		return;
