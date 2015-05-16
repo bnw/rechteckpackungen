@@ -16,7 +16,7 @@ public:
 	BStarTree* create(Placement *placement);
 private:
 	/**
-	 * Complexity: O(1)
+	 * Complexity: O(1) + recursion
 	 */
 	void buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree, std::vector<PositionedRectangle>* positionedRectangles);
 };
