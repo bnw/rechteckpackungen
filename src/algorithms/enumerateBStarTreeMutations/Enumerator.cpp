@@ -26,12 +26,12 @@ void Enumerator::forEachSwap(const std::vector<Rectangle>::iterator& rectangleTo
 	}
 }
 
-void Enumerator::forEachMovement(const BStarTree& tree, const int& indexOfNodeToBeMoved,
+void Enumerator::forEachMovement(const BStarTree& tree, const unsigned& indexOfNodeToBeMoved,
 		const std::function<void(BStarTree& workingTree)>& callback) const {
 	BStarTree preparedTree = BStarTree(tree);
 	preparedTree.remove(preparedTree.at(indexOfNodeToBeMoved));
 
-	for (int targetNodeId = 0; targetNodeId < tree.getSize(); targetNodeId++) {
+	for (unsigned targetNodeId = 0; targetNodeId < tree.getSize(); targetNodeId++) {
 		if(targetNodeId == indexOfNodeToBeMoved){
 			continue;
 		}

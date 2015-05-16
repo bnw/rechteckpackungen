@@ -3,38 +3,49 @@
 namespace rechteckpackungen {
 namespace placement2BStarTree {
 
-BStarTree* BStarTreeFactory::create(Placement* placement) {
-	auto sorter = sortInt::BucketSort<PositionedRectangle>(true);
-	placement->sortPositionedRectanglesByYMin(&sorter);
+BStarTree *BStarTreeFactory::create(Placement *placement) {
+	auto reverseSorter = sortInt::BucketSort<PositionedRectangle>(true);
+	placement->sortPositionedRectanglesByYMin(&reverseSorter);
 	auto positionedRectangles = placement->getPositionedRectangles();
 	auto tree = new BStarTree(placement->getRectangles());
-	auto xBuckets = std::vector<std::vector<int>>(placement->getXMax() + 1);
+	setRoot(*tree, *placement);
+	auto xBuckets = buildXBuckets(*tree, *placement);
 
-	int xMin = placement->getXMin();
-	int yMin = placement->getYMin();
-	/**
-	 * Find root and fill xBuckets in O(n)
-	 */
-	for (unsigned i = 0; i < positionedRectangles->size(); i++) {
-		auto rectangle = positionedRectangles->at(i);
-		if (rectangle.getXMin() == xMin && rectangle.getYMin() == yMin) {
-			tree->setRoot(tree->at(i));
-		} else {
-			xBuckets.at(rectangle.getXMin()).push_back(i);
-		}
-	}
+	buildTreeRecursively(tree->getRoot(), *xBuckets, tree, positionedRectangles);
 
-	if(tree->getRoot() == nullptr){
-		throw std::runtime_error("Could not find root node. Is the provided placement compacted and non-empty?");
-	}
-
-	buildTreeRecursively(tree->getRoot(), xBuckets, tree, positionedRectangles);
+	delete xBuckets;
 
 	return tree;
 }
 
-void BStarTreeFactory::buildTreeRecursively(BTreeNode* rootNode, std::vector<std::vector<int>>& xBuckets, BStarTree* tree,
-		std::vector<PositionedRectangle>* positionedRectangles) {
+std::vector<std::vector<int>> *BStarTreeFactory::buildXBuckets(BStarTree &tree, Placement &placementSortedByY) {
+	auto xBuckets = new std::vector<std::vector<int>>((unsigned) placementSortedByY.getXMax() + 1);
+	int rootIndex = tree.getRoot()->getIndex();
+	auto sortedPositionedRectangles = placementSortedByY.getPositionedRectangles();
+	for (unsigned i = 0; i < sortedPositionedRectangles->size(); i++) {
+		if (i == (unsigned) rootIndex) {
+			continue;
+		}
+		auto rectangle = sortedPositionedRectangles->at(i);
+		xBuckets->at(rectangle.getXMin()).push_back(i);
+	}
+	return xBuckets;
+}
+
+void BStarTreeFactory::setRoot(BStarTree &tree, Placement &placement) {
+	auto positionedRectangles = placement.getPositionedRectangles();
+	auto expectedCoordinatesOfRoot = Coordinates(placement.getXMin(), placement.getYMin());
+	for (unsigned i = 0; i < positionedRectangles->size(); i++) {
+		if (positionedRectangles->at(i).getBottomeLeftCoordinates() == expectedCoordinatesOfRoot) {
+			tree.setRoot(tree.at(i));
+			return;
+		}
+	}
+	throw std::runtime_error("Could not find root node. Is the provided placement compacted and non-empty?");
+}
+
+void BStarTreeFactory::buildTreeRecursively(BTreeNode *rootNode, std::vector<std::vector<int>> &xBuckets,
+		BStarTree *tree, std::vector<PositionedRectangle> *positionedRectangles) {
 
 	auto rootRectangle = positionedRectangles->at(rootNode->getIndex());
 	auto rootIndex = rootNode->getIndex();
@@ -54,8 +65,8 @@ void BStarTreeFactory::buildTreeRecursively(BTreeNode* rootNode, std::vector<std
 		auto lowestUnvisitedModuleInXBucket = currentXBucket->back();
 		auto closestParentOfWhichIAmLeft = rootNode->getClosestParentOfWhichIAmLeft();
 		if (closestParentOfWhichIAmLeft == nullptr
-				|| positionedRectangles->at(closestParentOfWhichIAmLeft->getIndex()).getYMax()
-						> positionedRectangles->at(lowestUnvisitedModuleInXBucket).getYMin()) {
+			|| positionedRectangles->at(closestParentOfWhichIAmLeft->getIndex()).getYMax()
+			   > positionedRectangles->at(lowestUnvisitedModuleInXBucket).getYMin()) {
 			currentXBucket->pop_back();
 			tree->setRightChild(tree->at(rootIndex), tree->at(lowestUnvisitedModuleInXBucket));
 			buildTreeRecursively(tree->at(lowestUnvisitedModuleInXBucket), xBuckets, tree, positionedRectangles);

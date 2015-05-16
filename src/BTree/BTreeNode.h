@@ -7,14 +7,14 @@ namespace rechteckpackungen {
 
 class BTreeNode {
 public:
-	BTreeNode(int index);
+	BTreeNode(unsigned index);
 	virtual ~BTreeNode();
 	void setParent(BTreeNode* parent);
 	BTreeNode* getParent() const;
 	BTreeNode* getLeftChild() const;
 	BTreeNode* getRightChild() const;
 	BTreeNode* getClosestParentOfWhichIAmLeft() const;
-	int getIndex() const;
+	unsigned getIndex() const;
 	bool hasParent() const;
 	bool hasLeftChild() const;
 	bool hasRightChild() const;
@@ -30,7 +30,7 @@ private:
 	/*
 	 * Index, under which this node is accessible thru tree->at(index).
 	 */
-	int index;
+	unsigned index;
 };
 
 }

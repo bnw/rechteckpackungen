@@ -10,7 +10,7 @@ namespace rechteckpackungen {
 
 class BTree {
 public:
-	BTree(int size);
+	BTree(unsigned size);
 	BTree(Placement* placement);
 	BTree(const BTree& original);
 	virtual ~BTree();
@@ -46,7 +46,7 @@ public:
 	void setRoot(BTreeNode* node);
 	bool hasRoot() const;
 	bool isRoot(BTreeNode* node) const;
-	int getSize() const;
+	unsigned getSize() const;
 protected:
 	/**
 	 * Try to make orphan the child of parent (left or right).
@@ -58,7 +58,7 @@ protected:
 	std::vector<BTreeNode*> nodes;
 	BTreeNode* root;
 private:
-	int size;
+	unsigned size;
 };
 
 }

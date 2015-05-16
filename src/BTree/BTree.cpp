@@ -2,11 +2,11 @@
 
 namespace rechteckpackungen {
 
-BTree::BTree(int size) {
+BTree::BTree(unsigned size) {
 	this->size = size;
 	this->root = nullptr;
 	nodes = std::vector<BTreeNode*>(size);
-	for (int i = 0; i < size; i++) {
+	for (unsigned i = 0; i < size; i++) {
 		nodes.at(i) = new BTreeNode(i);
 	}
 }
@@ -14,10 +14,10 @@ BTree::BTree(int size) {
 BTree::BTree(const BTree& original) {
 	size = original.getSize();
 	nodes = std::vector<BTreeNode*>(size);
-	for (int i = 0; i < size; i++) {
+	for (unsigned i = 0; i < size; i++) {
 		nodes.at(i) = new BTreeNode(i);
 	}
-	for (int i = 0; i < size; i++) {
+	for (unsigned i = 0; i < size; i++) {
 		BTreeNode* originalNode = original.at(i);
 		BTreeNode* newNode = nodes.at(i);
 		if (originalNode->hasLeftChild()) {
@@ -193,7 +193,7 @@ bool BTree::isRoot(BTreeNode* node) const {
 	return root == node;
 }
 
-int BTree::getSize() const {
+unsigned BTree::getSize() const {
 	return size;
 }
 

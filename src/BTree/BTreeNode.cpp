@@ -2,7 +2,7 @@
 
 namespace rechteckpackungen {
 
-BTreeNode::BTreeNode(int index) :
+BTreeNode::BTreeNode(unsigned index) :
 		index(index) {
 	leftChild = nullptr;
 	rightChild = nullptr;
@@ -24,7 +24,7 @@ void BTreeNode::setParent(BTreeNode* parent) {
 	this->parent = parent;
 }
 
-int BTreeNode::getIndex() const {
+unsigned BTreeNode::getIndex() const {
 	return index;
 }
 
