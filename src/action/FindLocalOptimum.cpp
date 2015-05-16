@@ -6,7 +6,7 @@ FindLocalOptimum::FindLocalOptimum(unsigned numberOfNodesThatCanBeMutated) :
 		numberOfNodesThatCanBeMutated(numberOfNodesThatCanBeMutated) {
 }
 
-void FindLocalOptimum::run(std::istream& instanceInput, std::istream& initialPlacementInput, std::ostream& output) {
+void FindLocalOptimum::run(std::istream &instanceInput, std::istream &initialPlacementInput, std::ostream &output) {
 	auto instanceReader = InstanceReader();
 	auto placementReader = PlacementReader();
 	auto bStarTreeFactory = placement2BStarTree::BStarTreeFactory();
@@ -14,11 +14,11 @@ void FindLocalOptimum::run(std::istream& instanceInput, std::istream& initialPla
 	auto placementFactory = bStarTree2Placement::PlacementFactory();
 	auto placementWriter = PlacementWriter();
 
-	auto instance = instanceReader.read(instanceInput);
-	auto initialPlacement = placementReader.read(initialPlacementInput);
+	Instance *instance = instanceReader.read(instanceInput);
+	Placement *initialPlacement = placementReader.read(initialPlacementInput);
 
-	auto initialBStarTree = bStarTreeFactory.create(initialPlacement);
-	auto improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, numberOfNodesThatCanBeMutated);
+	BStarTree* initialBStarTree = bStarTreeFactory.create(initialPlacement);
+	BStarTree* improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, numberOfNodesThatCanBeMutated);
 
 	if (improvedBStarTree == nullptr) {
 		output << "Neither the initial placement nor any mutations of it fit the bounds of the instance.";
