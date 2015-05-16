@@ -42,10 +42,10 @@ void BStarTreeFactory::buildTreeRecursively(BTreeNode* rootNode, std::vector<std
 	//build left tree (rectangles to the right)
 	auto currentXBucket = &xBuckets.at(rootRectangle.getXMax());
 	if (!currentXBucket->empty()) {
-		int lowestUnvistedModuleInXBucket = currentXBucket->back();
+		int lowestUnvisitedModuleInXBucket = currentXBucket->back();
 		currentXBucket->pop_back();
-		tree->setLeftChild(tree->at(rootIndex), tree->at(lowestUnvistedModuleInXBucket));
-		buildTreeRecursively(tree->at(lowestUnvistedModuleInXBucket), xBuckets, tree, positionedRectangles);
+		tree->setLeftChild(tree->at(rootIndex), tree->at(lowestUnvisitedModuleInXBucket));
+		buildTreeRecursively(tree->at(lowestUnvisitedModuleInXBucket), xBuckets, tree, positionedRectangles);
 	}
 
 	//build right tree (rectangles above)
