@@ -13,15 +13,15 @@ void FindGoodPlacement::run(std::istream &input, std::ostream &output) {
 	auto placementWriter = PlacementWriter();
 	auto bStarTreeConstructor = constructGoodBStarTree::BStarTreeConstructor();
 
-	auto instance = instanceReader.read(input);
-	auto initialBStarTree = bStarTreeConstructor.create(*instance);
+	Instance *instance = instanceReader.read(input);
+	BStarTree *initialBStarTree = bStarTreeConstructor.create(*instance);
 
 	auto errorMsg = "Did not find a solution that fits the given bounds.";
 
 	if (initialBStarTree == nullptr) {
 		output << errorMsg;
 	} else {
-		auto improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, numberOfNodesThatCanBeMutated);
+		BStarTree* improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, numberOfNodesThatCanBeMutated);
 		if (improvedBStarTree == nullptr) {
 			output << errorMsg;
 		} else {
