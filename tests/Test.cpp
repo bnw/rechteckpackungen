@@ -23,7 +23,7 @@
 #include "writer/PlacementWriterTest.h"
 #include "BTree/BTreeNodeTest.h"
 #include "action/FindByEnumerationTest.h"
-#include "action/OverlappingActionTest.h"
+#include "action/TestOverlappingActionTest.h"
 
 
 bool runAllTests(int argc, char const *argv[]) {
