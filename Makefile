@@ -21,7 +21,6 @@ INC_PRODUCTION = -I./src
 INC_DEBUG = -I ./lib/cute -I ./lib/boost $(INC_PRODUCTION)
 FLAGS_PRODUCTION = -std=c++11 -O3
 FLAGS_DEBUG = -std=c++11 -g -O0 -ftest-coverage -fprofile-arcs -Wall
-FLAGS = $(FLAGS_DEBUG)
 
 EXECUTABLE_MAIN_PRODUCTION = rechteckpackungen.exe
 EXECUTABLE_MAIN_DEBUG = rechteckpackungen_debug.exe
@@ -36,13 +35,13 @@ debug: $(EXECUTABLE_MAIN_DEBUG)
 tests: $(EXECUTABLE_TESTS_DEBUG)
 
 $(EXECUTABLE_MAIN_PRODUCTION): $(OBJ_FILES_MAIN_PRODUCTION)
-	$(COMPILER) $(FLAGS) -o $@ $^
+	$(COMPILER) $(FLAGS_PRODUCTION) -o $@ $^
 
 $(EXECUTABLE_MAIN_DEBUG): $(OBJ_FILES_MAIN_DEBUG)
-	$(COMPILER) $(FLAGS) -o $@ $^
+	$(COMPILER) $(FLAGS_DEBUG) -o $@ $^
 
 $(EXECUTABLE_TESTS_DEBUG): $(OBJ_FILES_TESTS_DEBUG)
-	$(COMPILER) $(FLAGS) -o $@ $^
+	$(COMPILER) $(FLAGS_DEBUG) -o $@ $^
 
 $(OBJDIR_PRODUCTION)/%.o: %.cpp
 	@mkdir -p $(@D)
@@ -61,6 +60,4 @@ clean_executables:
 clean_code_coverage:
 	-rm -f $(CODE_COVERAGE_FILES)
 	
-.PHONY: clean all clean_executables clean_code_coverage
-
-.DELETE_ON_ERROR: $(EXECUTABLE_MAIN) $(EXECUTABLE_TESTS) %.o
+.PHONY: clean all clean_executables clean_code_coverage production debug tests
