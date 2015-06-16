@@ -55,8 +55,10 @@ void printUsageInfo(){
 	<< "\t Works by enumerating all possible placements." << endl << endl
 
 	<< "find-good-placement FILE [QUALITY]" << endl
-	<< "\t Prints a placement for the instance described in FILE. Works by guessing a" << endl
-	<< "\t solution and then finding a local optimum based on this solution." << endl
+	<< "\t Prints a placement for the instance described in FILE." << endl
+	<< "\t Works by guessing a solution and then finding a local optimum based on this solution." << endl
+	<< "\t If the bounds are rather small, this might not yield any feasable solution," << endl
+	<< "\t regardless of QUALITY." << endl
 	<< "\t QUALITY (default=2): Higher means better results but slower computation." << endl << endl
 
 	<< "improve-placement INSTANCE_FILE PLACEMENT_FILE [QUALITY]" << endl
