@@ -30,10 +30,18 @@ public:
 			std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, int width, int xMin) const;
 	std::list<PositionedRectangle>::iterator updateContour(std::list<PositionedRectangle>* horizontalContour,
 			std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, const PositionedRectangle newElement) const;
+
+	/**
+	 * If set, the create/createBounded methods will return nullptr, if the result would have an area >= maxArea.
+	 * If set, this decreases the runtime for placements that are to big.
+	 * Should be set, if you already have a feasible solution.
+	 */
+	void setMaxArea(const int maxArea);
 protected:
 	bool buildPlacementRecursively(const Rectangle& bounds, const BStarTree& tree, std::shared_ptr<Placement> placement, BTreeNode* rootNode,
-			PositionedRectangle rootPositionedRecangle, std::list<PositionedRectangle>* horizontalContour,
+			PositionedRectangle rootPositionedRectangle, std::list<PositionedRectangle>* horizontalContour,
 			std::list<PositionedRectangle>::iterator currentHorizontalContourElement) const;
+	int maxArea = std::numeric_limits<int>::max();
 };
 
 }

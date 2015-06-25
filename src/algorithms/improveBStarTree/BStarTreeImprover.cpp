@@ -29,7 +29,7 @@ BStarTree* BStarTreeImprover::improve(const BStarTree& tree, const Instance& ins
 
 void BStarTreeImprover::challengeOptimum(BStarTree *&currentOptimalTree, int &currentOptimalTreeArea,
 		const BStarTree &challenger,
-		const PlacementFactory &placementFactory, const Instance &instance) const {
+		PlacementFactory &placementFactory, const Instance &instance) const {
 	auto challengerPlacement = placementFactory.createBounded(challenger, instance);
 	if (challengerPlacement == nullptr) { //placement does not fit into the bounds of the instance, abort!
 		return;
@@ -41,6 +41,7 @@ void BStarTreeImprover::challengeOptimum(BStarTree *&currentOptimalTree, int &cu
 		}
 		currentOptimalTree = new BStarTree(challenger); //copy tree, because we don't own challenger
 		currentOptimalTreeArea = challengerPlacementArea;
+		placementFactory.setMaxArea(currentOptimalTreeArea);
 	}
 }
 

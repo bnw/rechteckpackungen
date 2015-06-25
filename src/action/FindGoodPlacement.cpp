@@ -25,7 +25,7 @@ void FindGoodPlacement::run(std::istream &input, std::ostream &output) {
 		if (improvedBStarTree == nullptr) {
 			output << errorMsg;
 		} else {
-			auto improvedPlacement = placementFactory.createBounded(*improvedBStarTree, *instance);
+			auto improvedPlacement = placementFactory.create(*improvedBStarTree);
 			output << placementWriter.toString(improvedPlacement);
 			delete improvedBStarTree;
 		}

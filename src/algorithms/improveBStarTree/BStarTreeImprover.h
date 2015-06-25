@@ -26,7 +26,7 @@ public:
 	BStarTree* improve(const BStarTree& tree, const Instance& instance, unsigned k) const;
 protected:
 	void challengeOptimum(BStarTree *&currentOptimalTree, int &currentOptimalTreeArea, const BStarTree &challenger,
-			const bStarTree2Placement::PlacementFactory &placementFactory, const Instance &instance) const;
+			bStarTree2Placement::PlacementFactory &placementFactory, const Instance &instance) const;
 };
 
 }
