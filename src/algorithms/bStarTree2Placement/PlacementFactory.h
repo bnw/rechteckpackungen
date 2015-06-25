@@ -32,7 +32,7 @@ public:
 			std::list<PositionedRectangle>::iterator firstHorizontalContourElementBelowNewElement, const PositionedRectangle newElement) const;
 
 	/**
-	 * If set, the create/createBounded methods will return nullptr, if the result would have an area >= maxArea.
+	 * If set, the create/createBounded methods will return nullptr, if the result would have an area > maxArea.
 	 * If set, this decreases the runtime for placements that are to big.
 	 * Should be set, if you already have a feasible solution.
 	 */

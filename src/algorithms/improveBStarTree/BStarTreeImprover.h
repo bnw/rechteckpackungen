@@ -17,7 +17,8 @@ namespace improveBStarTree {
 
 class BStarTreeImprover {
 public:
-	BStarTreeImprover();
+	BStarTreeImprover() {}
+
 	/**
 	 * @param instance Returned tree (if any) is guaranteed to fit in the bounds of instance.
 	 * @param k Number of nodes that can be modified to improve the tree.

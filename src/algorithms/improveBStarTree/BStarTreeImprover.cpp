@@ -6,24 +6,27 @@ using bStarTree2Placement::PlacementFactory;
 
 namespace improveBStarTree {
 
-BStarTreeImprover::BStarTreeImprover() {
-}
-
-BStarTree* BStarTreeImprover::improve(const BStarTree& tree, const Instance& instance, unsigned k) const {
+BStarTree *BStarTreeImprover::improve(const BStarTree &tree, const Instance &instance, unsigned k) const {
 	auto placementFactory = PlacementFactory();
-	auto subsetEnumerator = enumerateSubsets::Enumerator<BTreeNode*>();
+	auto subsetEnumerator = enumerateSubsets::Enumerator<BTreeNode *>();
 	auto mutationEnumerator = enumerateBStarTreeMutations::Enumerator();
-	BStarTree* currentOptimalTree = nullptr;
+	BStarTree *currentOptimalTree = nullptr;
 	int currentOptimalTreeArea = std::numeric_limits<int>::max();
+	int previousOptimalTreeArea;
 	auto workingTree = BStarTree(tree);
 	auto nodes = workingTree.getNodes();
 
-	subsetEnumerator.forEachSubset(nodes, k, [&](const std::vector<BTreeNode*>& subset) {
-		mutationEnumerator.forEachMutation(tree, subset, [&](const BStarTree& mutatedTree) {
-			challengeOptimum(currentOptimalTree, currentOptimalTreeArea, mutatedTree, placementFactory, instance);
-				});
-	});
-
+	while(true) {
+		previousOptimalTreeArea = currentOptimalTreeArea;
+		subsetEnumerator.forEachSubset(nodes, k, [&](const std::vector<BTreeNode *> &subset) {
+			mutationEnumerator.forEachMutation(tree, subset, [&](const BStarTree &mutatedTree) {
+				challengeOptimum(currentOptimalTree, currentOptimalTreeArea, mutatedTree, placementFactory, instance);
+			});
+		});
+		if(previousOptimalTreeArea == currentOptimalTreeArea){
+			break;
+		}
+	}
 	return currentOptimalTree;
 }
 

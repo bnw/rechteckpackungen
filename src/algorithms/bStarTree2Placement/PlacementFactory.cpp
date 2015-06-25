@@ -38,7 +38,7 @@ bool PlacementFactory::buildPlacementRecursively(const Rectangle &bounds, const 
 		std::list<PositionedRectangle> *horizontalContour,
 		std::list<PositionedRectangle>::iterator currentHorizontalContourElement) const {
 
-	if(placement->getArea() >= maxArea){
+	if(placement->getArea() > maxArea){
 		return false;
 	}
 
