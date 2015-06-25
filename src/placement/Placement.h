@@ -18,37 +18,54 @@ namespace rechteckpackungen {
 class Placement {
 public:
 	typedef std::shared_ptr<Placement> ptr;
+
 	/*
-	 * If the constructor is called with an estimatedSize, the needed memory is allocated in one big chunk (rather than incrementally).
+	 * If the constructor is called with an estimatedSize, the needed memory is allocated
+	 * in one big chunk (rather than incrementally).
 	 * This usually results in a noticeable performance improvement.
 	 */
 	Placement(int estimatedSize);
+
 	Placement();
+
 	~Placement();
-	bool operator==(const Placement& other);
+
+	bool operator==(const Placement &other);
+
 	void add(PositionedRectangle);
-	std::vector<PositionedRectangle>* getPositionedRectangles();
+
+	std::vector<PositionedRectangle> *getPositionedRectangles();
+
 	std::shared_ptr<std::vector<Rectangle>> getRectangles();
-	std::unique_ptr<PositionedRectangle> getBounds() const;
 
 	void shift(const Coordinates offset);
 
 	/*
 	 * Sorts the positionedRectangles-vector according to the XMin-coordinate of the positioned rectangle
 	 */
-	void sortPositionedRectanglesByXMin(sortInt::IIntSorter<PositionedRectangle>* sortStrategy);
-	void sortPositionedRectanglesByYMin(sortInt::IIntSorter<PositionedRectangle>* sortStrategy);
+	void sortPositionedRectanglesByXMin(sortInt::IIntSorter<PositionedRectangle> *sortStrategy);
+
+	void sortPositionedRectanglesByYMin(sortInt::IIntSorter<PositionedRectangle> *sortStrategy);
 
 	/*
-	 * Complexity: n
+	 * Complexity of the following public functions: O(1)
 	 */
 	int getXMax() const;
+
 	int getXMin() const;
+
 	int getYMax() const;
+
 	int getYMin() const;
+
 	int getArea();
+
 private:
-	std::vector<PositionedRectangle>* positionedRectangles;
+	std::vector<PositionedRectangle> *positionedRectangles;
+	int xMin = std::numeric_limits<int>::max();
+	int xMax = std::numeric_limits<int>::min();
+	int yMin = std::numeric_limits<int>::max();
+	int yMax = std::numeric_limits<int>::min();
 
 };
 
