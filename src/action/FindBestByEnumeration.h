@@ -11,11 +11,17 @@
 
 namespace rechteckpackungen {
 
-class FindBestByEnumeration : public virtual IFileAction{
+class FindBestByEnumeration : public virtual IFileAction {
 public:
+	FindBestByEnumeration(bool noRotation = false) : noRotation(noRotation) { }
+
 	virtual ~FindBestByEnumeration() {
 	}
-	void run(std::istream& instance, std::ostream& output);
+
+	void run(std::istream &instance, std::ostream &output);
+
+protected:
+	bool noRotation;
 };
 
 }

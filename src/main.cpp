@@ -3,6 +3,8 @@
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
+#include <regex>
+#include <algorithm>
 #include "action/TestOverlappingAction.h"
 #include "action/FindBestByEnumeration.h"
 #include "action/FindLocalOptimum.h"
@@ -39,6 +41,46 @@ void runIFileAction(IFileAction& action, char const *filename) {
 	delete file;
 }
 
+bool isParameterSet(char const * parameterName, int argc, char const *argv[]){
+	for(int i = 1; i < argc; i++){
+		if(strcmp(parameterName, argv[i]) == 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+unsigned getQuality(int argc, char const *argv[]){
+	for(int i = 1; i < argc; i++){
+		std::regex qualityRegex("-quality=(.+)");
+		auto argument = std::string(argv[i]);
+		std::smatch matches;
+		if(std::regex_search (argument,matches,qualityRegex)) {
+			try{
+				return string2int(matches[1]);
+			}catch (std::runtime_error &e){
+				throw std::runtime_error("Only positive integers for quality are allowed");
+			}
+		}
+	}
+	return 2;
+}
+
+void checkThatOnlyAllowedArgumentsAreSet(std::vector<std::string> allowedArguments, int argc, char const *argv[]){
+	for(int i = 1; i < argc; i++){
+		auto argument = std::string(argv[i]);
+		std::regex regex("^-([a-zA-Z]+)");
+		std::smatch matches;
+		if(std::regex_search (argument,matches,regex)) {
+			if(std::find(allowedArguments.begin(), allowedArguments.end(), matches[1]) == allowedArguments.end()){
+				std::stringstream errorMessage;
+				errorMessage << "Unknown parameter " << matches[1];
+				throw std::runtime_error(errorMessage.str());
+			}
+		}
+	}
+}
+
 void printUsageInfo(){
 	cout
 	<< "Usage: rechteckpackungen.exe MODE FILES [OPTIONS]" << endl
@@ -50,21 +92,28 @@ void printUsageInfo(){
 	<< "test-overlapping FILE" << endl
 	<< "\t Tests if the placement described in FILE has any overlapping." << endl << endl
 
-	<< "find-optimal-placement FILE" << endl
+	<< "find-optimal-placement FILE [-noRotation]" << endl
 	<< "\t Prints an optimal placement for the instance described in FILE."<< endl
-	<< "\t Works by enumerating all possible placements." << endl << endl
+	<< "\t Works by enumerating all possible placements." << endl
+	<< "\t -noRotation: Do not roate rectangles to find a better placement." << endl << endl
 
-	<< "find-good-placement FILE [QUALITY]" << endl
+	<< "find-good-placement FILE [-quality=QUALITY] [-noRotation] [-noTreeMutation]" << endl
 	<< "\t Prints a placement for the instance described in FILE." << endl
 	<< "\t Works by guessing a solution and then finding a local optimum based on this solution." << endl
 	<< "\t If the bounds are rather small, this might not yield any feasable solution," << endl
 	<< "\t regardless of QUALITY." << endl
-	<< "\t QUALITY (default=2): Higher means better results but slower computation." << endl << endl
+	<< "\t QUALITY (default=2): Number of rectangles that can be mutated." << endl
+	<< "\t\t Higher means better results but slower computation." << endl
+	<< "\t -noRotation: Do not roate rectangles to find a better placement." << endl
+	<< "\t -noTreeMutation: Do not move rectangles around the tree to find a better placement." << endl<< endl
 
-	<< "improve-placement INSTANCE_FILE PLACEMENT_FILE [QUALITY]" << endl
+	<< "improve-placement INSTANCE_FILE PLACEMENT_FILE [-quality=QUALITY] [-noRotation] [-noTreeMutation]" << endl
 	<< "\t Prints a placement for the instance described in INSTANCE_FILE by finding a" << endl
 	<< "\t local optimum based on the compacted(!) placement described in PLACEMENT_FILE." << endl
-	<< "\t QUALITY (default=2): Higher means better results but slower computation." << endl;
+	<< "\t QUALITY (default=2): Number of rectangles that can be mutated." << endl
+	<< "\t\t Higher means better results but slower computation." << endl
+	<< "\t -noRotation: Do not roate rectangles to find a better placement." << endl
+	<< "\t -noTreeMutation: Do not move rectangles around the tree to find a better placement." << endl<< endl;
 }
 
 void printUsageHint(){
@@ -92,31 +141,41 @@ int main(int argc, char const *argv[]) {
 		return missingArgumentError();
 	}
 
-	auto filename = argv[2];
 
 	try {
+		bool noRotation = isParameterSet("-noRotation", argc, argv);
+		bool noTreeMutation = isParameterSet("-noTreeMutation", argc, argv);
+		unsigned quality = getQuality(argc, argv);
+
+		auto filename = argv[2];
+
+		std::vector<std::string> allowedArguments;
+
 		if (strcmp("test-overlapping", mode) == 0) {
+			checkThatOnlyAllowedArgumentsAreSet(allowedArguments, argc, argv);
 			auto action = TestOverlappingAction();
 			runIFileAction(action, filename);
 		} else if (strcmp("find-optimal-placement", mode) == 0) {
-			auto action = FindBestByEnumeration();
+			allowedArguments.push_back("noRotation");
+			checkThatOnlyAllowedArgumentsAreSet(allowedArguments, argc, argv);
+			auto action = FindBestByEnumeration(noRotation);
 			runIFileAction(action, filename);
 		} else if (strcmp("find-good-placement", mode) == 0) {
-			int quality = 2;
-			if(argc == 4){
-				quality = string2int(std::string(argv[3]));
-			}
-			auto action = FindGoodPlacement(quality);
+			allowedArguments.push_back("quality");
+			allowedArguments.push_back("noRotation");
+			allowedArguments.push_back("noTreeMutation");
+			checkThatOnlyAllowedArgumentsAreSet(allowedArguments, argc, argv);
+			auto action = FindGoodPlacement(quality, noRotation, noTreeMutation);
 			runIFileAction(action, filename);
 		} else if (strcmp("improve-placement", mode) == 0) {
+			allowedArguments.push_back("quality");
+			allowedArguments.push_back("noRotation");
+			allowedArguments.push_back("noTreeMutation");
+			checkThatOnlyAllowedArgumentsAreSet(allowedArguments, argc, argv);
 			if (argc < 4) {
 				return missingArgumentError();
 			}
-			int quality = 2;
-			if(argc == 5){
-				quality = string2int(std::string(argv[4]));
-			}
-			auto action = FindLocalOptimum(quality);
+			auto action = FindLocalOptimum(quality, noRotation, noTreeMutation);
 			auto instanceFile = openFile(filename);
 			auto initialPlacementFile = openFile(argv[3]);
 			action.run(*instanceFile, *initialPlacementFile, std::cout);

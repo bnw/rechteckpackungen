@@ -5,7 +5,7 @@ namespace rechteckpackungen {
 void FindBestByEnumeration::run(std::istream& input, std::ostream& output) {
 	auto reader = InstanceReader();
 	auto instance = reader.read(input);
-    auto worker = findBestPlacement::FindBestPlacementByEnumeration();
+    auto worker = findBestPlacement::FindBestPlacementByEnumeration(noRotation);
 	auto writer = PlacementWriter();
 	Placement::ptr bestPlacement = worker.findBest(instance);
 

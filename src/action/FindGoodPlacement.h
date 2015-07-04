@@ -19,12 +19,14 @@ namespace rechteckpackungen {
 
 class FindGoodPlacement: public virtual IFileAction {
 public:
-	FindGoodPlacement(unsigned numberOfNodesThatCanBeMutated);
+	FindGoodPlacement(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeMutation);
 	virtual ~FindGoodPlacement() {
 	}
 	void run(std::istream& input, std::ostream& output);
 protected:
 	unsigned numberOfNodesThatCanBeMutated;
+	bool noRotation;
+	bool noTreeMutation;
 };
 
 }

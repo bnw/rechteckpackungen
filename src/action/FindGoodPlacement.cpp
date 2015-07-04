@@ -2,13 +2,15 @@
 
 namespace rechteckpackungen {
 
-FindGoodPlacement::FindGoodPlacement(unsigned numberOfNodesThatCanBeMutated) :
-		numberOfNodesThatCanBeMutated(numberOfNodesThatCanBeMutated) {
+FindGoodPlacement::FindGoodPlacement(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeMutation) :
+		numberOfNodesThatCanBeMutated(numberOfNodesThatCanBeMutated),
+		noRotation(noRotation),
+		noTreeMutation(noTreeMutation) {
 }
 
 void FindGoodPlacement::run(std::istream &input, std::ostream &output) {
 	auto instanceReader = InstanceReader();
-	auto bStarTreeImprover = improveBStarTree::BStarTreeImprover();
+	auto bStarTreeImprover = improveBStarTree::BStarTreeImprover(noRotation, noTreeMutation);
 	auto placementFactory = bStarTree2Placement::PlacementFactory();
 	auto placementWriter = PlacementWriter();
 	auto bStarTreeConstructor = constructGoodBStarTree::BStarTreeConstructor();
@@ -21,7 +23,8 @@ void FindGoodPlacement::run(std::istream &input, std::ostream &output) {
 	if (initialBStarTree == nullptr) {
 		output << errorMsg;
 	} else {
-		BStarTree* improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance, numberOfNodesThatCanBeMutated);
+		BStarTree *improvedBStarTree = bStarTreeImprover.improve(*initialBStarTree, *instance,
+																 numberOfNodesThatCanBeMutated);
 		if (improvedBStarTree == nullptr) {
 			output << errorMsg;
 		} else {

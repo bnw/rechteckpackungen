@@ -4,10 +4,10 @@ namespace rechteckpackungen {
 namespace enumerateBStarTrees {
 
 bool Enumerator::forBothRotations(const std::function<bool()>& callback, Rectangle* rect) {
-	if (!callback()) {
+	if (callback() == false) {
 		return false;
 	}
-	if (rect->isSquare()) {
+	if (rect->isSquare() || noRotation) {
 		return true;
 	}
 	rect->rotate();

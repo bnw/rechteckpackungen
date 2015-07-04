@@ -9,6 +9,11 @@ void Enumerator::forEachMutation(const BStarTree& tree, const std::vector<BTreeN
 }
 
 void Enumerator::forEachOrientation(Rectangle& rectangle, const std::function<void()>& callback) const {
+	if(noRotation){
+		callback();
+		return;
+	}
+
 	callback();
 	if (!rectangle.isSquare()) {
 		rectangle.rotate();
@@ -29,6 +34,10 @@ void Enumerator::forEachSwap(const std::vector<Rectangle>::iterator& rectangleTo
 void Enumerator::forEachMovement(const BStarTree& tree, const unsigned& indexOfNodeToBeMoved,
 		const std::function<void(BStarTree& workingTree)>& callback) const {
 	BStarTree preparedTree = BStarTree(tree);
+	if(noTreeMutation){
+		callback(preparedTree);
+		return;
+	}
 	preparedTree.remove(preparedTree.at(indexOfNodeToBeMoved));
 
 	for (unsigned targetNodeId = 0; targetNodeId < tree.getSize(); targetNodeId++) {

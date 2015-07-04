@@ -15,10 +15,12 @@ namespace rechteckpackungen {
 
 class FindLocalOptimum {
 public:
-	FindLocalOptimum(unsigned numberOfNodesThatCanBeMutated);
+	FindLocalOptimum(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeRotation);
 	void run(std::istream& instanceInput, std::istream& initialPlacementInput, std::ostream& output);
 protected:
 	unsigned numberOfNodesThatCanBeMutated;
+	bool noRotation;
+	bool noTreeMutation;
 };
 
 }

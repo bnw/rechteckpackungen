@@ -12,7 +12,12 @@ namespace findBestPlacement {
 
 class FindBestPlacementByEnumeration {
 public:
-    Placement::ptr findBest(Instance *instance);
+	FindBestPlacementByEnumeration(bool noRotation = false) : noRotation(noRotation) { }
+
+	Placement::ptr findBest(Instance *instance);
+
+protected:
+	bool noRotation;
 };
 
 }

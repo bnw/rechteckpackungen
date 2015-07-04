@@ -6,10 +6,11 @@ using bStarTree2Placement::PlacementFactory;
 
 namespace improveBStarTree {
 
-BStarTree *BStarTreeImprover::improve(const BStarTree &tree, const Instance &instance, unsigned k) const {
+BStarTree *BStarTreeImprover::improve(const BStarTree &tree, const Instance &instance,
+		unsigned numberOfNodesThatCanBeMutated) const {
 	auto placementFactory = PlacementFactory();
 	auto subsetEnumerator = enumerateSubsets::Enumerator<BTreeNode *>();
-	auto mutationEnumerator = enumerateBStarTreeMutations::Enumerator();
+	auto mutationEnumerator = enumerateBStarTreeMutations::Enumerator(noRotation, noTreeMutation);
 	BStarTree *currentOptimalTree = nullptr;
 	int currentOptimalTreeArea = std::numeric_limits<int>::max();
 	int previousOptimalTreeArea;
@@ -18,7 +19,7 @@ BStarTree *BStarTreeImprover::improve(const BStarTree &tree, const Instance &ins
 
 	while(true) {
 		previousOptimalTreeArea = currentOptimalTreeArea;
-		subsetEnumerator.forEachSubset(nodes, k, [&](const std::vector<BTreeNode *> &subset) {
+		subsetEnumerator.forEachSubset(nodes, numberOfNodesThatCanBeMutated, [&](const std::vector<BTreeNode *> &subset) {
 			mutationEnumerator.forEachMutation(tree, subset, [&](const BStarTree &mutatedTree) {
 				challengeOptimum(currentOptimalTree, currentOptimalTreeArea, mutatedTree, placementFactory, instance);
 			});

@@ -8,7 +8,7 @@ namespace findBestPlacement {
  * This sometimes makes the algorithm really fast for instances that have an optimal solution.
  */
 Placement::ptr FindBestPlacementByEnumeration::findBest(Instance *instance) {
-	auto enumerator = enumerateBStarTrees::Enumerator();
+	auto enumerator = enumerateBStarTrees::Enumerator(noRotation);
 	auto placementFactory = bStarTree2Placement::PlacementFactory();
 	Placement::ptr cheapestPlacement = nullptr;
 	int areaOfCheapestPlacement = std::numeric_limits<int>::max();
