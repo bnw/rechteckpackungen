@@ -1,14 +1,14 @@
-#include "FindLocalOptimum.h"
+#include "FindLocalOptimumAction.h"
 
 namespace rechteckpackungen {
 
-FindLocalOptimum::FindLocalOptimum(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeMutation) :
+FindLocalOptimumAction::FindLocalOptimumAction(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeMutation) :
 		numberOfNodesThatCanBeMutated(numberOfNodesThatCanBeMutated),
 		noRotation(noRotation),
 		noTreeMutation(noTreeMutation) {
 }
 
-void FindLocalOptimum::run(std::istream &instanceInput, std::istream &initialPlacementInput, std::ostream &output) {
+void FindLocalOptimumAction::run(std::istream &instanceInput, std::istream &initialPlacementInput, std::ostream &output) {
 	auto instanceReader = InstanceReader();
 	auto placementReader = PlacementReader();
 	auto bStarTreeFactory = placement2BStarTree::BStarTreeFactory();

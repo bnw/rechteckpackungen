@@ -1,7 +1,7 @@
 #include "cute.h"
 #include "FindByEnumerationTest.h"
 
-#include "action/FindBestByEnumeration.h"
+#include "action/FindBestByEnumerationAction.h"
 #include "instance/Instance.h"
 #include "reader/InstanceReader.h"
 #include <stdio.h>
@@ -9,7 +9,7 @@
 namespace rechteckpackungen {
 
 void integrationTest() {
-	auto action = FindBestByEnumeration();
+	auto action = FindBestByEnumerationAction();
 	std::stringstream input;
 	input << "0 5 0 9" << std::endl << "3 1" << std::endl << "4 2" << std::endl << "3 2" << std::endl << "4 1" << std::endl << "3 3";
 	std::stringstream output;

@@ -17,10 +17,10 @@
 
 namespace rechteckpackungen {
 
-class FindGoodPlacement: public virtual IFileAction {
+class FindGoodPlacementAction : public virtual IFileAction {
 public:
-	FindGoodPlacement(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeMutation);
-	virtual ~FindGoodPlacement() {
+	FindGoodPlacementAction(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeMutation);
+	virtual ~FindGoodPlacementAction() {
 	}
 	void run(std::istream& input, std::ostream& output);
 protected:

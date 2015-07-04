@@ -1,14 +1,14 @@
-#include "FindGoodPlacement.h"
+#include "FindGoodPlacementAction.h"
 
 namespace rechteckpackungen {
 
-FindGoodPlacement::FindGoodPlacement(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeMutation) :
+FindGoodPlacementAction::FindGoodPlacementAction(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeMutation) :
 		numberOfNodesThatCanBeMutated(numberOfNodesThatCanBeMutated),
 		noRotation(noRotation),
 		noTreeMutation(noTreeMutation) {
 }
 
-void FindGoodPlacement::run(std::istream &input, std::ostream &output) {
+void FindGoodPlacementAction::run(std::istream &input, std::ostream &output) {
 	auto instanceReader = InstanceReader();
 	auto bStarTreeImprover = improveBStarTree::BStarTreeImprover(noRotation, noTreeMutation);
 	auto placementFactory = bStarTree2Placement::PlacementFactory();

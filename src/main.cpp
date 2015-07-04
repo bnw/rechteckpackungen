@@ -6,18 +6,18 @@
 #include <regex>
 #include <algorithm>
 #include "action/TestOverlappingAction.h"
-#include "action/FindBestByEnumeration.h"
-#include "action/FindLocalOptimum.h"
-#include "action/FindGoodPlacement.h"
+#include "action/FindBestByEnumerationAction.h"
+#include "action/FindLocalOptimumAction.h"
+#include "action/FindGoodPlacementAction.h"
 #include "util/string2int.h"
 
 using std::cout;
 using std::endl;
 using rechteckpackungen::TestOverlappingAction;
-using rechteckpackungen::FindBestByEnumeration;
+using rechteckpackungen::FindBestByEnumerationAction;
 using rechteckpackungen::IFileAction;
-using rechteckpackungen::FindLocalOptimum;
-using rechteckpackungen::FindGoodPlacement;
+using rechteckpackungen::FindLocalOptimumAction;
+using rechteckpackungen::FindGoodPlacementAction;
 using rechteckpackungen::string2int;
 
 std::ifstream* openFile(char const *filename) {
@@ -158,14 +158,14 @@ int main(int argc, char const *argv[]) {
 		} else if (strcmp("find-optimal-placement", mode) == 0) {
 			allowedArguments.push_back("noRotation");
 			checkThatOnlyAllowedArgumentsAreSet(allowedArguments, argc, argv);
-			auto action = FindBestByEnumeration(noRotation);
+			auto action = FindBestByEnumerationAction(noRotation);
 			runIFileAction(action, filename);
 		} else if (strcmp("find-good-placement", mode) == 0) {
 			allowedArguments.push_back("quality");
 			allowedArguments.push_back("noRotation");
 			allowedArguments.push_back("noTreeMutation");
 			checkThatOnlyAllowedArgumentsAreSet(allowedArguments, argc, argv);
-			auto action = FindGoodPlacement(quality, noRotation, noTreeMutation);
+			auto action = FindGoodPlacementAction(quality, noRotation, noTreeMutation);
 			runIFileAction(action, filename);
 		} else if (strcmp("improve-placement", mode) == 0) {
 			allowedArguments.push_back("quality");
@@ -175,7 +175,7 @@ int main(int argc, char const *argv[]) {
 			if (argc < 4) {
 				return missingArgumentError();
 			}
-			auto action = FindLocalOptimum(quality, noRotation, noTreeMutation);
+			auto action = FindLocalOptimumAction(quality, noRotation, noTreeMutation);
 			auto instanceFile = openFile(filename);
 			auto initialPlacementFile = openFile(argv[3]);
 			action.run(*instanceFile, *initialPlacementFile, std::cout);

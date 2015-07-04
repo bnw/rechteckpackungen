@@ -1,8 +1,8 @@
-#include "FindBestByEnumeration.h"
+#include "FindBestByEnumerationAction.h"
 
 namespace rechteckpackungen {
 
-void FindBestByEnumeration::run(std::istream& input, std::ostream& output) {
+void FindBestByEnumerationAction::run(std::istream& input, std::ostream& output) {
 	auto reader = InstanceReader();
 	auto instance = reader.read(input);
     auto worker = findBestPlacement::FindBestPlacementByEnumeration(noRotation);

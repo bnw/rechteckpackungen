@@ -13,9 +13,9 @@
 
 namespace rechteckpackungen {
 
-class FindLocalOptimum {
+class FindLocalOptimumAction {
 public:
-	FindLocalOptimum(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeRotation);
+	FindLocalOptimumAction(unsigned numberOfNodesThatCanBeMutated, bool noRotation, bool noTreeRotation);
 	void run(std::istream& instanceInput, std::istream& initialPlacementInput, std::ostream& output);
 protected:
 	unsigned numberOfNodesThatCanBeMutated;
