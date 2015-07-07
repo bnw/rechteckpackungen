@@ -16,7 +16,7 @@ void integrationTest() {
 	action.run(input, output);
 
 	std::stringstream expected;
-	expected << "0 1 0 3 0 1" << std::endl << "1 5 0 2 0 0" << std::endl << "1 5 2 3 0 0" << std::endl << "0 2 3 6 0 1" << std::endl << "2 5 3 6 0 0" << std::endl;
+	expected << "0 1 0 3 0 1" << std::endl << "1 5 0 2 0 0" << std::endl <<  "0 2 3 6 0 1" << std::endl << "1 5 2 3 0 0" << std::endl << "2 5 3 6 0 0" << std::endl;
 	ASSERT_EQUAL(expected.str(), output.str());
 
 }

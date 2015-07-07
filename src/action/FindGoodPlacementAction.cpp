@@ -29,7 +29,7 @@ void FindGoodPlacementAction::run(std::istream &input, std::ostream &output) {
 			output << errorMsg;
 		} else {
 			auto improvedPlacement = placementFactory.create(*improvedBStarTree);
-			output << placementWriter.toString(improvedPlacement);
+			output << placementWriter.toString(improvedPlacement, *instance);
 			delete improvedBStarTree;
 		}
 		delete initialBStarTree;

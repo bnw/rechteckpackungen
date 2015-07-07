@@ -2,6 +2,7 @@
 #include "PlacementWriterTest.h"
 
 #include "placement/Placement.h"
+#include "instance/Instance.h"
 #include "writer/PlacementWriter.h"
 #include <string>
 #include <sstream>
@@ -10,6 +11,12 @@
 namespace rechteckpackungen {
 void testPlacementWriter() {
 	auto writer = new PlacementWriter();
+
+
+	auto bounds = std::shared_ptr<PositionedRectangle>(new PositionedRectangle(0,0,0,0));
+	auto instance = Instance(bounds);
+	instance.addRectangle(Rectangle(2,3));
+	instance.addRectangle(Rectangle(2,4));
 
 	auto placement = std::shared_ptr<Placement>(new Placement());
 	auto a = PositionedRectangle(Rectangle(2, 3), Coordinates(0, 1));
@@ -20,7 +27,7 @@ void testPlacementWriter() {
 	std::stringstream expected;
 	expected << "0 2 1 4 0 0" << std::endl << "3 7 3 5 0 1";
 
-	ASSERTM(writer->toString(placement),writer->toString(placement) == expected.str());
+	ASSERT_EQUAL(expected.str(), writer->toString(placement, instance));
 
 	delete writer;
 }

@@ -12,7 +12,7 @@ void FindBestByEnumerationAction::run(std::istream& input, std::ostream& output)
 	if (bestPlacement == nullptr) {
 		output << "There is no way to fit the rectangles into the given bounds." << std::endl;
 	} else {
-		output << writer.toString(bestPlacement) << std::endl;
+		output << writer.toString(bestPlacement, *instance) << std::endl;
 	}
 
 	delete instance;

@@ -27,7 +27,7 @@ void FindLocalOptimumAction::run(std::istream &instanceInput, std::istream &init
 		output << "Neither the initial placement nor any mutations of it fit the bounds of the instance.";
 	} else {
 		auto improvedPlacement = placementFactory.createBounded(*improvedBStarTree, *instance);
-		output << placementWriter.toString(improvedPlacement);
+		output << placementWriter.toString(improvedPlacement, *instance);
 	}
 
 	delete instance;
