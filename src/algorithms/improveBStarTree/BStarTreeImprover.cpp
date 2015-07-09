@@ -1,5 +1,5 @@
 #include "BStarTreeImprover.h"
-
+#include <iostream>
 namespace rechteckpackungen {
 
 using bStarTree2Placement::PlacementFactory;
@@ -14,13 +14,11 @@ BStarTree *BStarTreeImprover::improve(const BStarTree &tree, const Instance &ins
 	BStarTree *currentOptimalTree = nullptr;
 	int currentOptimalTreeArea = std::numeric_limits<int>::max();
 	int previousOptimalTreeArea;
-	auto workingTree = BStarTree(tree);
-	auto nodes = workingTree.getNodes();
-
 	while(true) {
+		BStarTree workingTree = currentOptimalTree == nullptr ? tree : *currentOptimalTree;
 		previousOptimalTreeArea = currentOptimalTreeArea;
-		subsetEnumerator.forEachSubset(nodes, numberOfNodesThatCanBeMutated, [&](const std::vector<BTreeNode *> &subset) {
-			mutationEnumerator.forEachMutation(tree, subset, [&](const BStarTree &mutatedTree) {
+		subsetEnumerator.forEachSubset(workingTree.getNodes(), numberOfNodesThatCanBeMutated, [&](const std::vector<BTreeNode *> &subset) {
+			mutationEnumerator.forEachMutation(workingTree, subset, [&](const BStarTree &mutatedTree) {
 				challengeOptimum(currentOptimalTree, currentOptimalTreeArea, mutatedTree, placementFactory, instance);
 			});
 		});
