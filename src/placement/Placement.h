@@ -60,6 +60,8 @@ public:
 
 	int getArea();
 
+	PositionedRectangle getBoundingBox() const;
+
 private:
 	std::vector<PositionedRectangle> *positionedRectangles;
 	int xMin = std::numeric_limits<int>::max();

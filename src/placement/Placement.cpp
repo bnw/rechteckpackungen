@@ -93,5 +93,9 @@ void Placement::add(PositionedRectangle positionedRectangle) {
 	yMax = std::max(positionedRectangle.getYMax(), yMax);
 }
 
+PositionedRectangle Placement::getBoundingBox() const {
+	return PositionedRectangle(xMin, xMax, yMin, yMax);
+}
+
 }
 
